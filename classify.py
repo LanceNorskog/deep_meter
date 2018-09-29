@@ -9,35 +9,43 @@ import tokens
 prefix = "test1."
 (syllables, stresses) = cmudict.load_syllables(True)
 
+#tokens.test(syllables, stresses)
+
+def deb(x):
+  #print(str(x))
+  pass
+
 outputs = {}
 for name in meter.meters.keys():
   outputs[name] = open(prefix + name, "w")
 
 for line in sys.stdin:
-  words = tokens.tokenize(line)
-  stressarray = []
-  for word in words:
-    word = word.lower()
-    stress = stresses.get(word, None)
-    if stress == None:
-      stressarray = []
-      break
-    else:
-      #print("{0},{1}".format(word, stress))
-      s = ""
-      for st in stress:
-        s = s + st
-      stressarray.append(s)
-  #print(stressarray)
-  guesses = meter.meter_loose(stressarray)
-  #print(guesses)
-# for each returned meter
-#  append line to meter file
-  for guess in guesses:
-    #f = outputs[guess]
-    #print(type(f))
-    #f.write(line)
-    outputs[guess].write(line)
+  deb(line)
+  tokens = tokens.tokenize(line)
+  multi_tokens = meter.possibles(tokens, syllables)
+  saved = []
+  for words in multi_tokens:
+    deb(words)
+    stressarray = []
+    for word in words:
+      word = word.lower()
+      stress = stresses.get(word, None)
+      if stress == None:
+        stressarray = []
+        break
+      else:
+        deb("{0},{1}".format(word, stress))
+        s = ""
+        for st in stress:
+          s = s + st
+        stressarray.append(s)
+      deb(stressarray)
+    guesses = meter.meter_loose(stressarray)
+    deb(guesses)
+    for guess in guesses:
+      if not guess in saved:
+        outputs[guess].write(line)
+        saved.append(guess)
 
 for (name, f) in outputs.items():
   f.close()

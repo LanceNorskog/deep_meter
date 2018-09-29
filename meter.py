@@ -1,8 +1,30 @@
 import stringdist
+from itertools import product
 
 # meter from cmudict: ['0', '10', '10']
 
 meters = {"iambic_pentameter": "0101010101", "hiawatha": "10101010"}
+
+# all possible variations of cmudict
+def possibles(words, wordlist):
+  # [ [ word, word(2) ], [ word ] ]
+  variations = []
+  for word in words:
+    position = []
+    if wordlist.get(word, None) == None:
+      notfound_list.write(word + "\n")
+    for suffix in [ '', '(2)', '(3)', '(4)', '(5)', '(6)' ]:
+      check = word + suffix
+      #print("{0},{1}".format(check, str(wordlist.get(check, "none"))))
+      if wordlist.get(check, None) != None:
+        position.append(check)
+    if len(position) == 0:
+      return []
+    variations.append(position)
+  out = []
+  for row in product(*variations):
+    out.append(row)
+  return out
 
 # two fails in a row are a swap- count the first one
 def distance(stress, meter):

@@ -3,6 +3,9 @@ import collections
 # load cmudict-syllables
 # dict {word -> [syllable list]
 
+# from NLTK, overkill
+# need arpabets for words not in cmulist!
+
 stopword_1 = ["i", "me", "my", "we", "our", "ours", "you", "you're", "you've", "you'll", "you'd", "your", "yours", "he", "him", "his", "she", "she's", "her", "hers", "it", "it's", "its", "they", "them", "their", "theirs", "what", "which", "who", "whom", "this", "that", "that'll", "these", "those", "am", "is", "are", "was", "were", "be", "been", "have", "has", "had", "do", "does", "did", "a", "an", "the", "and", "but", "if", "or", "as", "of", "at", "by", "for", "with", "through", "to", "from", "up", "down", "in", "out", "on", "off", "then", "once", "here", "there", "when", "where", "why", "how", "all", "both", "each", "few", "more", "most", "some", "such", "no", "nor", "not", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "don't", "should", "now", "d", "ll", "m", "o", "re", "aren't", "shan", "shan't", "wasn", "won", "won't", ","]
 
 cmudict = "/Users/l0n008k/open/data/cmudict_0.6.syllablized.txt"
