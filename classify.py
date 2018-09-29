@@ -15,7 +15,7 @@ for name in meter.meters.keys():
 
 # read each line
 line = "Houses and rooms are full of perfumes and beets"
-words = ["houses", "and", "rooms", "are", "full", "of", "perfumes", "and", "beets"]
+words = ["houses", "and", "rooms", "full", "of", "perfumes", "and", "beets"]
 stressarray = []
 for word in words:
   stress = stresses[word]
