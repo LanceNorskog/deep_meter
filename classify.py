@@ -4,32 +4,23 @@ from __future__ import absolute_import, division, unicode_literals
 import sys
 import cmudict
 import meter
-from segtok.tokenizer import space_tokenizer
+import tokens
 
 prefix = "test1."
 (syllables, stresses) = cmudict.load_syllables(True)
 
-#print(stresses['and'])
-
-# for all meters
-#  create output file
 outputs = {}
 for name in meter.meters.keys():
   outputs[name] = open(prefix + name, "w")
 
-# read each line
 for line in sys.stdin:
-  #line = "Houses and rooms full of perfumes and beets"
-  #words = ["houses", "and", "rooms", "full", "of", "perfumes", "and", "beets"]
-  words = space_tokenizer(line)
-  #print(words)
+  words = tokens.tokenize(line)
   stressarray = []
   for word in words:
     word = word.lower()
-    #print(word)
-    stress = stresses[word]
+    stress = stresses.get(word, None)
     if stress == None:
-      stressarray = None
+      stressarray = []
       break
     else:
       #print("{0},{1}".format(word, stress))
@@ -47,6 +38,6 @@ for line in sys.stdin:
     #print(type(f))
     #f.write(line)
     outputs[guess].write(line)
-  break
+
 for (name, f) in outputs.items():
   f.close()

@@ -2,9 +2,7 @@ import stringdist
 
 # meter from cmudict: ['0', '10', '10']
 
-d10 = "0101010101"
-
-meters = {"iambic_pentameter" : d10}
+meters = {"iambic_pentameter": "0101010101", "hiawatha": "10101010"}
 
 # two fails in a row are a swap- count the first one
 def distance(stress, meter):
