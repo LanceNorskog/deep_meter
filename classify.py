@@ -21,10 +21,10 @@ for name in meter.meters.keys():
 
 for line in sys.stdin:
   deb(line)
-  tokens = tokens.tokenize(line)
-  multi_tokens = meter.possibles(tokens, syllables)
+  words = tokens.tokenize(line)
+  possibles = meter.possibles(words, syllables)
   saved = []
-  for words in multi_tokens:
+  for words in possibles:
     deb(words)
     stressarray = []
     for word in words:

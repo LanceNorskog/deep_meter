@@ -3,8 +3,6 @@ from __future__ import absolute_import, division, unicode_literals
 from itertools import product
 from segtok.tokenizer import space_tokenizer
 
-notfound_list = open("notfound.txt", "w")
-
 def tokenize(sentence):
   words = space_tokenizer(sentence)
   out = []
