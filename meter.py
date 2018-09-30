@@ -77,6 +77,21 @@ def meter_loose(stresses):
       poss.append(name)
   return poss
 
+def getstress(words, stresses):
+  stressarray = []
+  for word in words:
+    word = word.lower()
+    stress = stresses.get(word, None)
+    if stress == None:
+      stressarray = []
+      break
+    else:
+      s = ""
+      for st in stress:
+        s = s + st
+      stressarray.append(s)
+  return stressarray
+
 def meter(stresses):
   stress = ''
   for str in stresses:

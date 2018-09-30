@@ -13,7 +13,7 @@ prefix = "gutenberg."
 #tokens.test(syllables, stresses)
 
 def deb(x):
-  #print(str(x))
+  print(str(x))
   pass
 
 outputs = {}
@@ -30,34 +30,28 @@ failed = 0
 for line in sys.stdin:
   total += 1
   line = tokens.clean(line)
-  deb(line)
   words = tokens.tokenize(line)
   words = tokens.fixtokens(words)
+  deb(str(line) + " -> " + str(words))
   possibles = meter.possibles(words, syllables)
+  # incrementally remove pauses if no luck
+  if len(possibles) == 0 and words[:-1] == ",":
+    words = words[0:-1]
+    possibles = meter.possibles(words, syllables)
+  while len(possibles) == 0 and "," in words:
+    words.remove(",")
+    possibles = meter.possibles(words, syllables)
   if len(possibles) == 0:
-    failed_list.write(line + "\t" + str(words))
+    failed_list.write(line + "\t" + str(words) + "\n")
     failed += 1
     continue
   # only save a line once per guessed meter
   saved = [] 
   for words in possibles:
-    #deb(words)
-    stressarray = []
-    for word in words:
-      word = word.lower()
-      stress = stresses.get(word, None)
-      if stress == None:
-        stressarray = []
-        break
-      else:
-        deb("{0},{1}".format(word, stress))
-        s = ""
-        for st in stress:
-          s = s + st
-        stressarray.append(s)
-    deb(stressarray)
+    deb(words)
+    stressarray = meter.getstress(words, stresses)
     guesses = meter.meter_loose(stressarray)
-    deb(guesses)
+    #deb(line + "->" + str(guesses))
     if len(guesses) == 0:
       failed_list.write(line)
       failed += 1
