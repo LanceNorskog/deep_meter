@@ -12,7 +12,7 @@ prefix = "gutenberg."
 #tokens.test(syllables, stresses)
 
 def deb(x):
-  print(str(x))
+  #print(str(x))
   pass
 
 outputs = {}
@@ -31,6 +31,8 @@ for line in sys.stdin:
   line = tokens.clean(line)
   deb(line)
   words = tokens.tokenize(line)
+  words = tokens.fixtokens(words)
+  print(words)
   possibles = meter.possibles(words, syllables)
   if len(possibles) == 0:
     failed_list.write(line)
@@ -71,3 +73,4 @@ for (name, f) in outputs.items():
   f.close()
 
 sys.stderr.write("Total: {0}, correct: {1}, guessed {2}, failed: {3}\n".format(total, correct, guessed, failed))
+sys.stderr.flush()
