@@ -32,7 +32,7 @@ def load_syllables(do_stresses):
       for arpa in rest:
         if arpa.endswith("\n"):
           arpa = arpa[:-1]
-        if arpa.endswith("0"):
+        if arpa.endswith("0") or arpa.endswith("2"):
           stressarray.append("0")
           arpa = arpa[:-1]
         elif arpa.endswith("1"):

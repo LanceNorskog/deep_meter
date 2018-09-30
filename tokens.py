@@ -2,6 +2,7 @@
 from __future__ import absolute_import, division, unicode_literals
 from itertools import product
 from segtok.tokenizer import space_tokenizer, web_tokenizer
+import pyphen
 import num2words
 import string
 
@@ -21,6 +22,7 @@ def tokenize1(sentence):
 
 # scrub some dirt out
 def clean(sentence):
+  sentence = sentence.replace("\n","")
   sentence = sentence.replace("\\","")
   sentence = sentence.replace("'","")
   sentence = sentence.replace("`","")
@@ -60,9 +62,38 @@ def fixtokens(words):
       out2.append(word)
   return out2
 
+# inverse of above, unhyphenated words that might have both words
+def hyphen(words, worddict):
+  out = []
+  dic = pyphen.Pyphen(lang='en_US')
+  #for (x, y) in dic.iterate('hoofprint'):
+  #  print(x)
+  #  print(y)
+  for word in words:
+    print(word)
+    if worddict.get(word, None) != None:
+      print("ok")
+      out.append(word)
+    else:
+      finished = False
+      for (first,second) in dic.iterate(word):
+        if worddict.get(first, None) != None and worddict.get(second, None) != None and not finished:
+          print(first + "," + second)
+          out.append(first)
+          out.append(second)
+          finished = True
+      if not finished:
+        return []
+  print(out)
+  return out
+      
+
 # return array of tokenized wordsets for a number
 def digitize(number):
   pass
+
+#print(hyphen(['hoofprint'], {'hoof': ['H', 'OOF'], 'print': ['PR INT']}, {'hoof':['1'], 'print':['1']}))
+#print(hyphen(['blunderbuss'], {}, {}))
       
 def test(syllables, stresses):
   print(tokenize("the monkeys, they hate me,"))
