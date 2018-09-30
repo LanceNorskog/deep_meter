@@ -127,6 +127,6 @@ def hyphen(words, worddict):
 #print(hyphen(['hoofprint'], {'hoof': ['H', 'OOF'], 'print': ['PR INT']}))
 #print(hyphen(['blunderbuss'], {}))
 #      
-#def test(syllables, stresses):
-#  print(tokenize("the monkeys, they hate me,"))
-#  #print(tokenize2("the monkeys, they hate me,"))
+def test(syllables, stresses):
+  print(tokenize("the monkeys, they hate me,"))
+  #print(tokenize2("the monkeys, they hate me,"))

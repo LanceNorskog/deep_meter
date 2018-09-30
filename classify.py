@@ -6,12 +6,13 @@ import cmudict
 import meter
 import tokens
 import string
+import collections
 
 prefix = "gutenberg."
 
 (syllables, stresses) = cmudict.load_syllables(True)
 
-tokens.test(syllables, stresses)
+# tokens.test(syllables, stresses)
 
 def deb(x):
   #print(str(x) + "\n")
@@ -34,9 +35,6 @@ failed = 0
 guessed = 0
 
 def filter(line):
-  #for i in range(len(line)):
-  #  if int(line[i]) >= 127:
-  #    return False
   amp = False
   for i in range(len(line)):
     if line[i] == '&':
@@ -47,12 +45,10 @@ def filter(line):
 
 # one possible set of meters for this line
 def do_possible(line, words, poss, saved):
-  global correct
   global guessed
   global failed
   global syllables
   global stresses
-  #deb(poss)
   stressarray = meter.getstress(poss, stresses)
   guesses = meter.meter_loose(stressarray)
   deb(line + "->" + str(guesses))
@@ -61,7 +57,7 @@ def do_possible(line, words, poss, saved):
     return 
   for guess in guesses:
     if not guess in saved:
-      outputs[guess].write(line + "\n")
+      outputs[guess].write(line + "\t" + str(meter.get_syllables(words, syllables)) + "\n")
       saved.append(guess)
       guessed += 1
 
@@ -69,7 +65,6 @@ def do_possible(line, words, poss, saved):
 # all possible meter sets for this line
 def do_possibles(line, words, possibles):
   global correct
-  global guessed
   global failed
   global syllables
   global stresses

@@ -101,6 +101,16 @@ def meter(stresses):
       return name
   return 'prose'
 
+def get_syllables(words, syllables):
+  out = []
+  for word in words:
+    for suffix in [ '', '(2)', '(3)', '(4)', '(5)', '(6)' ]:
+      syll = syllables.get(word + suffix, None)
+      if syll != None:
+        out.append(syll)
+        break
+  return out
+
 data = [
 [ "short!", ['1', '10']],
 [ "long!", ['11001000000']],
