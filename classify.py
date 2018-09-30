@@ -7,6 +7,7 @@ import meter
 import tokens
 
 prefix = "gutenberg."
+
 (syllables, stresses) = cmudict.load_syllables(True)
 
 #tokens.test(syllables, stresses)
@@ -32,10 +33,9 @@ for line in sys.stdin:
   deb(line)
   words = tokens.tokenize(line)
   words = tokens.fixtokens(words)
-  print(words)
   possibles = meter.possibles(words, syllables)
   if len(possibles) == 0:
-    failed_list.write(line)
+    failed_list.write(line + "\t" + str(words))
     failed += 1
     continue
   # only save a line once per guessed meter

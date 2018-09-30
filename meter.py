@@ -7,19 +7,28 @@ meters = {"iambic_pentameter": "0101010101", "hiawatha": "10101010"}
 
 notfound_list = open("word_not_found.txt", "w")
 
-# all possible variations of cmudict
+# all possible variations of cmudict for word
+def possibles_word(word, wordlist):
+  position = []
+  if wordlist.get(word, None) == None:
+    notfound_list.write(word + "\n")
+  for suffix in [ '', '(2)', '(3)', '(4)', '(5)', '(6)' ]:
+    check = word + suffix
+    #print("{0},{1}".format(check, str(wordlist.get(check, "none"))))
+    if wordlist.get(check, None) != None:
+      position.append(check)
+  if len(position) == 0:
+    return []
+  return position
+
+# all possible variations of cmudict for tokenized sentence
 def possibles(words, wordlist):
   # [ [ word, word(2) ], [ word ] ]
   variations = []
   for word in words:
-    position = []
-    if wordlist.get(word, None) == None:
-      notfound_list.write(word + "\n")
-    for suffix in [ '', '(2)', '(3)', '(4)', '(5)', '(6)' ]:
-      check = word + suffix
-      #print("{0},{1}".format(check, str(wordlist.get(check, "none"))))
-      if wordlist.get(check, None) != None:
-        position.append(check)
+    position = possibles_word(word, wordlist)
+    #if len(position) == 0 and (word.endswith("s") or word.endswith("d")):
+    #  position = possibles_word(word[:-1], wordlist)
     if len(position) == 0:
       return []
     variations.append(position)

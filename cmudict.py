@@ -54,7 +54,7 @@ def load_syllables(do_stresses):
         stresses[key] = stressarray
       x = x + 1
   return (syllables, stresses)
-
+  
 #(syllables, stresses) = load_syllables(True)
 #print(stresses["and"])
 
