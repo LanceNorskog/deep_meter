@@ -112,15 +112,15 @@ data = [
 [ "last missing", ['010101010']]
 ]
 
-print("Strict meter:")
-for test in data:
-    print("{0} -> {1}".format(test[0], meter(test[1])))
-
-print("Broken meter:")
-for test in data:
-    print("{0} -> {1}".format(test[0], meter_loose(test[1])))
-
-print(possibles(['a', 'word'], {'a':0, 'word':0, 'word(2)':0}))
+#print("Strict meter:")
+#for test in data:
+#    print("{0} -> {1}".format(test[0], meter(test[1])))
+#
+#print("Broken meter:")
+#for test in data:
+#    print("{0} -> {1}".format(test[0], meter_loose(test[1])))
+#
+#print(possibles(['a', 'word'], {'a':0, 'word':0, 'word(2)':0}))
 
           
 

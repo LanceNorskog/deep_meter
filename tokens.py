@@ -2,7 +2,7 @@
 from __future__ import absolute_import, division, unicode_literals
 from itertools import product
 from segtok.tokenizer import space_tokenizer, web_tokenizer
-import pyphen
+from hyphenate import hyphenate_word
 import num2words
 import string
 
@@ -69,38 +69,64 @@ def fixtokens(words):
   return out2
 
 # inverse of above, unhyphenated words that might have both words
+#def hyphen(words, worddict):
+#  out = []
+#  dic = pyphen.Pyphen(lang='en_US')
+#  #for (x, y) in dic.iterate('hoofprint'):
+#  #  print(x)
+#  #  print(y)
+#  for word in words:
+#    #print(word)
+#    if worddict.get(word, None) != None:
+#      #print("ok")
+#      out.append(word)
+#    else:
+#      finished = False
+#      for (first,second) in dic.iterate(word):
+#        if worddict.get(first, None) != None and worddict.get(second, None) != None and not finished:
+#          #print(first + "," + second)
+#          out.append(first)
+#          out.append(second)
+#          finished = True
+#      if not finished:
+#        return []
+#  print(out)
+#  return out
+
+def concat(toks):
+  out = ""
+  for t in toks:
+    out += t
+  return out
+      
 def hyphen(words, worddict):
   out = []
-  dic = pyphen.Pyphen(lang='en_US')
-  #for (x, y) in dic.iterate('hoofprint'):
-  #  print(x)
-  #  print(y)
   for word in words:
-    #print(word)
-    if worddict.get(word, None) != None:
-      #print("ok")
+    toks = hyphenate_word(word)
+    split = False
+    for i in range(1, len(toks)):
+      s1 = concat(toks[0:i])
+      s2 = concat(toks[i:len(toks)])
+      if worddict.get(s1, None) != None and worddict.get(s2, None) != None:
+        out.append(s1)
+        out.append(s2)
+        split = True
+    if not split:
       out.append(word)
-    else:
-      finished = False
-      for (first,second) in dic.iterate(word):
-        if worddict.get(first, None) != None and worddict.get(second, None) != None and not finished:
-          #print(first + "," + second)
-          out.append(first)
-          out.append(second)
-          finished = True
-      if not finished:
-        return []
-  print(out)
   return out
       
 
-# return array of tokenized wordsets for a number
-def digitize(number):
-  pass
-
-print(hyphen(['hoofprint'], {'hoof': ['H', 'OOF'], 'print': ['PR INT']}))
-print(hyphen(['blunderbuss'], {}))
-      
-def test(syllables, stresses):
-  print(tokenize("the monkeys, they hate me,"))
-  #print(tokenize2("the monkeys, they hate me,"))
+#print(hyphen(['wordset'], {}))
+#print(hyphen(['wordset'], {'word':0, 'set':1}))
+#print("done")
+#
+## return array of tokenized wordsets for a number
+#def digitize(number):
+#  pass
+#
+#print(hyphen(['hoofprint'], {'hoof': ['H', 'OOF'], 'print': ['PR INT']}))
+#print(hyphen(['blunderbuss'], {}))
+#      
+#def test(syllables, stresses):
+#  print(tokenize("the monkeys, they hate me,"))
+#  #print(tokenize2("the monkeys, they hate me,"))

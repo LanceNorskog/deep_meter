@@ -5,6 +5,7 @@ import sys
 import cmudict
 import meter
 import tokens
+import string
 
 prefix = "gutenberg."
 
@@ -13,7 +14,7 @@ prefix = "gutenberg."
 tokens.test(syllables, stresses)
 
 def deb(x):
-  print(str(x) + "\n")
+  #print(str(x) + "\n")
   pass
 
 outputs = {}
@@ -31,6 +32,18 @@ correct = 0
 failed = 0
 # total number of meters guessed
 guessed = 0
+
+def filter(line):
+  #for i in range(len(line)):
+  #  if int(line[i]) >= 127:
+  #    return False
+  amp = False
+  for i in range(len(line)):
+    if line[i] == '&':
+      amp = True
+    elif line[i] == ';' and amp:
+      return False
+  return True
 
 # one possible set of meters for this line
 def do_possible(line, words, poss, saved):
@@ -84,11 +97,13 @@ def do_possibles(line, words, possibles):
     fail(line, str(possibles[0]))
 
 for line in sys.stdin:
+  if not filter(line):
+    continue
   total += 1
   line = tokens.clean(line)
   words = tokens.tokenize(line)
   words = tokens.fixtokens(words)
-  #words = tokens.hyphen(words, syllables)
+  words = tokens.hyphen(words, syllables)
   possibles = meter.possibles(words, syllables)
   deb(line + " -> " + str(words) + " -> " + str(possibles))
   do_possibles(line, words, possibles)
