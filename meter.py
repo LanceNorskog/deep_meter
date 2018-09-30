@@ -5,7 +5,7 @@ from itertools import product
 
 meters = {"iambic_pentameter": "0101010101", "hiawatha": "10101010"}
 
-notfound_list = open("notfound.txt", "w")
+notfound_list = open("word_not_found.txt", "w")
 
 # all possible variations of cmudict
 def possibles(words, wordlist):
