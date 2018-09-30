@@ -22,6 +22,7 @@ def tokenize1(sentence):
 
 # scrub some dirt out
 def clean(sentence):
+  sentence = sentence.replace("\"","")
   sentence = sentence.replace("\n","")
   sentence = sentence.replace("\\","")
   sentence = sentence.replace("'","")
@@ -30,12 +31,17 @@ def clean(sentence):
 
 def tokenize(sentence):
   words = web_tokenizer(sentence)
+  #words = sentence.split(" ")
   out = []
   for word in words:
     word = word.lower()
     if word != "_":
       out.append(word)
   return out
+
+#def tokenize(sentence):
+#  words = sentence.split(" ")
+#  return words
 
 # dot, comma, semi become comma 
 # numbers, cmudict only has spelled-out words
@@ -70,15 +76,15 @@ def hyphen(words, worddict):
   #  print(x)
   #  print(y)
   for word in words:
-    print(word)
+    #print(word)
     if worddict.get(word, None) != None:
-      print("ok")
+      #print("ok")
       out.append(word)
     else:
       finished = False
       for (first,second) in dic.iterate(word):
         if worddict.get(first, None) != None and worddict.get(second, None) != None and not finished:
-          print(first + "," + second)
+          #print(first + "," + second)
           out.append(first)
           out.append(second)
           finished = True
@@ -92,9 +98,9 @@ def hyphen(words, worddict):
 def digitize(number):
   pass
 
-#print(hyphen(['hoofprint'], {'hoof': ['H', 'OOF'], 'print': ['PR INT']}, {'hoof':['1'], 'print':['1']}))
-#print(hyphen(['blunderbuss'], {}, {}))
+print(hyphen(['hoofprint'], {'hoof': ['H', 'OOF'], 'print': ['PR INT']}))
+print(hyphen(['blunderbuss'], {}))
       
 def test(syllables, stresses):
   print(tokenize("the monkeys, they hate me,"))
-  print(tokenize2("the monkeys, they hate me,", stresses))
+  #print(tokenize2("the monkeys, they hate me,"))

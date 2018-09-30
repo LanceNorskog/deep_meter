@@ -8,25 +8,25 @@ meters = {"iambic_pentameter": "0101010101", "hiawatha": "10101010"}
 notfound_list = open("word_not_found.txt", "w")
 
 # all possible variations of cmudict for word
-def possibles_word(word, wordlist):
+def possibles_word(word, worddict):
   position = []
-  if wordlist.get(word, None) == None:
+  if worddict.get(word, None) == None:
     notfound_list.write(word + "\n")
   for suffix in [ '', '(2)', '(3)', '(4)', '(5)', '(6)' ]:
     check = word + suffix
     #print("{0},{1}".format(check, str(wordlist.get(check, "none"))))
-    if wordlist.get(check, None) != None:
+    if worddict.get(check, None) != None:
       position.append(check)
   if len(position) == 0:
     return []
   return position
 
 # all possible variations of cmudict for tokenized sentence
-def possibles(words, wordlist):
+def possibles(words, worddict):
   # [ [ word, word(2) ], [ word ] ]
   variations = []
   for word in words:
-    position = possibles_word(word, wordlist)
+    position = possibles_word(word, worddict)
     #if len(position) == 0 and (word.endswith("s") or word.endswith("d")):
     #  position = possibles_word(word[:-1], wordlist)
     if len(position) == 0:
@@ -112,14 +112,15 @@ data = [
 [ "last missing", ['010101010']]
 ]
 
-#print("Strict meter:")
-#for test in data:
-#    print("{0} -> {1}".format(test[0], meter(test[1])))
+print("Strict meter:")
+for test in data:
+    print("{0} -> {1}".format(test[0], meter(test[1])))
 
-#print("Broken meter:")
-#for test in data:
-#    print("{0} -> {1}".format(test[0], meter_loose(test[1])))
+print("Broken meter:")
+for test in data:
+    print("{0} -> {1}".format(test[0], meter_loose(test[1])))
 
+print(possibles(['a', 'word'], {'a':0, 'word':0, 'word(2)':0}))
 
           
 
