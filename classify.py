@@ -10,10 +10,7 @@ import collections
 
 prefix = "gutenberg."
 
-(syllables, stresses) = cmudict.load_dictionary()
 cmudict = cmudict.CMUDict()
-
-# tokens.test(syllables, stresses)
 
 def deb(x):
   #print(str(x) + "\n")
@@ -48,9 +45,7 @@ def filter(line):
 def do_possible(line, words, poss, saved):
   global guessed
   global failed
-  global syllables
-  global stresses
-  stressarray = meter.getstress(poss, stresses)
+  stressarray = meter.getstress(poss, cmudict.stress_dict)
   guesses = meter.meter_loose(stressarray)
   deb(line + "->" + str(guesses))
   if len(guesses) == 0:
@@ -60,8 +55,9 @@ def do_possible(line, words, poss, saved):
     if not guess in saved:
       sylls = []
       for word in words:
-         sylls.append(cmudict.get_syllables(word))
-      outputs[guess].write(line + "\t" + str(meter.get_syllables(words, syllables)) + "\n")
+         word_sylls = cmudict.get_syllables(word)
+         sylls.append(word_sylls)
+      outputs[guess].write(line + "\t" + str(sylls) + "\n")
       saved.append(guess)
       guessed += 1
 
@@ -70,16 +66,14 @@ def do_possible(line, words, poss, saved):
 def do_possibles(line, words, possibles):
   global correct
   global failed
-  global syllables
-  global stresses
   # incrementally remove pauses if no luck
   if len(possibles) == 0 and words[:-1] == ",":
     words = words[0:-1]
-    possibles = meter.possibles(words, syllables)
+    possibles = meter.possibles(words, cmudict.syll_dict)
   while len(possibles) == 0 and "," in words:
     words = list(words)
     words.remove(",")
-    possibles = meter.possibles(words, syllables)
+    possibles = meter.possibles(words, cmudict.syll_dict)
   if len(possibles) == 0:
     fail(line, str(words))
     failed += 1
@@ -102,8 +96,8 @@ for line in sys.stdin:
   line = tokens.clean(line)
   words = tokens.tokenize(line)
   words = tokens.fixtokens(words)
-  words = tokens.hyphen(words, syllables)
-  possibles = meter.possibles(words, syllables)
+  words = tokens.hyphen(words, cmudict.syll_dict)
+  possibles = meter.possibles(words, cmudict.syll_dict)
   deb(line + " -> " + str(words) + " -> " + str(possibles))
   do_possibles(line, words, possibles)
 

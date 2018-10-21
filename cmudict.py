@@ -82,9 +82,11 @@ class CMUDict():
   def get_syllables(self, word):
     out = []
     for suffix in [ '', '(2)', '(3)', '(4)', '(5)', '(6)' ]:
-      w = word + suffix
-      if w in self.syll_dict:
-        out.append(self.syll_dict[w])
+      word_suf = word + suffix
+      if word_suf in self.syll_dict:
+        word_syll = self.syll_dict[word_suf]
+        if not word_syll in out:
+          out.append(word_syll)
     return out
 
   
@@ -97,6 +99,9 @@ class CMUDict():
 #print(revmap['M AH-G ER'])
 #x = collections.Counter()
 
-cd = CMUDict()
-print(cd.syll_dict['mugger'])
-print(cd.get_syllables('mugger'))
+if __name__ == "__main__":
+  cd = CMUDict()
+  print(cd.syll_dict['the'])
+  print(cd.syll_dict['mugger'])
+  print(cd.get_syllables('the'))
+  print(cd.get_syllables('mugger'))
