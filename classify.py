@@ -9,15 +9,18 @@ import string
 import collections
 
 prefix = "gutenberg."
+#meters = {"iambic_pentameter": "0101010101", "hiawatha": "10101010"}
+meters = {"iambic_pentameter": "0101010101"}
 
 cmudict = cmudict.CMUDict()
+meter = meter.meter(cmudict, meters, "word_not_found")
 
 def deb(x):
   #print(str(x) + "\n")
   pass
 
 outputs = {}
-for name in meter.meters.keys():
+for name in meters.keys():
   outputs[name] = open(prefix + name, "w")
 
 failed_list = open("failed_meter.txt", "w")
@@ -45,7 +48,7 @@ def filter(line):
 def do_possible(line, words, poss, saved):
   global guessed
   global failed
-  stressarray = meter.getstress(poss, cmudict.stress_dict)
+  stressarray = meter.getstress(poss)
   guesses = meter.meter_loose(stressarray)
   deb(line + "->" + str(guesses))
   if len(guesses) == 0:
@@ -55,6 +58,7 @@ def do_possible(line, words, poss, saved):
     if not guess in saved:
       sylls = []
       for word in words:
+         # [ [ 'syllable', 'alternate'], ...]
          word_sylls = cmudict.get_syllables(word)
          sylls.append(word_sylls)
       outputs[guess].write(line + "\t" + str(sylls) + "\n")
