@@ -10,7 +10,8 @@ import collections
 
 prefix = "gutenberg."
 
-(syllables, stresses) = cmudict.load_syllables(True)
+(syllables, stresses) = cmudict.load_dictionary()
+cmudict = cmudict.CMUDict()
 
 # tokens.test(syllables, stresses)
 
@@ -57,6 +58,9 @@ def do_possible(line, words, poss, saved):
     return 
   for guess in guesses:
     if not guess in saved:
+      sylls = []
+      for word in words:
+         sylls.append(cmudict.get_syllables(word))
       outputs[guess].write(line + "\t" + str(meter.get_syllables(words, syllables)) + "\n")
       saved.append(guess)
       guessed += 1

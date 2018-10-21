@@ -1,6 +1,7 @@
 import collections
+import pygtrie as trie
 
-# load cmudict-syllables
+# load cmudict-syll_dict
 # dict {word -> [syllable list]
 
 # from NLTK, overkill
@@ -11,12 +12,12 @@ stopword_1 = ["i", "me", "my", "we", "our", "ours", "you", "you're", "you've", "
 cmudict = "/Users/l0n008k/open/data/cmudict_0.6.syllablized.txt"
 cmudict = "/home/lance/open/data/cmudict_0.6.syllablized.txt"
 
-def load_syllables(do_stresses):
-  syllables = {}
-  stresses = {}
-  if do_stresses:
-    for stopword in stopword_1:
-      stresses[stopword] = [ "1" ]
+# hell maybe this should be a trie also
+def load_dictionary():
+  syll_dict = {}
+  stress_dict = {}
+  for stopword in stopword_1:
+    stress_dict[stopword] = [ "1" ]
   x = 0
   with open(cmudict, "r") as ins:
     for line in ins:
@@ -49,13 +50,53 @@ def load_syllables(do_stresses):
           syll = syll + " " + arpa
         last = arpa
       syllarray.append(syll)
-      syllables[key] = syllarray
-      if do_stresses:
-        stresses[key] = stressarray
+      syll_dict[key] = syllarray
+      stress_dict[key] = stressarray
       x = x + 1
-  return (syllables, stresses)
-  
-#(syllables, stresses) = load_syllables(True)
-#print(stresses["and"])
+  return (syll_dict, stress_dict)
 
+# Trie of syllable sequences to word
+# All syllable sequences of word point yield the base word
+def loadRevmap(syll_dict):
+  revmap = trie.StringTrie(separator='-')
+  i = 0
+  for key in syll_dict.keys():
+    # "mugger"
+    sylls = '-'.join(syll_dict[key])
+    # 'M AH-G ER' -> "mugger"
+    revmap[sylls] = key
+    i += 1
+  return revmap
+    
+    
+class CMUDict():
+
+  def __init__(self):
+    self.syll_dict = {}
+    self.stress_dict = {}
+    (self.syll_dict, self.stress_dict) = load_dictionary()
+    self.revmap = loadRevmap(self.syll_dict)
+
+  # get all syllable sets for given word
+  # [ [ 'M AH', 'G ER'], ['M U', 'GER'] ]
+  def get_syllables(self, word):
+    out = []
+    for suffix in [ '', '(2)', '(3)', '(4)', '(5)', '(6)' ]:
+      w = word + suffix
+      if w in self.syll_dict:
+        out.append(self.syll_dict[w])
+    return out
+
+  
+#(syll_dict, stress_dict) = load_dictionary()
+#print(syll_dict["mugger"])
+#print(stress_dict["mugger"])
+
+#revmap = loadRevmap(syll_dict)
+#print(revmap)
+#print(revmap['M AH-G ER'])
 #x = collections.Counter()
+
+cd = CMUDict()
+print(cd.syll_dict['mugger'])
+print(cd.get_syllables('mugger'))
