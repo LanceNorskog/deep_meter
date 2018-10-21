@@ -24,6 +24,7 @@ for name in meters.keys():
   outputs[name] = open(prefix + name, "w")
 
 failed_list = open("failed_meter.txt", "w")
+failed_list = open("/dev/null", "w")
 def fail(line, words):
   failed_list.write(line + "\t" + str(words) + "\n")
 
@@ -45,11 +46,12 @@ def filter(line):
   return True
 
 # one possible set of meters for this line
+# words are (2) form
 def do_possible(line, words, poss, saved):
   global guessed
   global failed
   stressarray = meter.getstress(poss)
-  guesses = meter.meter_loose(stressarray)
+  guesses = meter.meter_strict(stressarray)
   deb(line + "->" + str(guesses))
   if len(guesses) == 0:
     failed += 1
@@ -108,5 +110,5 @@ for line in sys.stdin:
 for (name, f) in outputs.items():
   f.close()
 
-sys.stderr.write("Total: {0}, correct: {1}, guessed {2}, failed: {3}\n".format(total, correct, guessed, failed))
+sys.stderr.write("Total (filtered): {0}, correct: {1}, guessed {2}, failed: {3}\n".format(total, correct, guessed, failed))
 sys.stderr.flush()

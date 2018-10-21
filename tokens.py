@@ -6,6 +6,7 @@ from hyphenate import hyphenate_word
 import num2words
 import string
 
+# old, limited
 def tokenize1(sentence):
   words = space_tokenizer(sentence)
   out = []
@@ -127,6 +128,6 @@ def hyphen(words, worddict):
 #print(hyphen(['hoofprint'], {'hoof': ['H', 'OOF'], 'print': ['PR INT']}))
 #print(hyphen(['blunderbuss'], {}))
 #      
-def test(syllables, stresses):
+if __name__ == "__main__":
   print(tokenize("the monkeys, they hate me,"))
   #print(tokenize2("the monkeys, they hate me,"))

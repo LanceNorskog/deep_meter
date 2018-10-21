@@ -87,6 +87,7 @@ class CMUDict():
         word_syll = self.syll_dict[word_suf]
         if not word_syll in out:
           out.append(word_syll)
+          break
     return out
 
   

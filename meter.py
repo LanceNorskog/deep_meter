@@ -1,6 +1,7 @@
 import stringdist
 from itertools import product
 import cmudict
+import os
 
 # meter from cmudict: ['0', '10', '10']
 
@@ -16,7 +17,7 @@ class meter:
   def possibles_word(self, word, worddict):
     position = []
     if worddict.get(word, None) == None:
-      notfound_list.write(word + "\n")
+      self.notfound_list.write(word + "\n")
     for suffix in [ '', '(2)', '(3)', '(4)', '(5)', '(6)' ]:
       check = word + suffix
       #print("{0},{1}".format(check, str(wordlist.get(check, "none"))))
@@ -78,8 +79,8 @@ class meter:
       stress = stress + str
     for (name, meter) in self.meters.items():
       if stress == meter:
-        return name
-    return None
+        return [name]
+    return []
   
   # allow "broken lines", with one missing syllable in input
   def meter_loose(self, stresses):
@@ -97,11 +98,11 @@ class meter:
       if len(stress) + 1 < len(meter) or len(stress) > len(meter):
         continue
       if len(stress) == len(meter):
-        fail = distance(stress, meter)
+        fail = self.distance(stress, meter)
       elif len(stress) + 1 == meter:
-        fail = distance('?' + stress, meter)
+        fail = self.distance('?' + stress, meter)
         if fail > 1:
-          fail = distance(stress + '?', meter)
+          fail = self.distance(stress + '?', meter)
       if fail < 2:
         poss.append(name)
     return poss
@@ -118,7 +119,7 @@ if __name__ == "__main__":
   [ "last missing", ['010101010']]
   ]
 
-  meter = meter(cmudict.CMUDict(), {"meter":"01"}, "a file")
+  meter = meter(cmudict.CMUDict(), {"meter":"01"}, "/def/null")
   
   print("Strict meter:")
   for test in data:
@@ -129,6 +130,4 @@ if __name__ == "__main__":
       print("{0} -> {1}".format(test[0], meter.meter_loose(test[1])))
   
   print(meter.possibles(['a', 'word'], {'a':0, 'word':0, 'word(2)':0}))
-  
-            
   
