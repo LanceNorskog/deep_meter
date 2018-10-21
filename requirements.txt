@@ -2,3 +2,5 @@ segtok
 stringdist
 num2words
 hyphenate
+# https://pygtrie.readthedocs.io/en/latest/
+pygtrie

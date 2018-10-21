@@ -103,17 +103,20 @@ def concat(toks):
 def hyphen(words, worddict):
   out = []
   for word in words:
-    toks = hyphenate_word(word)
-    split = False
-    for i in range(1, len(toks)):
-      s1 = concat(toks[0:i])
-      s2 = concat(toks[i:len(toks)])
-      if worddict.get(s1, None) != None and worddict.get(s2, None) != None:
-        out.append(s1)
-        out.append(s2)
-        split = True
-    if not split:
+    if word in worddict:
       out.append(word)
+    else:
+      toks = hyphenate_word(word)
+      split = False
+      for i in range(1, len(toks)):
+        s1 = concat(toks[0:i])
+        s2 = concat(toks[i:len(toks)])
+        if worddict.get(s1, None) != None and worddict.get(s2, None) != None:
+          out.append(s1)
+          out.append(s2)
+          split = True
+      if not split:
+        out.append(word)
   return out
       
 

@@ -52,10 +52,10 @@ def do_possible(line, words, poss, saved):
   global failed
   stressarray = meter.getstress(poss)
   guesses = meter.meter_strict(stressarray)
-  deb(line + "->" + str(guesses))
   if len(guesses) == 0:
     failed += 1
     return 
+  deb(line + "->" + str(guesses))
   for guess in guesses:
     if not guess in saved:
       sylls = []
