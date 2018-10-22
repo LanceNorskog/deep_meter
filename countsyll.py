@@ -20,7 +20,8 @@ for line in sys.stdin:
 #print(commons[-1])
   
 #print(commons)
-syll_array = []
+# unknown, pause are special syllables #0 and #1
+syll_array = ['"', ',']
 for c in count:
   syll_array.append(c)
 print(str(syll_array))

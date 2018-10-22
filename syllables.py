@@ -1,46 +1,40 @@
 import sys
 import ast
   
-# 2000 most common syllables, in order
 # official one-hot dictionary- pick a smaller number, index from beginning
   
-  
-# map of syll to dict
-syll_to_encode = {}
-encode_to_syll = []
-
-unknown_syll = '?'
-unknown_encode = -1
+unknown_syllable = '?'
+pause_syllble = ','
+unknown_encoding = 0
+pause_encoding = 1
   
 class syllables:
-  def __init__(self):
+  def __init__(self, size=100000):
     self.syllables = ast.literal_eval(open("blobs/allsyllables.array").readline())
+    if size < len(self.syllables):
+      self.syllables = self.syllables[0:size]
+    self.num_syllables = len(self.syllables)
     #print(len(self.syllables))
     #print(self.syllables[0:5])
+    self.encodings = {}
+    for i in range(self.num_syllables):
+      self.encodings[self.syllables[i]] = i
 
-  def set_size(size):
-    global encode_to_syll
-    global syll_to_encode
-    encode_to_syll = common_2000[0:size]
-    syll_to_encode = {}
-    for i in range(size):
-      syll_to_encode[encode_to_syll[i]] = i
-    sys.stderr.write(str(encode_to_syll) + "\n")
+  def get_size(self):
+    return self.num_syllables
   
-  def get_size():
-    global encode_to_syll
-    return len(encode_to_syll)
+  def get_encoding(self, syll):
+    return self.encodings.get(syll, unknown_encoding)
   
-  def get_encoding(syll):
-    global syll_to_encode
-    return syll_to_encode.get(syll, unknown_encode)
+  def get_syllable(self, encode):
+    if encode < self.num_syllables:
+      return self.syllables[encode]
+    return unknown_syllable
   
-  def get_syllable(encode):
-    global encode_to_syll
-    if encode < len(encode_to_syll):
-      return encode_to_syll[encode]
-    else:
-      return unknown_syll
-  
-  
-#s = syllables()
+if __name__ == "__main__":
+  s = syllables()
+  print(s.get_size())
+  print(s.get_encoding('?'))
+  print(s.get_encoding(','))
+  print(s.get_encoding('EY'))
+  print(s.get_syllable(47))
