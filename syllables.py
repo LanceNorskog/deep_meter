@@ -15,8 +15,8 @@ unknown_encode = -1
 class syllables:
   def __init__(self):
     self.syllables = ast.literal_eval(open("blobs/allsyllables.array").readline())
-    print(len(self.syllables))
-    print(self.syllables[0:5])
+    #print(len(self.syllables))
+    #print(self.syllables[0:5])
 
   def set_size(size):
     global encode_to_syll
@@ -43,4 +43,4 @@ class syllables:
       return unknown_syll
   
   
-s = syllables()
+#s = syllables()

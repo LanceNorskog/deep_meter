@@ -7,7 +7,6 @@ count = collections.Counter()
 for line in sys.stdin:
   text = line.split("\t")[1]
   sylls = ast.literal_eval(text)
-  print(sylls)
   for syll in sylls:
     for s in syll:
       count[s] += 1
@@ -21,7 +20,7 @@ for line in sys.stdin:
 #print(commons[-1])
   
 #print(commons)
-x = []
+syll_array = []
 for c in count:
-  x.append(c[0])
-for 
+  syll_array.append(c)
+print(str(syll_array))
