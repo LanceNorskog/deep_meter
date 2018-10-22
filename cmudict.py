@@ -1,5 +1,6 @@
 import collections
 import pygtrie as trie
+import ast
 
 # load cmudict-syll_dict
 # dict {word -> [syllable list]
@@ -9,8 +10,8 @@ import pygtrie as trie
 
 stopword_1 = ["i", "me", "my", "we", "our", "ours", "you", "you're", "you've", "you'll", "you'd", "your", "yours", "he", "him", "his", "she", "she's", "her", "hers", "it", "it's", "its", "they", "them", "their", "theirs", "what", "which", "who", "whom", "this", "that", "that'll", "these", "those", "am", "is", "are", "was", "were", "be", "been", "have", "has", "had", "do", "does", "did", "a", "an", "the", "and", "but", "if", "or", "as", "of", "at", "by", "for", "with", "through", "to", "from", "up", "down", "in", "out", "on", "off", "then", "once", "here", "there", "when", "where", "why", "how", "all", "both", "each", "few", "more", "most", "some", "such", "no", "nor", "not", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "don't", "should", "now", "d", "ll", "m", "o", "re", "aren't", "shan", "shan't", "wasn", "won", "won't", ","]
 
-cmudict = "/Users/l0n008k/open/data/cmudict_0.6.syllablized.txt"
 cmudict = "/home/lance/open/data/cmudict_0.6.syllablized.txt"
+cmudict = "/Users/l0n008k/open/data/cmudict_0.6.syllablized.txt"
 
 # hell maybe this should be a trie also
 def load_dictionary():
@@ -58,24 +59,49 @@ def load_dictionary():
 # Trie of syllable sequences to word
 # All syllable sequences of word point yield the base word
 def loadRevmap(syll_dict):
-  revmap = trie.StringTrie(separator='-')
+  print("making reverse maps")
+  singlemap = trie.StringTrie(separator='-')
+  multimap = trie.StringTrie(separator='-')
   i = 0
   for key in syll_dict.keys():
-    # "mugger"
-    sylls = '-'.join(syll_dict[key])
-    # 'M AH-G ER' -> "mugger"
-    revmap[sylls] = key
+    syllarray = syll_dict[key]
+    if len(syllarray) > 1:
+      # 'M AH-G ER' -> "mugger"
+      multimap['-'.join(syllarray)] = key
+    else:
+      singlemap[syllarray[0]] = key
     i += 1
-  return revmap
-    
-    
+  return (singlemap, multimap)
+
+def load_blobs():
+  f_syll = open("blobs/syllables.dict", "r")
+  line = f_syll.read()
+  f_syll.close()
+  syll_dict = ast.literal_eval(line)
+  f_stress = open("blobs/stresses.dict", "r")
+  line = f_stress.read()
+  stress_dict = ast.literal_eval(line)
+  f_stress.close()
+  return (syll_dict, stress_dict)
+
+def save_blobs(syll_dict, stress_dict):
+  f_syll = open("blobs/syllables.dict", "w")
+  f_syll.write(str(syll_dict))
+  f_syll.close()
+  f_stress = open("blobs/stresses.dict", "w")
+  f_stress.write(str(stress_dict))
+  f_stress.close()
+
 class CMUDict():
 
   def __init__(self):
     self.syll_dict = {}
     self.stress_dict = {}
-    (self.syll_dict, self.stress_dict) = load_dictionary()
-    self.revmap = loadRevmap(self.syll_dict)
+    (self.syll_dict, self.stress_dict) = load_blobs()
+    # faster to make this than read it!
+    self.singlemap = {}
+    self.multimap = {}
+    (self.singlemap, self.multimap) = loadRevmap(self.syll_dict)
 
   # get all syllable sets for given word
   # [ [ 'M AH', 'G ER'], ['M U', 'GER'] ]
@@ -90,6 +116,7 @@ class CMUDict():
           break
     return out
 
+
   
 #(syll_dict, stress_dict) = load_dictionary()
 #print(syll_dict["mugger"])
@@ -101,8 +128,17 @@ class CMUDict():
 #x = collections.Counter()
 
 if __name__ == "__main__":
+  print("Reading source dictionary")
+  (syll_dict, stress_dict) = load_dictionary()
+  print("Creating blobs literals")
+  save_blobs(syll_dict, stress_dict)
+  print("Loading blobs literals")
   cd = CMUDict()
   print(cd.syll_dict['the'])
   print(cd.syll_dict['mugger'])
   print(cd.get_syllables('the'))
   print(cd.get_syllables('mugger'))
+  print(cd.stress_dict['the'])
+  print(cd.stress_dict['mugger'])
+  print(cd.singlemap['DH AH'])
+  print(cd.multimap['M AH-G ER'])

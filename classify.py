@@ -1,5 +1,5 @@
-TODO - change cmudict.get_syllables to get variant syllables that have same meter, add to emitted lines as separate lines so that randomizing works
-TODO - write randomizer, train/dev/test split
+# TODO - change cmudict.get_syllables to get variant syllables that have same meter, add to emitted lines as separate lines so that randomizing works
+# TODO - write randomizer, train/dev/test split
 
 from __future__ import absolute_import, division, unicode_literals
 
