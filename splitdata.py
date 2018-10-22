@@ -2,6 +2,7 @@
 import sys
 import numpy as np
 
+# sort lines by hash, its a good randomizer that lets us find dups
 hashes = []
 text = []
 
@@ -16,8 +17,10 @@ indices = np.argsort(hashes)
   
 out = open("data.dev", "w")
 j = 1 
+last = ''
 for i in indices:
-  out.write(text[i])
+  if text[i] != last:
+    out.write(text[i])
   if j == 5000:
     out.close()
     out = open("data.test", "w")
@@ -25,4 +28,6 @@ for i in indices:
     out.close()
     out = open("data.train", "w")
   j += 1
+  last = text[i]
+
 out.close()

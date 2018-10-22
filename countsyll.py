@@ -7,18 +7,21 @@ count = collections.Counter()
 for line in sys.stdin:
   text = line.split("\t")[1]
   sylls = ast.literal_eval(text)
+  print(sylls)
   for syll in sylls:
     for s in syll:
       count[s] += 1
 
-commons = count.most_common(2000)
+#print(count.most_common(200000))
 
-print("length " + str(len(count)))
-print(commons[0])
-print(commons[-1])
+#commons = count.most_common(2000)
+
+#print("length " + str(len(count)))
+#print(commons[0])
+#print(commons[-1])
   
-print(commons)
+#print(commons)
 x = []
-for c in commons:
+for c in count:
   x.append(c[0])
-print(x)
+for 
