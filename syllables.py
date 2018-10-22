@@ -14,8 +14,6 @@ class syllables:
     if size < len(self.syllables):
       self.syllables = self.syllables[0:size]
     self.num_syllables = len(self.syllables)
-    #print(len(self.syllables))
-    #print(self.syllables[0:5])
     self.encodings = {}
     for i in range(self.num_syllables):
       self.encodings[self.syllables[i]] = i
