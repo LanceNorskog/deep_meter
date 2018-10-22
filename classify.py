@@ -1,5 +1,9 @@
 # TODO - change cmudict.get_syllables to get variant syllables that have same meter, add to emitted lines as separate lines so that randomizing works
 # TODO - write randomizer, train/dev/test split
+# TODO - emits 9-syllable lines, handle comma at end and beginning
+# TODO - two-syllable trochees can be one syllable, figure out rules
+#         DU-du du becomes (DU-du) du
+# TODO - allow 9-syllable lines, add pause at beginning or end to match
 
 from __future__ import absolute_import, division, unicode_literals
 
