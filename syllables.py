@@ -40,6 +40,26 @@ class syllables:
         sylls.append(self.get_syllable(int(i % self.num_syllables)))
     print(found)
     print(sylls)
+
+  def interpret2(self, pred):
+    found = []
+    sylls = []
+    i = 0
+    while i * self.num_syllables < len(pred):
+      max_j = 0 # unknown
+      max_d = -1 # impossible
+      for j in range(self.num_syllables):
+        v = pred[i * self.num_syllables + j]
+        #print('{0}, {1} = {2}'.format(i, j, v))
+        if v > max_d:
+          max_d = v
+          max_j = j
+      #print('{0}, {1}'.format(max_j, max_d))
+      found.append(str(max_j))
+      sylls.append(self.get_syllable(j))
+      i += 1
+    print(found)
+    print(sylls)
   
 if __name__ == "__main__":
   s = syllables()
@@ -48,3 +68,6 @@ if __name__ == "__main__":
   print(s.get_encoding(','))
   print(s.get_encoding('EY'))
   print(s.get_syllable(47))
+  s.num_syllables = 3
+  print('--------')
+  s.interpret2([0, 0, 0.5])
