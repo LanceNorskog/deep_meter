@@ -1,4 +1,5 @@
 from itertools import chain
+import subprocess
 
 # from "vardaan123" github gist
 def get_gpu_memory_map():
