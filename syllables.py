@@ -47,7 +47,7 @@ class syllables:
     i = 0
     while i * self.num_syllables < len(pred):
       max_j = 0 # unknown
-      max_d = -1 # impossible
+      max_d = -10 # impossible
       for j in range(self.num_syllables):
         v = pred[i * self.num_syllables + j]
         #print('{0}, {1} = {2}'.format(i, j, v))
@@ -55,7 +55,7 @@ class syllables:
           max_d = v
           max_j = j
       #print('{0}, {1}'.format(max_j, max_d))
-      found.append(str(max_j))
+      found.append(max_j)
       sylls.append(self.get_syllable(max_j))
       i += 1
     print(found)
@@ -68,7 +68,7 @@ if __name__ == "__main__":
   print(s.get_encoding(','))
   print(s.get_encoding('EY'))
   print(s.get_syllable(47))
-  s.num_syllables = 3
+  s.num_syllables = 4
   print('--------')
-  s.interpret2([0, 0, 0.5])
+  s.interpret2([0, 0, 0.5, 0.4])
 
