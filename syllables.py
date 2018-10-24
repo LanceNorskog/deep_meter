@@ -56,7 +56,7 @@ class syllables:
           max_j = j
       #print('{0}, {1}'.format(max_j, max_d))
       found.append(str(max_j))
-      sylls.append(self.get_syllable(j))
+      sylls.append(self.get_syllable(max_j))
       i += 1
     print(found)
     print(sylls)
