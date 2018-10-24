@@ -17,7 +17,6 @@ def get_gpu_memory_map():
     gpu_memory = [int(x) for x in result.strip().split('\n')]
     gpu_memory_map = dict(zip(range(len(gpu_memory)), gpu_memory))
     print(gpu_memory_map)
-return gpu_memory_map
 
 # wisdom of the net: fastest way in modern python to flatten a multi-level list
 def flatten(data):
