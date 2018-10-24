@@ -28,6 +28,18 @@ class syllables:
     if encode < self.num_syllables:
       return self.syllables[encode]
     return unknown_syllable
+
+  # debug helper for notebook
+  def interpret(self, pred, valid=0.5):
+    found = []
+    sylls = []
+    for i in range(len(pred)):
+      enc = pred[i]
+      if enc >= valid:
+        found.append(i)
+        sylls.append(self.get_syllable(int(i % self.num_syllables)))
+    print(found)
+    print(sylls)
   
 if __name__ == "__main__":
   s = syllables()
