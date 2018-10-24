@@ -71,3 +71,4 @@ if __name__ == "__main__":
   s.num_syllables = 3
   print('--------')
   s.interpret2([0, 0, 0.5])
+
