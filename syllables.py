@@ -10,7 +10,9 @@ pause_encoding = 1
   
 class syllables:
   def __init__(self, size=100000):
-    self.syllables = ast.literal_eval(open("blobs/allsyllables.array").readline())
+    f = open("blobs/allsyllables.array")
+    self.syllables = ast.literal_eval(f.readline())
+    self.counts = ast.literal_eval(f.readline())
     if size < len(self.syllables):
       self.syllables = self.syllables[0:size]
     self.num_syllables = len(self.syllables)
@@ -68,6 +70,7 @@ if __name__ == "__main__":
   print(s.get_encoding(','))
   print(s.get_encoding('EY'))
   print(s.get_syllable(47))
+  print(s.counts[4])
   s.num_syllables = 4
   print('--------')
   s.interpret2([0, 0, 0.5, 0.4])

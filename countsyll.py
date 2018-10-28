@@ -21,7 +21,12 @@ for line in sys.stdin:
   
 #print(commons)
 # unknown, pause are special syllables #0 and #1
-syll_array = ['"', ',']
-for c in count:
-  syll_array.append(c)
+sorted = count.most_common(len(count))
+syll_array = ['?', ',']
+for (key,val) in sorted:
+  syll_array.append(key)
 print(str(syll_array))
+syll_count = [0, 0]
+for (key,val) in sorted:
+  syll_count.append(val)
+print(str(syll_count))
