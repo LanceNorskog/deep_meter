@@ -25,6 +25,9 @@ class syllables:
   
   def get_encoding(self, syll):
     return self.encodings.get(syll, unknown_encoding)
+
+  def get_counts(self):
+    return self.counts
   
   def get_syllable(self, encode):
     if encode < self.num_syllables:
