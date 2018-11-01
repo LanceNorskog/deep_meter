@@ -36,18 +36,18 @@ class arpabets:
   # debug helper for notebook
   def interpret(self, pred, valid=0.5):
     found = []
-    sylls = []
+    arpas = []
     for i in range(len(pred)):
       enc = pred[i]
       if enc >= valid:
         found.append(i)
-        sylls.append(self.get_arpabet(int(i % self.num_arpabets)))
+        arpas.append(self.get_arpabet(int(i % self.num_arpabets)))
     print(found)
-    print(sylls)
+    print(arpas)
 
   def interpret2(self, pred):
     found = []
-    sylls = []
+    arpas = []
     i = 0
     while i * self.num_arpabets < len(pred):
       max_j = -1 
@@ -60,10 +60,9 @@ class arpabets:
           max_j = j
       #print('{0}, {1}'.format(max_j, max_d))
       found.append(max_j)
-      sylls.append(self.get_syllable(max_j))
+      arpas.append(self.get_arpabet(max_j))
       i += 1
-    print(found)
-    print(sylls)
+    return (found, arpas)
   
 if __name__ == "__main__":
   s = arpabets()
