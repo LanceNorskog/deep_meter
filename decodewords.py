@@ -95,24 +95,32 @@ class Decoder:
   def decode_sentence(self, arpa_list, limit):
     def recurse(arpa_list, offset, limit):
       end = min(offset + 10, limit)
-      for i in range(offset,end + 1):
-        sl = arpa_list[offset:i+1]
-        print("i {0}, slice {1}".format(i, sl))
+      print("checking {0}".format(arpa_list[offset:end+1]))
+      for i in range(offset+1,end+1):
+        sl = arpa_list[offset:i]
         key = " ".join(arpa_list[offset:i+1])
+        print("i {0}, slice {1}, key {2}".format(i, sl, key))
         if key in self.dicts[i - offset]:
-          print("ARPAS {1} at {2}->{3}".format(self.dicts[i - offset][key], key, offset, offset + i))
+          print("ARPAS {1} at {2}->{3}".format(self.dicts[i - offset][key], key, offset, i))
           #print("  found word {0}".format(self.dicts[i - offset][key]))
           first = self.dicts[i - offset][key]
           rest = []
           for l in recurse(arpa_list, i + len(sl), limit):
             rest.append(l)
-          if len(rest) > 0:
-            yield [first, rest]
-          else:
-            yield first
+          yield [first, rest]
+        else:
+          yield ['!']
+
+    # ['the(2)', [['suh', [['!']]], ['sun', []], ['sun', []]]]
+    def search(lol, flatten):
+      if lol[0] == '!':
+        return
+      
         
     for x in recurse(arpa_list, 0, limit):
-      print(str(x))
+      print("Found: " + str(x))
+      #for y in itertools.product(x):
+      #  print("Product: " + str(y))
     
 
 if __name__ == "__main__":
@@ -125,7 +133,7 @@ if __name__ == "__main__":
   decoder = Decoder(reverse_dict, arpabets.arpabets())
   #wordcounter = check1('DH AH S AH N L IH T AA N IH NG HH IY V IH NG OW V ER HH EH D'.split(' '))
   #print(wordcounter.most_common(50))
-  decoder.decode_sentence('DH AH S AH N'.split(' '), 20)
+  decoder.decode_sentence('DH AH S AH N'.split(' '), 5)
   #decoder.decode_sentence('DH AH S AH N L IH T AA N IH NG HH IY V IH NG OW V ER HH EH D'.split(' '), 20)
   
 #'AE N D AO L OW L IH M P AH S R IH NG Z W IH DH L AW D AH L AA R M Z'

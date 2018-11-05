@@ -42,8 +42,8 @@ class arpabets:
       if enc >= valid:
         found.append(i)
         arpas.append(self.get_arpabet(int(i % self.num_arpabets)))
-    print(found)
-    print(arpas)
+    #print(found)
+    #print(arpas)
 
   def interpret2(self, pred):
     found = []

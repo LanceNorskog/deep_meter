@@ -8,18 +8,18 @@ import ast
 # from NLTK, overkill
 # need arpabets for words not in cmulist!
 
-stopword_1 = ["i", "me", "my", "we", "our", "ours", "you", "you're", "you've", "you'll", "you'd", "your", "yours", "he", "him", "his", "she", "she's", "her", "hers", "it", "it's", "its", "they", "them", "their", "theirs", "what", "which", "who", "whom", "this", "that", "that'll", "these", "those", "am", "is", "are", "was", "were", "be", "been", "have", "has", "had", "do", "does", "did", "a", "an", "the", "and", "but", "if", "or", "as", "of", "at", "by", "for", "with", "through", "to", "from", "up", "down", "in", "out", "on", "off", "then", "once", "here", "there", "when", "where", "why", "how", "all", "both", "each", "few", "more", "most", "some", "such", "no", "nor", "not", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "don't", "should", "now", "d", "ll", "m", "o", "re", "aren't", "shan", "shan't", "wasn", "won", "won't", ","]
+#stopword_1 = ["i", "me", "my", "we", "our", "ours", "you", "you're", "you've", "you'll", "you'd", "your", "yours", "he", "him", "his", "she", "she's", "her", "hers", "it", "it's", "its", "they", "them", "their", "theirs", "what", "which", "who", "whom", "this", "that", "that'll", "these", "those", "am", "is", "are", "was", "were", "be", "been", "have", "has", "had", "do", "does", "did", "a", "an", "the", "and", "but", "if", "or", "as", "of", "at", "by", "for", "with", "through", "to", "from", "up", "down", "in", "out", "on", "off", "then", "once", "here", "there", "when", "where", "why", "how", "all", "both", "each", "few", "more", "most", "some", "such", "no", "nor", "not", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will", "just", "don", "don't", "should", "now", "d", "ll", "m", "o", "re", "aren't", "shan", "shan't", "wasn", "won", "won't", ","]
 
-cmudict = "/home/lance/open/data/cmudict_0.6.syllablized.txt"
 cmudict = "/Users/l0n008k/open/data/cmudict_0.6.syllablized.txt"
+cmudict = "/home/lance/open/data/cmudict_0.6.syllablized.txt"
 
 # hell maybe this should be a trie also
 def load_dictionary():
   syll_dict = {}
   stress_dict = {}
-  for stopword in stopword_1:
-    stress_dict[stopword] = [ "1" ]
-  x = 0
+  reverse_dict = {}
+  #for stopword in stopword_1:
+  #  stress_dict[stopword] = [ "1" ]
   with open(cmudict, "r") as ins:
     for line in ins:
       if line.startswith("#"):
@@ -27,6 +27,21 @@ def load_dictionary():
       words = line.split(" ")
       key = words[0].lower()
       rest = words[2:]
+      ph_list = []
+      dbg = False
+      if line.startswith("THE "):
+        dbg = True
+      for ph in rest:
+        if ph != '-':
+          if ph.endswith("\n"):
+            ph = ph[:-1]
+          if ph.endswith("0") or ph.endswith("1") or ph.endswith("2"):
+            ph = ph[:-1]
+            if dbg:
+              print("ph = " + ph)
+          ph_list.append(ph)
+      phonemes = " ".join(ph_list)
+      reverse_dict[phonemes] = key
       syllarray = []
       stressarray = []
       syll = ""
@@ -53,13 +68,12 @@ def load_dictionary():
       syllarray.append(syll)
       syll_dict[key] = syllarray
       stress_dict[key] = stressarray
-      x = x + 1
-  return (syll_dict, stress_dict)
+  return (syll_dict, stress_dict, reverse_dict)
 
 # Trie of syllable sequences to word
 # All syllable sequences of word point yield the base word
 def loadRevmap(syll_dict):
-  print("making reverse maps")
+  #print("making reverse maps")
   singlemap = trie.StringTrie(separator='-')
   multimap = trie.StringTrie(separator='-')
   i = 0
@@ -97,6 +111,7 @@ class CMUDict():
   def __init__(self):
     self.syll_dict = {}
     self.stress_dict = {}
+    self.reverse_dict = {}
     (self.syll_dict, self.stress_dict) = load_blobs()
     # faster to make this than read it!
     self.singlemap = {}
@@ -116,7 +131,9 @@ class CMUDict():
           break
     return out
 
-
+  
+  def get_reverse_dict(self):
+    return self.reverse_dict
   
 #(syll_dict, stress_dict) = load_dictionary()
 #print(syll_dict["mugger"])
@@ -129,7 +146,8 @@ class CMUDict():
 
 if __name__ == "__main__":
   print("Reading source dictionary")
-  (syll_dict, stress_dict) = load_dictionary()
+  (syll_dict, stress_dict, reverse_dict) = load_dictionary()
+  print(reverse_dict['DH AH'])
   print("Creating blobs literals")
   save_blobs(syll_dict, stress_dict)
   print("Loading blobs literals")

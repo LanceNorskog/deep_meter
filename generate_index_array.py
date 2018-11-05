@@ -9,6 +9,19 @@ def neclusters(l, K):
         splits = [0] + [s + 1 for s in splits] + [None]
         yield [l[s:e] for s, e in zip(splits, splits[1:])]
 
+def neclusters2(l, K):
+    for splits in itertools.combinations(range(len(l) - 1), K - 1):
+        # splits need to be offset by 1, and padded
+        print('')
+        splits = [0] + [s + 1 for s in splits] + [None]
+        for s, e in zip(splits, splits[1:]):
+            yield (s,e)
+
+for (s,e) in neclusters2([1,2,3,4,5],3):
+  print("{0} -> {1}".format(s, e))
+  if e == None:
+    print('')
+
 def walk(s, n):
   out = []
   for l in neclusters(s, n):
