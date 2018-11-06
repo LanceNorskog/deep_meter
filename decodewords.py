@@ -42,7 +42,7 @@ class Decoder:
           good = False
       if good:
         for pho in key.split(" "):
-	  word = self.reverse_dict[key]
+          word = self.reverse_dict[key]
           if word.endswith(")"):
             word = word[0:-3]
           if word in self.wordlist:
@@ -92,42 +92,80 @@ class Decoder:
     else:
       return None
 
-  def decode_sentence(self, arpa_list, limit):
-    longest_word = 12
+  def decode_sentence(self, arpa_list, max_word_len):
+    poss_array = []
 
-    def recurse(arpa_list, offset, limit):
-      end = min(offset + longest_word, limit)
-      print("checking {0}".format(arpa_list[offset:end+1]))
-      for i in range(offset+1,end+1):
-        sl = arpa_list[offset:i]
-        key = " ".join(arpa_list[offset:i+1])
-        if key in self.dicts[i - offset]:
-          print(" y: " + key)
-          first = self.dicts[i - offset][key]
-          rest = []
-          for l in recurse(arpa_list, i + len(sl), limit):
-            rest.append(l)
-          if len(rest) > 0:
-            yield [first, rest]
-          else:
-            yield [first]
-        else:
-          print(" n: " + key)
-          yield ['!']
-
-    # ['the(2)', [['suh', [['!']]], ['sun', []], ['sun', []]]]
-    # ['the(2)', [['suh', [['!'], ['!'], ['!']]], ['sun', [['it(2)', []]]], ['!'], ['!'], ['sunlit', []]]]
-    def do_unwrap(lol, unwrapped):
-      if lol[0] == '!':
+    def recurse(arpa_list, curr_list, word_num, offset, max_word_len):
+      end = min(max_word_len, len(arpa_list) - offset)
+      if end == 0:
+        curr_list.append('.')
         return
-      
-    
-      
-        
-    for x in recurse(arpa_list, 0, limit):
-      print("Found: " + str(x))
-      poss_array = []
-    
+      print("checking {0}".format(arpa_list[offset: offset + end+1]))
+      found = False
+      for i in range(0,end+1):
+        sl = arpa_list[offset:offset + i]
+        #print("  {0} -> {1} = {2}".format(offset, offset + i, sl))
+        key = " ".join(sl)
+        if key in self.dicts[i]:
+          found = True
+          #print(" y: " + key)
+          this_word = self.dicts[i][key]
+          next_list = [this_word, []]
+          curr_list.append(next_list)
+          recurse(arpa_list, next_list[1], word_num + 1, offset + i, max_word_len)
+        else:
+          #print(" n: " + key)
+          pass
+      if not found:
+        curr_list.append('!')
+
+    # unwrap actual sentences into output array
+    # recurse downward with current sentence, yield complete sentence if it ends with a period
+    # [['the(2)', [['suh', ['!']], ['sun', [['litt', ['.']]]], ['sunlit', ['.']]]], ['thus', [['uhh', ['!']], ['un', [['litt', ['.']]]]]]]
+
+    def walktree(lol, sentence):
+      #print("Walk: {0}, sentence {1}".format(lol, sentence))
+      for l in lol:
+        #print("  check {0}".format(l))
+        if type(l) == list:
+           if type(l[0]) == type('text'):
+             next = list(sentence)
+             next.append(l[0])
+             #print("    list, {0}".format(next))
+             if len(l) > 1:
+               for m in l[1:]:
+                 for n in walktree(m, list(next)):
+                   yield n
+             else:
+               yield next
+           else:
+             #print("    text, {0}".format(l))
+             if l == '.':
+               yield sentence
+             elif l == '!':
+               pass
+             else:
+               next = list(sentence)
+               next.append(l)
+               yield next
+        else:
+          #print("    text2, {0}".format(l))
+          if l == '.':
+            yield sentence
+          elif l == '!':
+            pass
+          else:
+            next = list(sentence)
+            next.append(l)
+            yield next
+
+    recurse(arpa_list, poss_array, 0, 0, max_word_len)
+    print(poss_array)
+    sentences = []
+    for sentence in walktree(poss_array, []):
+      sentences.append(" ".join(sentence))
+    for s in Set(sentences):
+      print(s)
 
 if __name__ == "__main__":
   def check1(phonemes):
@@ -139,9 +177,11 @@ if __name__ == "__main__":
   decoder = Decoder(reverse_dict, arpabets.arpabets())
   #wordcounter = check1('DH AH S AH N L IH T AA N IH NG HH IY V IH NG OW V ER HH EH D'.split(' '))
   #print(wordcounter.most_common(50))
-  decoder.decode_sentence('DH AH S AH N'.split(' '), 5)
+  decoder.decode_sentence('DH AH'.split(' '), 2)
+  decoder.decode_sentence('DH AH S AH N'.split(' '), 3)
+  decoder.decode_sentence('S AH N L IH T'.split(' '), 7)
   decoder.decode_sentence('DH AH S AH N L IH T'.split(' '), 7)
-  #decoder.decode_sentence('DH AH S AH N L IH T AA N IH NG HH IY V IH NG OW V ER HH EH D'.split(' '), 20)
+  decoder.decode_sentence('DH AH S AH N L IH T AA N IH NG HH IY V IH NG OW V ER HH EH D'.split(' '), 20)
   
 #'AE N D AO L OW L IH M P AH S R IH NG Z W IH DH L AW D AH L AA R M Z'
 #'AE N HH AH M B AH L CH IH R F AH L HH AE P IY L AH V IH NG B AE N D'
