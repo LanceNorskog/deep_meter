@@ -1,5 +1,4 @@
 
-from sets import Set
 from collections import Counter
 import itertools
 
@@ -18,7 +17,7 @@ class Decoder:
   # build reverse dict of phoneme->word, but only for words in our training set
   def __init__(self, reverse_dict, arpabets_mgr):
     self.reverse_dict = reverse_dict
-    self.wordlist = Set([])
+    self.wordlist = set([])
     for word in open("blobs/wordlist", "r"):
       word = word[0:-1]
       self.wordlist.add(word)
@@ -32,7 +31,7 @@ class Decoder:
     #print(short_rev)
     phomap = {}
     for pho in self.pho_list:
-      phomap[pho] = Set([])
+      phomap[pho] = set([])
     #print("Phomap empty = " + str(phomap))
     for key in self.single_dict.keys():
       #print(key)
@@ -165,7 +164,7 @@ class Decoder:
     for sentence in walktree(poss_array, []):
       sentences.append(" ".join(sentence))
     out = []
-    for s in Set(sentences):
+    for s in set(sentences):
       out.append(s)
     return out
 
