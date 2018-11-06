@@ -116,7 +116,7 @@ class CMUDict():
     # faster to make this than read it!
     self.singlemap = {}
     self.multimap = {}
-    (self.singlemap, self.multimap) = loadRevmap(self.syll_dict)
+    #(self.singlemap, self.multimap) = loadRevmap(self.syll_dict)
 
   # get all syllable sets for given word
   # [ [ 'M AH', 'G ER'], ['M U', 'GER'] ]
@@ -158,5 +158,5 @@ if __name__ == "__main__":
   print(cd.get_syllables('mugger'))
   print(cd.stress_dict['the'])
   print(cd.stress_dict['mugger'])
-  print(cd.singlemap['DH AH'])
-  print(cd.multimap['M AH-G ER'])
+  #print(cd.singlemap['DH AH'])
+  #print(cd.multimap['M AH-G ER'])
