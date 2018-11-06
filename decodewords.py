@@ -164,8 +164,10 @@ class Decoder:
     sentences = []
     for sentence in walktree(poss_array, []):
       sentences.append(" ".join(sentence))
+    out = []
     for s in Set(sentences):
-      print(s)
+      out.append(s)
+    return out
 
 if __name__ == "__main__":
   def check1(phonemes):
@@ -175,13 +177,8 @@ if __name__ == "__main__":
     #print(len(wordlist))
   (x, y, reverse_dict) = cmudict.load_dictionary()
   decoder = Decoder(reverse_dict, arpabets.arpabets())
-  #wordcounter = check1('DH AH S AH N L IH T AA N IH NG HH IY V IH NG OW V ER HH EH D'.split(' '))
-  #print(wordcounter.most_common(50))
-  decoder.decode_sentence('DH AH'.split(' '), 2)
-  decoder.decode_sentence('DH AH S AH N'.split(' '), 3)
-  decoder.decode_sentence('S AH N L IH T'.split(' '), 7)
-  decoder.decode_sentence('DH AH S AH N L IH T'.split(' '), 7)
-  decoder.decode_sentence('DH AH S AH N L IH T AA N IH NG HH IY V IH NG OW V ER HH EH D'.split(' '), 20)
+  for x in decoder.decode_sentence('DH AH S AH N L IH T AA N IH NG HH IY V IH NG OW V ER HH EH D'.split(' '), 20):
+    print(x)
   
 #'AE N D AO L OW L IH M P AH S R IH NG Z W IH DH L AW D AH L AA R M Z'
 #'AE N HH AH M B AH L CH IH R F AH L HH AE P IY L AH V IH NG B AE N D'
