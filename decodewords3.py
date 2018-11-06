@@ -125,10 +125,12 @@ class Decoder:
       if lol[0] == '!':
         return
       
+      
     
       
     recurse(arpa_list, poss_array, 0, 0, limit)
     print(poss_array)
+    print(itertools.product(poss_array))
     
 
 if __name__ == "__main__":
