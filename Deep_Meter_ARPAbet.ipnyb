@@ -68,10 +68,10 @@
       "metadata": {
         "colab_type": "code",
         "id": "lVjNK8shFKOC",
-        "outputId": "430054fd-f545-44ee-aad2-8f15735b8b03",
+        "outputId": "bbe5668a-ba46-4188-b767-65474a259181",
         "colab": {
           "base_uri": "https://localhost:8080/",
-          "height": 187
+          "height": 102
         }
       },
       "cell_type": "code",
@@ -88,21 +88,16 @@
         "!gunzip -qf blobs/*.gz || true\n",
         "!gunzip -qf prepped_data/*.gz || true"
       ],
-      "execution_count": 1,
+      "execution_count": 2,
       "outputs": [
         {
           "output_type": "stream",
           "text": [
-            "Cloning into 'deep_meter'...\n",
-            "remote: Enumerating objects: 23, done.\u001b[K\n",
-            "remote: Counting objects:   4% (1/23)   \u001b[K\rremote: Counting objects:   8% (2/23)   \u001b[K\rremote: Counting objects:  13% (3/23)   \u001b[K\rremote: Counting objects:  17% (4/23)   \u001b[K\rremote: Counting objects:  21% (5/23)   \u001b[K\rremote: Counting objects:  26% (6/23)   \u001b[K\rremote: Counting objects:  30% (7/23)   \u001b[K\rremote: Counting objects:  34% (8/23)   \u001b[K\rremote: Counting objects:  39% (9/23)   \u001b[K\rremote: Counting objects:  43% (10/23)   \u001b[K\rremote: Counting objects:  47% (11/23)   \u001b[K\rremote: Counting objects:  52% (12/23)   \u001b[K\rremote: Counting objects:  56% (13/23)   \u001b[K\rremote: Counting objects:  60% (14/23)   \u001b[K\rremote: Counting objects:  65% (15/23)   \u001b[K\rremote: Counting objects:  69% (16/23)   \u001b[K\rremote: Counting objects:  73% (17/23)   \u001b[K\rremote: Counting objects:  78% (18/23)   \u001b[K\rremote: Counting objects:  82% (19/23)   \u001b[K\rremote: Counting objects:  86% (20/23)   \u001b[K\rremote: Counting objects:  91% (21/23)   \u001b[K\rremote: Counting objects:  95% (22/23)   \u001b[K\rremote: Counting objects: 100% (23/23)   \u001b[K\rremote: Counting objects: 100% (23/23), done.\u001b[K\n",
-            "remote: Compressing objects:   5% (1/18)   \u001b[K\rremote: Compressing objects:  11% (2/18)   \u001b[K\rremote: Compressing objects:  16% (3/18)   \u001b[K\rremote: Compressing objects:  22% (4/18)   \u001b[K\rremote: Compressing objects:  27% (5/18)   \u001b[K\rremote: Compressing objects:  33% (6/18)   \u001b[K\rremote: Compressing objects:  38% (7/18)   \u001b[K\rremote: Compressing objects:  44% (8/18)   \u001b[K\rremote: Compressing objects:  50% (9/18)   \u001b[K\rremote: Compressing objects:  55% (10/18)   \u001b[K\rremote: Compressing objects:  61% (11/18)   \u001b[K\rremote: Compressing objects:  66% (12/18)   \u001b[K\rremote: Compressing objects:  72% (13/18)   \u001b[K\rremote: Compressing objects:  77% (14/18)   \u001b[K\rremote: Compressing objects:  83% (15/18)   \u001b[K\rremote: Compressing objects:  88% (16/18)   \u001b[K\rremote: Compressing objects:  94% (17/18)   \u001b[K\rremote: Compressing objects: 100% (18/18)   \u001b[K\rremote: Compressing objects: 100% (18/18), done.\u001b[K\n",
-            "Receiving objects:   0% (1/266)   \rReceiving objects:   1% (3/266)   \rReceiving objects:   2% (6/266)   \rReceiving objects:   3% (8/266)   \rReceiving objects:   4% (11/266)   \rReceiving objects:   5% (14/266)   \rReceiving objects:   6% (16/266)   \rReceiving objects:   7% (19/266)   \rReceiving objects:   8% (22/266)   \rReceiving objects:   9% (24/266)   \rReceiving objects:  10% (27/266)   \rReceiving objects:  11% (30/266)   \rReceiving objects:  12% (32/266)   \rReceiving objects:  13% (35/266)   \rReceiving objects:  14% (38/266)   \rReceiving objects:  15% (40/266)   \rReceiving objects:  16% (43/266)   \rReceiving objects:  17% (46/266)   \rReceiving objects:  18% (48/266)   \rReceiving objects:  19% (51/266)   \rReceiving objects:  20% (54/266)   \rReceiving objects:  21% (56/266)   \rReceiving objects:  22% (59/266)   \rReceiving objects:  23% (62/266)   \rReceiving objects:  24% (64/266)   \rReceiving objects:  25% (67/266)   \rReceiving objects:  26% (70/266)   \rReceiving objects:  27% (72/266)   \rReceiving objects:  28% (75/266)   \rReceiving objects:  29% (78/266)   \rReceiving objects:  30% (80/266)   \rReceiving objects:  31% (83/266)   \rReceiving objects:  32% (86/266)   \rReceiving objects:  33% (88/266)   \rReceiving objects:  34% (91/266)   \rReceiving objects:  35% (94/266)   \rReceiving objects:  36% (96/266)   \rReceiving objects:  37% (99/266)   \rReceiving objects:  38% (102/266)   \rReceiving objects:  39% (104/266)   \rReceiving objects:  40% (107/266)   \rReceiving objects:  41% (110/266)   \rReceiving objects:  42% (112/266)   \rReceiving objects:  43% (115/266)   \rReceiving objects:  44% (118/266)   \rReceiving objects:  45% (120/266)   \rReceiving objects:  46% (123/266)   \rReceiving objects:  47% (126/266)   \rReceiving objects:  48% (128/266)   \rReceiving objects:  49% (131/266)   \rReceiving objects:  50% (133/266)   \rReceiving objects:  51% (136/266)   \rReceiving objects:  52% (139/266)   \rReceiving objects:  53% (141/266)   \rReceiving objects:  54% (144/266)   \rReceiving objects:  55% (147/266)   \rReceiving objects:  56% (149/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  57% (152/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  58% (155/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  59% (157/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  60% (160/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  61% (163/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  62% (165/266), 12.74 MiB | 25.47 MiB/s   \rremote: Total 266 (delta 11), reused 16 (delta 5), pack-reused 243\u001b[K\n",
-            "Receiving objects:  63% (168/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  64% (171/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  65% (173/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  66% (176/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  67% (179/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  68% (181/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  69% (184/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  70% (187/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  71% (189/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  72% (192/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  73% (195/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  74% (197/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  75% (200/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  76% (203/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  77% (205/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  78% (208/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  79% (211/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  80% (213/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  81% (216/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  82% (219/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  83% (221/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  84% (224/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  85% (227/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  86% (229/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  87% (232/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  88% (235/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  89% (237/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  90% (240/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  91% (243/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  92% (245/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  93% (248/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  94% (251/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  95% (253/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  96% (256/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  97% (259/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  98% (261/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects:  99% (264/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects: 100% (266/266), 12.74 MiB | 25.47 MiB/s   \rReceiving objects: 100% (266/266), 20.79 MiB | 26.32 MiB/s, done.\n",
-            "Resolving deltas:   0% (0/142)   \rResolving deltas:  26% (38/142)   \rResolving deltas:  28% (40/142)   \rResolving deltas:  40% (58/142)   \rResolving deltas:  47% (68/142)   \rResolving deltas:  50% (72/142)   \rResolving deltas:  59% (85/142)   \rResolving deltas:  61% (88/142)   \rResolving deltas:  62% (89/142)   \rResolving deltas:  63% (90/142)   \rResolving deltas:  69% (98/142)   \rResolving deltas:  72% (103/142)   \rResolving deltas:  76% (109/142)   \rResolving deltas:  80% (114/142)   \rResolving deltas:  81% (116/142)   \rResolving deltas:  82% (117/142)   \rResolving deltas:  85% (122/142)   \rResolving deltas:  89% (127/142)   \rResolving deltas:  91% (130/142)   \rResolving deltas:  95% (136/142)   \rResolving deltas:  96% (137/142)   \rResolving deltas:  97% (139/142)   \rResolving deltas: 100% (142/142)   \rResolving deltas: 100% (142/142), done.\n",
+            "fatal: destination path 'deep_meter' already exists and is not an empty directory.\n",
             "/content/deep_meter\n",
             "Already up to date.\n",
-            "gzip: blobs/*.gz: No such file or directory\n"
+            "gzip: blobs/*.gz: No such file or directory\n",
+            "gzip: prepped_data/*.gz: No such file or directory\n"
           ],
           "name": "stdout"
         }
@@ -112,7 +107,7 @@
       "metadata": {
         "colab_type": "code",
         "id": "MSeY-MUQo2Ha",
-        "outputId": "879e8d8f-6c0c-4ab9-cc60-63ffe76c7e66",
+        "outputId": "6b8a8123-cd84-4e10-b75c-fd21768bbcbc",
         "colab": {
           "base_uri": "https://localhost:8080/",
           "height": 34
@@ -136,7 +131,7 @@
         "from tensorflow.keras.optimizers import Nadam, Adam\n",
         "np.random.seed(10)"
       ],
-      "execution_count": 2,
+      "execution_count": 3,
       "outputs": [
         {
           "output_type": "stream",
@@ -158,9 +153,11 @@
         "# github deep_meter code\n",
         "import utils\n",
         "# should not need this to use utils.flatten but is true anyway?\n",
-        "from itertools import chain\n",
+        "from itertools import chain, product\n",
         "import subprocess\n",
         "import arpabets\n",
+        "import decodewords\n",
+        "import cmudict\n",
         "# misc for this notebook\n",
         "from ast import literal_eval\n",
         "\n",
@@ -214,7 +211,7 @@
         "    num_arpabets = arpabet_mgr.get_size()      \n",
         "    lines = open(filename, 'r').read().splitlines()\n",
         "    num_lines = len(lines)\n",
-        "    num_lines = 40000\n",
+        "    num_lines = 50000\n",
         "    text_lines = []\n",
         "    text_arpabets = []\n",
         "    for i in range(0, len(lines)):\n",
@@ -253,7 +250,11 @@
       "metadata": {
         "colab_type": "code",
         "id": "3HAtd4X5DayF",
-        "colab": {}
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 54
+        },
+        "outputId": "44f00b0f-dfeb-4719-8b1a-bad724e2f6ed"
       },
       "cell_type": "code",
       "source": [
@@ -264,38 +265,33 @@
         "num_symbols = 4 * meter_syllables\n",
         "arpabets_mgr = arpabets.arpabets()\n",
         "num_arpabets = arpabets_mgr.get_size() \n",
-        "#arpabets_weights = {}\n",
-        "#counts = arpabets_mgr.get_counts()\n",
-        "#maxim = np.max(counts)\n",
-        "#for i in range(len(counts)):\n",
-        "#  if counts[i] > 0:\n",
-        "#    arpabets_weights[i] = 1/(counts[i]/maxim)\n",
-        "#  else:\n",
-        "#    arpabets_weights[i] = 0\n",
+        "arpabets_weights = {}\n",
+        "counts = arpabets_mgr.get_counts()\n",
+        "maxim = np.max(counts)\n",
+        "for i in range(len(counts)):\n",
+        "  if counts[i] > 0:\n",
+        "    arpabets_weights[i] = 1/(counts[i]/maxim)\n",
+        "  else:\n",
+        "    arpabets_weights[i] = 0\n",
         "\n",
-        "#print(arpabets_weights)"
+        "print(arpabets_weights)"
       ],
-      "execution_count": 0,
-      "outputs": []
-    },
-    {
-      "metadata": {
-        "id": "5s7nAFdswrFN",
-        "colab_type": "code",
-        "colab": {}
-      },
-      "cell_type": "code",
-      "source": [
-        ""
-      ],
-      "execution_count": 0,
-      "outputs": []
+      "execution_count": 8,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "{0: 0, 1: 0, 2: 1.0, 3: 1.2445861272947125, 4: 1.5197315436241612, 5: 1.5209564750134337, 6: 1.5881610324028617, 7: 1.7561656584457885, 8: 1.8720238095238095, 9: 2.0694571376348017, 10: 2.2044392523364484, 11: 2.43745963401507, 12: 2.8447236180904523, 13: 3.42571860816944, 14: 3.814690026954178, 15: 3.8510204081632655, 16: 3.9810126582278484, 17: 4.132116788321168, 18: 4.1701657458563535, 19: 4.319725295688668, 20: 4.45748031496063, 21: 4.933333333333333, 22: 4.95059029296021, 23: 4.959264126149803, 24: 5.501457725947522, 25: 5.588351431391906, 26: 5.788343558282208, 27: 5.827071538857437, 28: 5.918452692106639, 29: 7.409685863874346, 30: 7.797520661157026, 31: 9.819601040763226, 32: 15.055851063829786, 33: 15.197315436241611, 34: 16.923766816143498, 35: 19.42024013722127, 36: 20.003533568904594, 37: 25.328859060402685, 38: 34.94444444444444, 39: 59.904761904761905, 40: 205.85454545454544}\n"
+          ],
+          "name": "stdout"
+        }
+      ]
     },
     {
       "metadata": {
         "colab_type": "code",
         "id": "eN9aqig-QpDZ",
-        "outputId": "2c9b9643-d3b9-4d42-e1f9-76e8db33b7a3",
+        "outputId": "ae62588d-4d2d-419d-a46e-fd10a06dd8de",
         "colab": {
           "base_uri": "https://localhost:8080/",
           "height": 85
@@ -311,13 +307,13 @@
         "print(len(test_text))\n",
         "print(test_label.shape)"
       ],
-      "execution_count": 8,
+      "execution_count": 9,
       "outputs": [
         {
           "output_type": "stream",
           "text": [
-            "40000\n",
-            "(40, 40000, 41)\n",
+            "50000\n",
+            "(40, 50000, 41)\n",
             "4474\n",
             "(40, 4474, 41)\n"
           ],
@@ -339,10 +335,10 @@
       "metadata": {
         "id": "mbJCx9vzwrF9",
         "colab_type": "code",
-        "outputId": "38caeefa-03a7-436c-f99d-30de87fb464a",
+        "outputId": "227cecc7-2399-41c8-cbe2-9d8b9009db9a",
         "colab": {
           "base_uri": "https://localhost:8080/",
-          "height": 119
+          "height": 85
         }
       },
       "cell_type": "code",
@@ -369,16 +365,14 @@
         "train_text = None\n",
         "train_embeddings = None"
       ],
-      "execution_count": 9,
+      "execution_count": 10,
       "outputs": [
         {
           "output_type": "stream",
           "text": [
             "INFO:tensorflow:Using /tmp/tfhub_modules to cache modules.\n",
-            "INFO:tensorflow:Downloading TF-Hub Module 'https://tfhub.dev/google/universal-sentence-encoder-large/3'.\n",
-            "INFO:tensorflow:Downloaded TF-Hub Module 'https://tfhub.dev/google/universal-sentence-encoder-large/3'.\n",
             "<class 'list'>\n",
-            "(40000, 512)\n",
+            "(50000, 512)\n",
             "(4474, 512)\n"
           ],
           "name": "stdout"
@@ -389,7 +383,7 @@
       "metadata": {
         "colab_type": "code",
         "id": "-mQUV_7dIm-9",
-        "outputId": "840acfb4-e11f-4a48-94db-b3afbf662834",
+        "outputId": "b8cee428-cd66-47a2-f395-7269852f2db9",
         "colab": {
           "base_uri": "https://localhost:8080/",
           "height": 34
@@ -399,11 +393,11 @@
       "source": [
         "print(test_text_d.shape)\n",
         "# slow\n",
-        "num_epochs = 40\n",
-        "adam_0001 = Adam(0.0001)\n",
-        "adam_0001 = tf.contrib.opt.NadamOptimizer(0.0001)"
+        "num_epochs = 20\n",
+        "adam_0001 = Adam(0.001)\n",
+        "adam_0001 = tf.contrib.opt.NadamOptimizer(0.001)"
       ],
-      "execution_count": 10,
+      "execution_count": 11,
       "outputs": [
         {
           "output_type": "stream",
@@ -428,7 +422,7 @@
       "metadata": {
         "colab_type": "code",
         "id": "t3fllZkVjXKV",
-        "outputId": "d0b13981-8a0e-45d3-95b4-dfdd71cabbf0",
+        "outputId": "7958116b-bd4d-4141-b686-f3c9cc683d69",
         "colab": {
           "base_uri": "https://localhost:8080/",
           "height": 1598
@@ -436,13 +430,14 @@
       },
       "cell_type": "code",
       "source": [
+        "dropout=0.5\n",
         "input_embeddings = layers.Input(shape=(512,), dtype=tf.float32, name='Input')\n",
-        "dropout_input = layers.Dropout(0.2)(input_embeddings)\n",
+        "dropout_input = layers.Dropout(dropout)(input_embeddings)\n",
         "dense = layers.Dense(1024, activation='relu', name='Convoluted')(dropout_input)\n",
-        "dense = layers.Dropout(0.2)(input_embeddings)\n",
+        "dense = layers.Dropout(dropout)(input_embeddings)\n",
         "dense = layers.Dense(2048, activation='relu', name='Midway')(dense)\n",
-        "dense = layers.Dropout(0.2)(input_embeddings)\n",
-        "dense = layers.Dense(4096, activation='relu', name='Smooth')(dense)\n",
+        "#dense = layers.Dropout(dropout)(input_embeddings)\n",
+        "#dense = layers.Dense(4096, activation='relu', name='Smooth')(dense)\n",
         "pred_array = []\n",
         "loss_array = []\n",
         "names_array = []\n",
@@ -457,7 +452,7 @@
         "              metrics=['categorical_accuracy'])\n",
         "model.summary()"
       ],
-      "execution_count": 11,
+      "execution_count": 12,
       "outputs": [
         {
           "output_type": "stream",
@@ -467,92 +462,92 @@
             "==================================================================================================\n",
             "Input (InputLayer)              (None, 512)          0                                            \n",
             "__________________________________________________________________________________________________\n",
-            "dropout_3 (Dropout)             (None, 512)          0           Input[0][0]                      \n",
+            "dropout_2 (Dropout)             (None, 512)          0           Input[0][0]                      \n",
             "__________________________________________________________________________________________________\n",
-            "Smooth (Dense)                  (None, 4096)         2101248     dropout_3[0][0]                  \n",
+            "Midway (Dense)                  (None, 2048)         1050624     dropout_2[0][0]                  \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout00 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout00 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout01 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout01 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout02 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout02 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout03 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout03 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout04 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout04 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout05 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout05 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout06 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout06 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout07 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout07 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout08 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout08 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout09 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout09 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout10 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout10 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout11 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout11 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout12 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout12 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout13 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout13 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout14 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout14 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout15 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout15 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout16 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout16 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout17 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout17 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout18 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout18 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout19 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout19 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout20 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout20 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout21 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout21 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout22 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout22 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout23 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout23 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout24 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout24 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout25 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout25 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout26 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout26 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout27 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout27 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout28 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout28 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout29 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout29 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout30 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout30 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout31 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout31 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout32 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout32 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout33 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout33 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout34 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout34 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout35 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout35 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout36 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout36 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout37 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout37 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout38 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout38 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "__________________________________________________________________________________________________\n",
-            "Flatout39 (Dense)               (None, 41)           167977      Smooth[0][0]                     \n",
+            "Flatout39 (Dense)               (None, 41)           84009       Midway[0][0]                     \n",
             "==================================================================================================\n",
-            "Total params: 8,820,328\n",
-            "Trainable params: 8,820,328\n",
+            "Total params: 4,410,984\n",
+            "Trainable params: 4,410,984\n",
             "Non-trainable params: 0\n",
             "__________________________________________________________________________________________________\n"
           ],
@@ -575,15 +570,15 @@
       "metadata": {
         "colab_type": "code",
         "id": "_stfC_7VFhS8",
-        "outputId": "6ce65246-79bc-48df-a618-794476ed57e4",
+        "outputId": "f9f2372b-b07e-4ad0-cd75-fe344ef8c234",
         "colab": {
           "base_uri": "https://localhost:8080/",
-          "height": 190
+          "height": 34
         }
       },
       "cell_type": "code",
       "source": [
-        "use_saved_model=False\n",
+        "use_saved_model=True\n",
         "\n",
         "print(train_label.shape)\n",
         "if not use_saved_model or not os.path.exists('./model.h5'):\n",
@@ -600,27 +595,19 @@
         "            train_labels,\n",
         "            validation_data=(test_text_d, test_labels),\n",
         "            epochs=num_epochs,\n",
-        "            callbacks = [EarlyStopping(patience=2)],\n",
+        "            #callbacks = [EarlyStopping(patience=2)],\n",
         "            batch_size=32,\n",
-        "            #class_weight=syll_weights,\n",
+        "            class_weight=arpabets_weights,\n",
         "            verbose=2\n",
         "            )\n",
         "    model.save_weights('./model.h5')\n"
       ],
-      "execution_count": 0,
+      "execution_count": 13,
       "outputs": [
         {
           "output_type": "stream",
           "text": [
-            "(40, 40000, 41)\n",
-            "Train on 40000 samples, validate on 4474 samples\n",
-            "Epoch 1/40\n",
-            " - 143s - loss: 93.7128 - Flatout00_loss: 1.9088 - Flatout01_loss: 2.1471 - Flatout02_loss: 2.7411 - Flatout03_loss: 3.3937 - Flatout04_loss: 3.3316 - Flatout05_loss: 3.1916 - Flatout06_loss: 3.1494 - Flatout07_loss: 3.3135 - Flatout08_loss: 3.4115 - Flatout09_loss: 3.4135 - Flatout10_loss: 3.3576 - Flatout11_loss: 3.2895 - Flatout12_loss: 3.2968 - Flatout13_loss: 3.3406 - Flatout14_loss: 3.3651 - Flatout15_loss: 3.3469 - Flatout16_loss: 3.3157 - Flatout17_loss: 3.3099 - Flatout18_loss: 3.3355 - Flatout19_loss: 3.3539 - Flatout20_loss: 3.3613 - Flatout21_loss: 3.3663 - Flatout22_loss: 3.3826 - Flatout23_loss: 3.3765 - Flatout24_loss: 3.3080 - Flatout25_loss: 3.1071 - Flatout26_loss: 2.7217 - Flatout27_loss: 2.2089 - Flatout28_loss: 1.6601 - Flatout29_loss: 1.1540 - Flatout30_loss: 0.7586 - Flatout31_loss: 0.4929 - Flatout32_loss: 0.3229 - Flatout33_loss: 0.2249 - Flatout34_loss: 0.1838 - Flatout35_loss: 0.1581 - Flatout36_loss: 0.1544 - Flatout37_loss: 0.1538 - Flatout38_loss: 0.1542 - Flatout39_loss: 0.1493 - Flatout00_categorical_accuracy: 0.4404 - Flatout01_categorical_accuracy: 0.4134 - Flatout02_categorical_accuracy: 0.2813 - Flatout03_categorical_accuracy: 0.0755 - Flatout04_categorical_accuracy: 0.0880 - Flatout05_categorical_accuracy: 0.1298 - Flatout06_categorical_accuracy: 0.1613 - Flatout07_categorical_accuracy: 0.1106 - Flatout08_categorical_accuracy: 0.0672 - Flatout09_categorical_accuracy: 0.0701 - Flatout10_categorical_accuracy: 0.0968 - Flatout11_categorical_accuracy: 0.1234 - Flatout12_categorical_accuracy: 0.1140 - Flatout13_categorical_accuracy: 0.0984 - Flatout14_categorical_accuracy: 0.0853 - Flatout15_categorical_accuracy: 0.0938 - Flatout16_categorical_accuracy: 0.1105 - Flatout17_categorical_accuracy: 0.1163 - Flatout18_categorical_accuracy: 0.1055 - Flatout19_categorical_accuracy: 0.0990 - Flatout20_categorical_accuracy: 0.0952 - Flatout21_categorical_accuracy: 0.0973 - Flatout22_categorical_accuracy: 0.0936 - Flatout23_categorical_accuracy: 0.0909 - Flatout24_categorical_accuracy: 0.1324 - Flatout25_categorical_accuracy: 0.2386 - Flatout26_categorical_accuracy: 0.3871 - Flatout27_categorical_accuracy: 0.5461 - Flatout28_categorical_accuracy: 0.6954 - Flatout29_categorical_accuracy: 0.8166 - Flatout30_categorical_accuracy: 0.8990 - Flatout31_categorical_accuracy: 0.9479 - Flatout32_categorical_accuracy: 0.9751 - Flatout33_categorical_accuracy: 0.9890 - Flatout34_categorical_accuracy: 0.9945 - Flatout35_categorical_accuracy: 0.9979 - Flatout36_categorical_accuracy: 0.9980 - Flatout37_categorical_accuracy: 0.9977 - Flatout38_categorical_accuracy: 0.9975 - Flatout39_categorical_accuracy: 0.9982 - val_loss: 90.0732 - val_Flatout00_loss: 1.5218 - val_Flatout01_loss: 1.8532 - val_Flatout02_loss: 2.5080 - val_Flatout03_loss: 3.3247 - val_Flatout04_loss: 3.2684 - val_Flatout05_loss: 3.1458 - val_Flatout06_loss: 3.0873 - val_Flatout07_loss: 3.2719 - val_Flatout08_loss: 3.3799 - val_Flatout09_loss: 3.3796 - val_Flatout10_loss: 3.3316 - val_Flatout11_loss: 3.2549 - val_Flatout12_loss: 3.2932 - val_Flatout13_loss: 3.3241 - val_Flatout14_loss: 3.3337 - val_Flatout15_loss: 3.3033 - val_Flatout16_loss: 3.2893 - val_Flatout17_loss: 3.3019 - val_Flatout18_loss: 3.3252 - val_Flatout19_loss: 3.3479 - val_Flatout20_loss: 3.3442 - val_Flatout21_loss: 3.3425 - val_Flatout22_loss: 3.3439 - val_Flatout23_loss: 3.3483 - val_Flatout24_loss: 3.2701 - val_Flatout25_loss: 3.0446 - val_Flatout26_loss: 2.6167 - val_Flatout27_loss: 2.0961 - val_Flatout28_loss: 1.5211 - val_Flatout29_loss: 0.9926 - val_Flatout30_loss: 0.6097 - val_Flatout31_loss: 0.3340 - val_Flatout32_loss: 0.1755 - val_Flatout33_loss: 0.1024 - val_Flatout34_loss: 0.0438 - val_Flatout35_loss: 0.0162 - val_Flatout36_loss: 0.0104 - val_Flatout37_loss: 0.0103 - val_Flatout38_loss: 0.0037 - val_Flatout39_loss: 0.0012 - val_Flatout00_categorical_accuracy: 0.5371 - val_Flatout01_categorical_accuracy: 0.4931 - val_Flatout02_categorical_accuracy: 0.3404 - val_Flatout03_categorical_accuracy: 0.0878 - val_Flatout04_categorical_accuracy: 0.0903 - val_Flatout05_categorical_accuracy: 0.1498 - val_Flatout06_categorical_accuracy: 0.1721 - val_Flatout07_categorical_accuracy: 0.1120 - val_Flatout08_categorical_accuracy: 0.0831 - val_Flatout09_categorical_accuracy: 0.0744 - val_Flatout10_categorical_accuracy: 0.0988 - val_Flatout11_categorical_accuracy: 0.1234 - val_Flatout12_categorical_accuracy: 0.1109 - val_Flatout13_categorical_accuracy: 0.0992 - val_Flatout14_categorical_accuracy: 0.0878 - val_Flatout15_categorical_accuracy: 0.0919 - val_Flatout16_categorical_accuracy: 0.1169 - val_Flatout17_categorical_accuracy: 0.1160 - val_Flatout18_categorical_accuracy: 0.1035 - val_Flatout19_categorical_accuracy: 0.0865 - val_Flatout20_categorical_accuracy: 0.1042 - val_Flatout21_categorical_accuracy: 0.0975 - val_Flatout22_categorical_accuracy: 0.0910 - val_Flatout23_categorical_accuracy: 0.1039 - val_Flatout24_categorical_accuracy: 0.1426 - val_Flatout25_categorical_accuracy: 0.2374 - val_Flatout26_categorical_accuracy: 0.3941 - val_Flatout27_categorical_accuracy: 0.5512 - val_Flatout28_categorical_accuracy: 0.7041 - val_Flatout29_categorical_accuracy: 0.8214 - val_Flatout30_categorical_accuracy: 0.8999 - val_Flatout31_categorical_accuracy: 0.9513 - val_Flatout32_categorical_accuracy: 0.9765 - val_Flatout33_categorical_accuracy: 0.9873 - val_Flatout34_categorical_accuracy: 0.9953 - val_Flatout35_categorical_accuracy: 0.9984 - val_Flatout36_categorical_accuracy: 0.9991 - val_Flatout37_categorical_accuracy: 0.9991 - val_Flatout38_categorical_accuracy: 0.9998 - val_Flatout39_categorical_accuracy: 1.0000\n",
-            "Epoch 2/40\n",
-            " - 135s - loss: 89.3295 - Flatout00_loss: 1.4049 - Flatout01_loss: 1.7184 - Flatout02_loss: 2.4523 - Flatout03_loss: 3.3016 - Flatout04_loss: 3.2542 - Flatout05_loss: 3.1162 - Flatout06_loss: 3.0767 - Flatout07_loss: 3.2569 - Flatout08_loss: 3.3719 - Flatout09_loss: 3.3803 - Flatout10_loss: 3.3191 - Flatout11_loss: 3.2458 - Flatout12_loss: 3.2554 - Flatout13_loss: 3.3035 - Flatout14_loss: 3.3282 - Flatout15_loss: 3.3072 - Flatout16_loss: 3.2738 - Flatout17_loss: 3.2706 - Flatout18_loss: 3.2982 - Flatout19_loss: 3.3171 - Flatout20_loss: 3.3265 - Flatout21_loss: 3.3283 - Flatout22_loss: 3.3411 - Flatout23_loss: 3.3267 - Flatout24_loss: 3.2509 - Flatout25_loss: 3.0313 - Flatout26_loss: 2.6247 - Flatout27_loss: 2.0916 - Flatout28_loss: 1.5213 - Flatout29_loss: 1.0013 - Flatout30_loss: 0.6018 - Flatout31_loss: 0.3349 - Flatout32_loss: 0.1678 - Flatout33_loss: 0.0755 - Flatout34_loss: 0.0335 - Flatout35_loss: 0.0114 - Flatout36_loss: 0.0047 - Flatout37_loss: 0.0022 - Flatout38_loss: 9.3293e-04 - Flatout39_loss: 6.5665e-04 - Flatout00_categorical_accuracy: 0.5806 - Flatout01_categorical_accuracy: 0.5162 - Flatout02_categorical_accuracy: 0.3552 - Flatout03_categorical_accuracy: 0.0931 - Flatout04_categorical_accuracy: 0.0990 - Flatout05_categorical_accuracy: 0.1458 - Flatout06_categorical_accuracy: 0.1653 - Flatout07_categorical_accuracy: 0.1151 - Flatout08_categorical_accuracy: 0.0784 - Flatout09_categorical_accuracy: 0.0776 - Flatout10_categorical_accuracy: 0.1015 - Flatout11_categorical_accuracy: 0.1246 - Flatout12_categorical_accuracy: 0.1159 - Flatout13_categorical_accuracy: 0.1033 - Flatout14_categorical_accuracy: 0.0924 - Flatout15_categorical_accuracy: 0.0974 - Flatout16_categorical_accuracy: 0.1142 - Flatout17_categorical_accuracy: 0.1186 - Flatout18_categorical_accuracy: 0.1089 - Flatout19_categorical_accuracy: 0.1026 - Flatout20_categorical_accuracy: 0.0978 - Flatout21_categorical_accuracy: 0.0998 - Flatout22_categorical_accuracy: 0.0965 - Flatout23_categorical_accuracy: 0.1038 - Flatout24_categorical_accuracy: 0.1424 - Flatout25_categorical_accuracy: 0.2415 - Flatout26_categorical_accuracy: 0.3883 - Flatout27_categorical_accuracy: 0.5476 - Flatout28_categorical_accuracy: 0.6976 - Flatout29_categorical_accuracy: 0.8181 - Flatout30_categorical_accuracy: 0.9005 - Flatout31_categorical_accuracy: 0.9495 - Flatout32_categorical_accuracy: 0.9770 - Flatout33_categorical_accuracy: 0.9907 - Flatout34_categorical_accuracy: 0.9962 - Flatout35_categorical_accuracy: 0.9989 - Flatout36_categorical_accuracy: 0.9996 - Flatout37_categorical_accuracy: 0.9998 - Flatout38_categorical_accuracy: 1.0000 - Flatout39_categorical_accuracy: 1.0000 - val_loss: 88.9313 - val_Flatout00_loss: 1.2972 - val_Flatout01_loss: 1.6385 - val_Flatout02_loss: 2.3819 - val_Flatout03_loss: 3.2800 - val_Flatout04_loss: 3.2324 - val_Flatout05_loss: 3.1087 - val_Flatout06_loss: 3.0493 - val_Flatout07_loss: 3.2393 - val_Flatout08_loss: 3.3693 - val_Flatout09_loss: 3.3672 - val_Flatout10_loss: 3.3227 - val_Flatout11_loss: 3.2404 - val_Flatout12_loss: 3.2771 - val_Flatout13_loss: 3.3074 - val_Flatout14_loss: 3.3238 - val_Flatout15_loss: 3.2906 - val_Flatout16_loss: 3.2777 - val_Flatout17_loss: 3.2937 - val_Flatout18_loss: 3.3109 - val_Flatout19_loss: 3.3339 - val_Flatout20_loss: 3.3326 - val_Flatout21_loss: 3.3333 - val_Flatout22_loss: 3.3292 - val_Flatout23_loss: 3.3279 - val_Flatout24_loss: 3.2465 - val_Flatout25_loss: 3.0191 - val_Flatout26_loss: 2.5938 - val_Flatout27_loss: 2.0673 - val_Flatout28_loss: 1.4988 - val_Flatout29_loss: 0.9763 - val_Flatout30_loss: 0.5940 - val_Flatout31_loss: 0.3234 - val_Flatout32_loss: 0.1679 - val_Flatout33_loss: 0.0981 - val_Flatout34_loss: 0.0417 - val_Flatout35_loss: 0.0153 - val_Flatout36_loss: 0.0104 - val_Flatout37_loss: 0.0101 - val_Flatout38_loss: 0.0029 - val_Flatout39_loss: 2.9681e-04 - val_Flatout00_categorical_accuracy: 0.6109 - val_Flatout01_categorical_accuracy: 0.5438 - val_Flatout02_categorical_accuracy: 0.3724 - val_Flatout03_categorical_accuracy: 0.0997 - val_Flatout04_categorical_accuracy: 0.1053 - val_Flatout05_categorical_accuracy: 0.1500 - val_Flatout06_categorical_accuracy: 0.1726 - val_Flatout07_categorical_accuracy: 0.1129 - val_Flatout08_categorical_accuracy: 0.0749 - val_Flatout09_categorical_accuracy: 0.0767 - val_Flatout10_categorical_accuracy: 0.1010 - val_Flatout11_categorical_accuracy: 0.1249 - val_Flatout12_categorical_accuracy: 0.1124 - val_Flatout13_categorical_accuracy: 0.1044 - val_Flatout14_categorical_accuracy: 0.0869 - val_Flatout15_categorical_accuracy: 0.0966 - val_Flatout16_categorical_accuracy: 0.1196 - val_Flatout17_categorical_accuracy: 0.1171 - val_Flatout18_categorical_accuracy: 0.1039 - val_Flatout19_categorical_accuracy: 0.0970 - val_Flatout20_categorical_accuracy: 0.1008 - val_Flatout21_categorical_accuracy: 0.0975 - val_Flatout22_categorical_accuracy: 0.0914 - val_Flatout23_categorical_accuracy: 0.1075 - val_Flatout24_categorical_accuracy: 0.1430 - val_Flatout25_categorical_accuracy: 0.2385 - val_Flatout26_categorical_accuracy: 0.3943 - val_Flatout27_categorical_accuracy: 0.5512 - val_Flatout28_categorical_accuracy: 0.7041 - val_Flatout29_categorical_accuracy: 0.8214 - val_Flatout30_categorical_accuracy: 0.8999 - val_Flatout31_categorical_accuracy: 0.9513 - val_Flatout32_categorical_accuracy: 0.9765 - val_Flatout33_categorical_accuracy: 0.9873 - val_Flatout34_categorical_accuracy: 0.9953 - val_Flatout35_categorical_accuracy: 0.9984 - val_Flatout36_categorical_accuracy: 0.9991 - val_Flatout37_categorical_accuracy: 0.9991 - val_Flatout38_categorical_accuracy: 0.9998 - val_Flatout39_categorical_accuracy: 1.0000\n",
-            "Epoch 3/40\n",
-            " - 136s - loss: 88.4249 - Flatout00_loss: 1.2633 - Flatout01_loss: 1.5731 - Flatout02_loss: 2.3655 - Flatout03_loss: 3.2642 - Flatout04_loss: 3.2217 - Flatout05_loss: 3.0850 - Flatout06_loss: 3.0478 - Flatout07_loss: 3.2330 - Flatout08_loss: 3.3545 - Flatout09_loss: 3.3655 - Flatout10_loss: 3.3034 - Flatout11_loss: 3.2290 - Flatout12_loss: 3.2392 - Flatout13_loss: 3.2871 - Flatout14_loss: 3.3133 - Flatout15_loss: 3.2925 - Flatout16_loss: 3.2598 - Flatout17_loss: 3.2562 - Flatout18_loss: 3.2847 - Flatout19_loss: 3.3031 - Flatout20_loss: 3.3134 - Flatout21_loss: 3.3129 - Flatout22_loss: 3.3234 - Flatout23_loss: 3.3084 - Flatout24_loss: 3.2318 - Flatout25_loss: 3.0126 - Flatout26_loss: 2.6078 - Flatout27_loss: 2.0752 - Flatout28_loss: 1.5065 - Flatout29_loss: 0.9894 - Flatout30_loss: 0.5913 - Flatout31_loss: 0.3272 - Flatout32_loss: 0.1623 - Flatout33_loss: 0.0721 - Flatout34_loss: 0.0316 - Flatout35_loss: 0.0106 - Flatout36_loss: 0.0042 - Flatout37_loss: 0.0017 - Flatout38_loss: 4.7510e-04 - Flatout39_loss: 1.9763e-04 - Flatout00_categorical_accuracy: 0.6246 - Flatout01_categorical_accuracy: 0.5588 - Flatout02_categorical_accuracy: 0.3770 - Flatout03_categorical_accuracy: 0.1019 - Flatout04_categorical_accuracy: 0.1071 - Flatout05_categorical_accuracy: 0.1505 - Flatout06_categorical_accuracy: 0.1674 - Flatout07_categorical_accuracy: 0.1167 - Flatout08_categorical_accuracy: 0.0818 - Flatout09_categorical_accuracy: 0.0829 - Flatout10_categorical_accuracy: 0.1014 - Flatout11_categorical_accuracy: 0.1260 - Flatout12_categorical_accuracy: 0.1177 - Flatout13_categorical_accuracy: 0.1046 - Flatout14_categorical_accuracy: 0.0953 - Flatout15_categorical_accuracy: 0.1018 - Flatout16_categorical_accuracy: 0.1157 - Flatout17_categorical_accuracy: 0.1191 - Flatout18_categorical_accuracy: 0.1104 - Flatout19_categorical_accuracy: 0.1034 - Flatout20_categorical_accuracy: 0.0995 - Flatout21_categorical_accuracy: 0.1012 - Flatout22_categorical_accuracy: 0.0976 - Flatout23_categorical_accuracy: 0.1063 - Flatout24_categorical_accuracy: 0.1461 - Flatout25_categorical_accuracy: 0.2428 - Flatout26_categorical_accuracy: 0.3884 - Flatout27_categorical_accuracy: 0.5476 - Flatout28_categorical_accuracy: 0.6976 - Flatout29_categorical_accuracy: 0.8181 - Flatout30_categorical_accuracy: 0.9005 - Flatout31_categorical_accuracy: 0.9495 - Flatout32_categorical_accuracy: 0.9770 - Flatout33_categorical_accuracy: 0.9907 - Flatout34_categorical_accuracy: 0.9962 - Flatout35_categorical_accuracy: 0.9989 - Flatout36_categorical_accuracy: 0.9996 - Flatout37_categorical_accuracy: 0.9998 - Flatout38_categorical_accuracy: 1.0000 - Flatout39_categorical_accuracy: 1.0000 - val_loss: 88.3550 - val_Flatout00_loss: 1.1981 - val_Flatout01_loss: 1.5224 - val_Flatout02_loss: 2.3157 - val_Flatout03_loss: 3.2510 - val_Flatout04_loss: 3.2083 - val_Flatout05_loss: 3.0896 - val_Flatout06_loss: 3.0317 - val_Flatout07_loss: 3.2241 - val_Flatout08_loss: 3.3585 - val_Flatout09_loss: 3.3601 - val_Flatout10_loss: 3.3174 - val_Flatout11_loss: 3.2302 - val_Flatout12_loss: 3.2671 - val_Flatout13_loss: 3.2999 - val_Flatout14_loss: 3.3198 - val_Flatout15_loss: 3.2839 - val_Flatout16_loss: 3.2704 - val_Flatout17_loss: 3.2926 - val_Flatout18_loss: 3.3042 - val_Flatout19_loss: 3.3237 - val_Flatout20_loss: 3.3253 - val_Flatout21_loss: 3.3237 - val_Flatout22_loss: 3.3217 - val_Flatout23_loss: 3.3206 - val_Flatout24_loss: 3.2365 - val_Flatout25_loss: 3.0085 - val_Flatout26_loss: 2.5819 - val_Flatout27_loss: 2.0577 - val_Flatout28_loss: 1.4894 - val_Flatout29_loss: 0.9691 - val_Flatout30_loss: 0.5895 - val_Flatout31_loss: 0.3197 - val_Flatout32_loss: 0.1650 - val_Flatout33_loss: 0.0967 - val_Flatout34_loss: 0.0414 - val_Flatout35_loss: 0.0152 - val_Flatout36_loss: 0.0108 - val_Flatout37_loss: 0.0106 - val_Flatout38_loss: 0.0029 - val_Flatout39_loss: 1.1145e-04 - val_Flatout00_categorical_accuracy: 0.6453 - val_Flatout01_categorical_accuracy: 0.5827 - val_Flatout02_categorical_accuracy: 0.3923 - val_Flatout03_categorical_accuracy: 0.1071 - val_Flatout04_categorical_accuracy: 0.1127 - val_Flatout05_categorical_accuracy: 0.1529 - val_Flatout06_categorical_accuracy: 0.1737 - val_Flatout07_categorical_accuracy: 0.1147 - val_Flatout08_categorical_accuracy: 0.0834 - val_Flatout09_categorical_accuracy: 0.0773 - val_Flatout10_categorical_accuracy: 0.1019 - val_Flatout11_categorical_accuracy: 0.1247 - val_Flatout12_categorical_accuracy: 0.1156 - val_Flatout13_categorical_accuracy: 0.1073 - val_Flatout14_categorical_accuracy: 0.0968 - val_Flatout15_categorical_accuracy: 0.0979 - val_Flatout16_categorical_accuracy: 0.1198 - val_Flatout17_categorical_accuracy: 0.1138 - val_Flatout18_categorical_accuracy: 0.1051 - val_Flatout19_categorical_accuracy: 0.0930 - val_Flatout20_categorical_accuracy: 0.1030 - val_Flatout21_categorical_accuracy: 0.0966 - val_Flatout22_categorical_accuracy: 0.0954 - val_Flatout23_categorical_accuracy: 0.1095 - val_Flatout24_categorical_accuracy: 0.1437 - val_Flatout25_categorical_accuracy: 0.2412 - val_Flatout26_categorical_accuracy: 0.3945 - val_Flatout27_categorical_accuracy: 0.5512 - val_Flatout28_categorical_accuracy: 0.7041 - val_Flatout29_categorical_accuracy: 0.8214 - val_Flatout30_categorical_accuracy: 0.8999 - val_Flatout31_categorical_accuracy: 0.9513 - val_Flatout32_categorical_accuracy: 0.9765 - val_Flatout33_categorical_accuracy: 0.9873 - val_Flatout34_categorical_accuracy: 0.9953 - val_Flatout35_categorical_accuracy: 0.9984 - val_Flatout36_categorical_accuracy: 0.9991 - val_Flatout37_categorical_accuracy: 0.9991 - val_Flatout38_categorical_accuracy: 0.9998 - val_Flatout39_categorical_accuracy: 1.0000\n",
-            "Epoch 4/40\n"
+            "(40, 50000, 41)\n"
           ],
           "name": "stdout"
         }
@@ -630,7 +617,7 @@
       "metadata": {
         "colab_type": "code",
         "id": "UW1CiBhnXnxa",
-        "outputId": "037f7b10-6bd3-4c08-989b-f48fad3a61df",
+        "outputId": "0dc8a0c3-782c-4f63-fedb-da0e59a56415",
         "colab": {
           "base_uri": "https://localhost:8080/",
           "height": 34
@@ -640,12 +627,12 @@
       "source": [
         "!ls -alh | grep model.h5"
       ],
-      "execution_count": 13,
+      "execution_count": 14,
       "outputs": [
         {
           "output_type": "stream",
           "text": [
-            "-rw-r--r-- 1 root root  34M Nov  1 07:44 model.h5\n"
+            "-rw-r--r-- 1 root root  17M Nov  6 05:20 model.h5\n"
           ],
           "name": "stdout"
         }
@@ -665,7 +652,7 @@
       "metadata": {
         "colab_type": "code",
         "id": "fSDxetlfUEiD",
-        "outputId": "1cdf190a-1796-4568-cd28-bdef02247e77",
+        "outputId": "c583fc3c-bac0-42df-8314-222234e2f951",
         "colab": {
           "base_uri": "https://localhost:8080/",
           "height": 51
@@ -685,13 +672,13 @@
         "print(len(predicts))\n",
         "print(predicts[0].shape)"
       ],
-      "execution_count": 14,
+      "execution_count": 15,
       "outputs": [
         {
           "output_type": "stream",
           "text": [
             "40\n",
-            "(4000, 41)\n"
+            "(4474, 41)\n"
           ],
           "name": "stdout"
         }
@@ -701,15 +688,15 @@
       "metadata": {
         "colab_type": "code",
         "id": "xaR0d5VPU23Z",
-        "outputId": "1b932c11-b5a5-44ae-f082-a01c0045d94c",
+        "outputId": "f0011e22-4241-4efb-c9b6-ca2bc5b47acd",
         "colab": {
           "base_uri": "https://localhost:8080/",
-          "height": 4627
+          "height": 88
         }
       },
       "cell_type": "code",
       "source": [
-        "for i in range(10,100):\n",
+        "for i in range(10,11):\n",
         "  print(test_text[i])\n",
         "  #syll_mgr.interpret2(predicts[i])\n",
         "  pred = []\n",
@@ -719,281 +706,138 @@
         "  print(str(y))\n",
         "  print('')"
       ],
-      "execution_count": 17,
+      "execution_count": 16,
       "outputs": [
         {
           "output_type": "stream",
           "text": [
             "Of humble seeming: and, behind them all,\n",
-            "['AE', 'N', 'D', 'S', 'AH', 'AH', 'AH', 'AH', 'IH', 'N', 'AH', 'AH', 'N', 'AH', 'N', 'AH', 'IH', 'N', 'D', 'AH', 'D', 'AH', 'AH', 'S', 'D', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Behind his head upon the shoulders lay,\n",
-            "['HH', 'IH', 'Z', 'IH', 'N', 'AH', 'IH', 'IH', 'N', 'IH', 'N', 'AH', 'N', 'IH', 'IH', 'IH', 'HH', 'AH', 'IH', 'IH', 'AH', 'AH', 'HH', 'HH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Discover countries, with a kindred heart\n",
-            "['AH', 'IH', 'AH', 'N', 'R', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'N', 'AH', 'N', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'N', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Was open in his praise, and plaudits rose\n",
-            "['HH', 'IH', 'Z', 'S', 'R', 'R', 'IH', 'IH', 'AH', 'IH', 'HH', 'IH', 'IH', 'Z', 'AH', 'N', 'IH', 'IH', 'N', 'IH', 'IH', 'IH', 'IH', 'IH', 'IH', 'IH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "A spear the hero bore of wondrous strength,\n",
-            "['AH', 'AH', 'R', 'R', 'R', 'AH', 'AH', 'AH', 'AH', 'IH', 'T', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Were things indifferent to the Shepherds thoughts.\n",
-            "['DH', 'AH', 'T', 'IH', 'D', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'T', 'AH', 'N', 'AH', 'AH', 'N', 'D', 'T', 'AH', 'L', 'N', 'D', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "That to the young supplies a guiding light,\n",
-            "['DH', 'AH', 'D', 'IH', 'R', 'AH', 'AH', 'AH', 'N', 'N', 'AH', 'AH', 'AH', 'AH', 'DH', 'AH', 'AH', 'AH', 'N', 'AH', 'N', 'AH', 'N', 'AH', 'Z', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Of Greeks a mighty army, all in vain;\n",
-            "['DH', 'AH', 'D', 'R', 'R', 'AH', 'AH', 'AH', 'N', 'R', 'AH', 'AH', 'AH', 'AH', 'N', 'R', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'N', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Into the mighty vision passing--there,\n",
-            "['AH', 'AH', 'AH', 'N', 'DH', 'AH', 'AH', 'AH', 'T', 'AH', 'AH', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'IH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Them in his anger, whom his anger saves\n",
-            "['DH', 'IH', 'R', 'IH', 'R', 'AH', 'AH', 'AH', 'IH', 'IH', 'AH', 'T', 'AH', 'N', 'N', 'IH', 'IH', 'IH', 'Z', 'N', 'Z', 'AH', 'AH', 'IH', 'Z', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And in the soul within the sense began\n",
-            "['AE', 'N', 'D', 'W', 'DH', 'DH', 'AH', 'AH', 'N', 'AH', 'N', 'AH', 'AH', 'N', 'AH', 'AH', 'IH', 'AH', 'AH', 'D', 'N', 'T', 'D', 'T', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "For Daphnis reigns above, and deals from thence\n",
-            "['F', 'UW', 'R', 'M', 'R', 'AH', 'AH', 'AH', 'N', 'N', 'N', 'N', 'N', 'S', 'N', 'D', 'AH', 'AH', 'T', 'AH', 'R', 'T', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "For one that looked with such a captains mien:\n",
-            "['DH', 'N', 'R', 'R', 'R', 'AH', 'AH', 'AH', 'T', 'T', 'AH', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'T', 'AH', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Of thought between her fingers and her brain,\n",
-            "['T', 'ER', 'S', 'IY', 'T', 'AH', 'ER', 'AH', 'R', 'S', 'AH', 'AH', 'AH', 'N', 'AH', 'ER', 'IH', 'N', 'N', 'N', 'N', 'AH', 'IH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And still the red sedan of rank appeals,\n",
-            "['AE', 'N', 'D', 'S', 'AH', 'T', 'AH', 'AH', 'AH', 'T', 'R', 'AH', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'L', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "With this eternal silence;--more a god,\n",
-            "['W', 'N', 'DH', 'N', 'AH', 'AH', 'AH', 'IH', 'T', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'IH', 'N', 'T', 'AH', 'AH', 'IH', 'D', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Forgot, nutritious, grateful to the taste,\n",
-            "['AE', 'N', 'D', 'P', 'IH', 'V', 'AH', 'AH', 'AH', 'T', 'R', 'AH', 'AH', 'AH', 'AH', 'N', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'N', 'T', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Of full perfection prompt his daring dream,\n",
-            "['HH', 'IH', 'Z', 'S', 'AH', 'IH', 'IH', 'IH', 'L', 'IH', 'IH', 'AH', 'IH', 'N', 'N', 'N', 'IH', 'IH', 'IH', 'IH', 'D', 'IH', 'IH', 'IH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And all the spaces of the midnight town\n",
-            "['AE', 'N', 'D', 'L', 'R', 'DH', 'DH', 'AH', 'AH', 'IH', 'DH', 'AH', 'AH', 'AH', 'R', 'AH', 'AH', 'AH', 'N', 'AH', 'D', 'T', 'AH', 'N', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "The sandbar sings in moonlit veils of foam.\n",
-            "['DH', 'AH', 'S', 'R', 'L', 'AH', 'AH', 'AH', 'N', 'S', 'R', 'Z', 'AH', 'AH', 'N', 'N', 'DH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'R', 'S', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And darkness settled on the outer world.\n",
-            "['AE', 'N', 'D', 'N', 'R', 'DH', 'DH', 'AH', 'N', 'IH', 'N', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'N', 'N', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Was shut and barred, for late has grown the hour.\n",
-            "['IH', 'AH', 'S', 'EH', 'T', 'T', 'AH', 'T', 'L', 'T', 'N', 'AH', 'N', 'T', 'AH', 'AH', 'AH', 'AH', 'N', 'T', 'AH', 'AH', 'D', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Or castle, high embattled on the point\n",
-            "['AO', 'R', 'D', 'IH', 'R', 'DH', 'AH', 'AH', 'N', 'T', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'N', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "The each with All in one, sublime design?\n",
-            "['DH', 'AH', 'S', 'M', 'AH', 'AH', 'AH', 'AH', 'L', 'N', 'AH', 'N', 'AH', 'N', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'T', 'AH', 'N', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "The curving prow, the tall and stately mast,\n",
-            "['DH', 'AH', 'S', 'R', 'L', 'AH', 'AH', 'S', 'N', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And bids anew the martial thunder rise.\n",
-            "['AE', 'N', 'D', 'S', 'R', 'T', 'AH', 'AH', 'IH', 'R', 'IH', 'AH', 'AH', 'AH', 'S', 'T', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And hearing harlot muttered twice or thrice,\n",
-            "['AE', 'N', 'D', 'S', 'IH', 'N', 'AH', 'IH', 'IH', 'T', 'R', 'AH', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'N', 'N', 'AH', 'AH', 'IH', 'N', 'D', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "That evening passed with music, chat, and song,\n",
-            "['W', 'N', 'D', 'S', 'R', 'T', 'D', 'AH', 'D', 'T', 'D', 'N', 'AH', 'N', 'N', 'N', 'D', 'AH', 'D', 'D', 'D', 'AH', 'IH', 'S', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "With childlike pleasure at the blooming sun;\n",
-            "['W', 'IH', 'DH', 'S', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'N', 'N', 'AH', 'IH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And send her back with gentle words to earth\n",
-            "['AE', 'N', 'D', 'S', 'R', 'N', 'HH', 'IH', 'AH', 'S', 'T', 'AH', 'N', 'AH', 'IH', 'AH', 'T', 'N', 'N', 'AH', 'N', 'AH', 'IH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "With glowing eyes and pale, unsmiling face,\n",
-            "['W', 'IH', 'DH', 'S', 'AH', 'N', 'D', 'AH', 'S', 'IH', 'N', 'AH', 'AH', 'N', 'N', 'AH', 'IH', 'N', 'AH', 'AH', 'S', 'AH', 'IH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "A threatening tempest fearing, looses wide\n",
-            "['AH', 'AH', 'S', 'IH', 'N', 'AH', 'AH', 'S', 'S', 'R', 'AH', 'AH', 'S', 'R', 'N', 'IH', 'AH', 'AH', 'AH', 'T', 'AH', 'AH', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Its beauties first? That she will show to me\n",
-            "['DH', 'ER', 'R', 'N', 'AH', 'AH', 'N', 'AH', 'T', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'T', 'N', 'N', 'AH', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "A man is likewise counsel for himself,\n",
-            "['DH', 'AH', 'S', 'IH', 'EH', 'AH', 'AH', 'IH', 'IH', 'N', 'AH', 'AH', 'N', 'N', 'AH', 'N', 'IH', 'N', 'AH', 'N', 'N', 'AH', 'AH', 'N', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And awful, mighty eyes that cowed and held\n",
-            "['AE', 'N', 'D', 'S', 'EH', 'N', 'D', 'AH', 'S', 'IH', 'L', 'AH', 'AH', 'AH', 'N', 'D', 'DH', 'N', 'AH', 'AH', 'S', 'AH', 'AH', 'AH', 'AH', 'IH', 'R', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Of an unusual strength: his mind was keen,\n",
-            "['HH', 'IH', 'Z', 'S', 'AH', 'T', 'IH', 'IH', 'Z', 'IH', 'IH', 'AH', 'IH', 'N', 'IH', 'IH', 'IH', 'IH', 'IH', 'D', 'T', 'IH', 'IH', 'AH', 'IH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Of thoughts revolved, his final sentence chose\n",
-            "['DH', 'AE', 'T', 'W', 'EH', 'T', 'IH', 'IH', 'IH', 'T', 'AH', 'IH', 'T', 'IH', 'AH', 'N', 'IH', 'IH', 'N', 'D', 'D', 'IH', 'IH', 'IH', 'D', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "His head, his shoulders, and his knees embraced;\n",
-            "['HH', 'IH', 'Z', 'S', 'EH', 'HH', 'IH', 'IH', 'Z', 'IH', 'IH', 'IH', 'IH', 'N', 'IH', 'IH', 'HH', 'IH', 'IH', 'IH', 'IH', 'IH', 'HH', 'IH', 'IH', 'S', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And came into the vale in little space,\n",
-            "['AE', 'N', 'D', 'S', 'R', 'DH', 'D', 'AH', 'AH', 'IH', 'D', 'AH', 'AH', 'AH', 'R', 'AH', 'AH', 'AH', 'N', 'AH', 'N', 'N', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "In forest wild, in thicket, brake, or den;\n",
-            "['AH', 'R', 'L', 'R', 'N', 'AH', 'AH', 'R', 'R', 'N', 'N', 'N', 'R', 'R', 'AH', 'D', 'AH', 'AH', 'R', 'R', 'AH', 'T', 'T', 'N', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "In spite of changes. Look for me until\n",
-            "['F', 'AH', 'R', 'N', 'T', 'T', 'AH', 'AH', 'R', 'AH', 'N', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AE', 'N', 'N', 'D', 'T', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "The parchment of the future, it were vain--\n",
-            "['DH', 'AH', 'S', 'R', 'R', 'AH', 'AH', 'AH', 'AH', 'T', 'IH', 'AH', 'AH', 'N', 'AH', 'N', 'AH', 'IH', 'N', 'T', 'AH', 'AH', 'L', 'T', 'N', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And there, myself and two beloved Friends,\n",
-            "['AE', 'N', 'D', 'L', 'AH', 'N', 'AH', 'AH', 'T', 'AH', 'AH', 'N', 'AH', 'AH', 'D', 'AH', 'N', 'AE', 'AE', 'AH', 'D', 'R', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "The spirits of the Seasons seem to stand.\n",
-            "['DH', 'AH', 'S', 'N', 'DH', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'D', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "For lo! his passion, but an art of craft,\n",
-            "['F', 'IH', 'R', 'M', 'T', 'AH', 'AH', 'T', 'N', 'R', 'AH', 'AH', 'IH', 'N', 'AH', 'AH', 'IH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Is due, and not to war, intrepid still\n",
-            "['IH', 'Z', 'N', 'AO', 'R', 'T', 'AH', 'AH', 'IH', 'T', 'AH', 'AH', 'R', 'T', 'AH', 'T', 'AH', 'AH', 'R', 'T', 'T', 'T', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Or sleeping, walk a restless world of dreams.\n",
-            "['AO', 'N', 'D', 'L', 'R', 'DH', 'AH', 'AH', 'IH', 'IH', 'N', 'AH', 'AH', 'AH', 'R', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'N', 'N', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Of teaching school, a school of Czechs and Poles\n",
-            "['AH', 'V', 'S', 'EH', 'R', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'N', 'AH', 'N', 'AH', 'AH', 'R', 'AH', 'AH', 'AH', 'AH', 'N', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And drops of blood bedew the conscious lawn;\n",
-            "['AE', 'N', 'D', 'D', 'L', 'N', 'AH', 'AH', 'N', 'S', 'R', 'Z', 'AH', 'AH', 'AH', 'N', 'DH', 'AH', 'AH', 'AH', 'S', 'N', 'AH', 'N', 'AH', 'R', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "From daylight till the evening, wet or fine,\n",
-            "['IH', 'V', 'L', 'IH', 'N', 'DH', 'AH', 'T', 'R', 'AH', 'N', 'AH', 'R', 'IH', 'AH', 'AH', 'N', 'AH', 'N', 'D', 'AH', 'N', 'D', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "A doom that ever poised itself to fall,\n",
-            "['DH', 'AH', 'T', 'N', 'AH', 'AH', 'AH', 'AH', 'T', 'IH', 'IH', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'T', 'AH', 'T', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Of wailing women pierce the vaulted skies.\n",
-            "['DH', 'N', 'D', 'EH', 'R', 'AH', 'AH', 'AH', 'S', 'R', 'R', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'S', 'AH', 'N', 'AH', 'AH', 'AH', 'L', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "To happy havens under all the sky,\n",
-            "['F', 'N', 'R', 'M', 'DH', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'L', 'AH', 'D', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "In purple clusters hangs the vines increase,\n",
-            "['DH', 'AH', 'S', 'R', 'N', 'AH', 'AH', 'Z', 'AH', 'L', 'L', 'AH', 'AH', 'N', 'AH', 'N', 'DH', 'AH', 'AH', 'AH', 'AH', 'AH', 'R', 'AH', 'L', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "A shepherd meeting thee, the oar surveys,\n",
-            "['DH', 'AH', 'S', 'R', 'S', 'AH', 'AH', 'AH', 'L', 'R', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "The printed passion of the dream remains:--\n",
-            "['DH', 'AH', 'S', 'N', 'R', 'IH', 'AH', 'AH', 'L', 'T', 'R', 'AH', 'AH', 'N', 'AH', 'T', 'AH', 'AH', 'AH', 'AH', 'AH', 'T', 'N', 'T', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "His aged blood exhausted sees, and pours\n",
-            "['HH', 'IH', 'Z', 'S', 'EH', 'Z', 'IH', 'Z', 'IH', 'R', 'R', 'IH', 'IH', 'Z', 'HH', 'IH', 'IH', 'IH', 'IH', 'Z', 'Z', 'IH', 'L', 'IH', 'IH', 'IH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And piecemeal shares and maims the felon round.\n",
-            "['AE', 'N', 'D', 'S', 'R', 'N', 'AH', 'AH', 'AH', 'T', 'R', 'AH', 'AH', 'T', 'AH', 'AH', 'N', 'AH', 'T', 'AH', 'AH', 'T', 'AH', 'N', 'L', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "A happy nation, and a happy king.\n",
-            "['DH', 'AH', 'HH', 'N', 'R', 'AH', 'AH', 'T', 'L', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'S', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And Miscreator, makes and helps along\n",
-            "['AE', 'N', 'D', 'S', 'IH', 'T', 'IH', 'AH', 'M', 'N', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'T', 'IH', 'T', 'N', 'AH', 'N', 'AH', 'N', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "The dashing waters when the air is still\n",
-            "['DH', 'AH', 'S', 'IH', 'N', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And still its ice the freezing silence kept:\n",
-            "['AE', 'N', 'D', 'S', 'N', 'T', 'T', 'AH', 'IH', 'IH', 'IH', 'T', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'S', 'T', 'AH', 'T', 'N', 'IH', 'N', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "That shrink in misty mournfulness from sight,\n",
-            "['DH', 'N', 'T', 'IH', 'R', 'IH', 'AH', 'AH', 'AH', 'R', 'T', 'AH', 'AH', 'AH', 'AH', 'AH', 'DH', 'AH', 'AH', 'AH', 'AH', 'T', 'N', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And secret seeds of envy, lay behind;\n",
-            "['AE', 'N', 'D', 'L', 'R', 'DH', 'AH', 'AH', 'AH', 'IH', 'R', 'AH', 'AH', 'AH', 'R', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'N', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Of trees and crack of branches, common things,\n",
-            "['AH', 'V', 'D', 'IH', 'L', 'AH', 'D', 'AH', 'N', 'N', 'D', 'N', 'AH', 'N', 'AH', 'D', 'N', 'AH', 'AE', 'D', 'N', 'N', 'D', 'N', 'D', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And pious tribute at her altars pay:\n",
-            "['AE', 'N', 'D', 'B', 'R', 'N', 'AH', 'AH', 'AH', 'S', 'R', 'AH', 'AH', 'AH', 'R', 'AH', 'T', 'AH', 'D', 'AH', 'AH', 'AH', 'AH', 'L', 'D', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Courageous, and refreshed for future toil,\n",
-            "['F', 'AO', 'R', 'T', 'R', 'AH', 'AH', 'T', 'T', 'T', 'AH', 'IH', 'T', 'AH', 'N', 'R', 'AH', 'IH', 'N', 'T', 'T', 'AH', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Upon the wall and windows blots of gilt.\n",
-            "['AH', 'V', 'R', 'IH', 'DH', 'AH', 'AH', 'AH', 'N', 'R', 'AH', 'AH', 'AH', 'AH', 'N', 'D', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And lay upon the threshold like a log.\n",
-            "['AE', 'N', 'D', 'W', 'IH', 'DH', 'AH', 'IH', 'AH', 'N', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'T', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "In synod unbenign; and taught the fixed\n",
-            "['DH', 'N', 'D', 'R', 'R', 'AH', 'AH', 'IH', 'N', 'N', 'D', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'N', 'D', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And left him to his rest.  An end of Love.\n",
-            "['AE', 'N', 'D', 'S', 'IY', 'HH', 'HH', 'IH', 'IH', 'IH', 'HH', 'HH', 'IH', 'Z', 'IH', 'N', 'HH', 'IH', 'N', 'D', 'HH', 'HH', 'HH', 'IH', 'IH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And human hearts and minds to show it by,\n",
-            "['AE', 'N', 'D', 'S', 'EH', 'N', 'AH', 'AH', 'AH', 'R', 'R', 'AH', 'AH', 'AH', 'N', 'R', 'T', 'N', 'N', 'AH', 'N', 'R', 'AH', 'AH', 'AH', 'D', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "The outward struggle and the inward strife.\n",
-            "['DH', 'AH', 'S', 'R', 'T', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'N', 'AH', 'R', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'S', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "His arms and bosom, seem to melt away.\n",
-            "['HH', 'IH', 'Z', 'S', 'L', 'HH', 'IH', 'Z', 'Z', 'R', 'R', 'HH', 'IH', 'Z', 'HH', 'IH', 'HH', 'HH', 'IH', 'Z', 'Z', 'HH', 'HH', 'IH', 'IH', 'R', 'S', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And noise, and tumult rises from the crowd.\n",
-            "['AE', 'N', 'D', 'S', 'AW', 'N', 'AH', 'AH', 'S', 'N', 'D', 'Z', 'AH', 'AH', 'EH', 'N', 'DH', 'IH', 'AH', 'IH', 'IH', 'N', 'AH', 'AH', 'AH', 'S', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Cannot devise a torment, so it be\n",
-            "['IH', 'AO', 'S', 'N', 'N', 'T', 'AH', 'IH', 'T', 'AH', 'N', 'IH', 'AH', 'N', 'N', 'IH', 'IH', 'T', 'S', 'D', 'AH', 'D', 'IH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "The damsel put the pair without reply:\n",
-            "['DH', 'AH', 'S', 'IH', 'N', 'T', 'N', 'AH', 'S', 'R', 'T', 'N', 'D', 'N', 'T', 'IH', 'D', 'AH', 'N', 'T', 'T', 'AH', 'L', 'AH', 'D', 'R', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Or that it hardens more and helps to bind\n",
-            "['AO', 'R', 'D', 'T', 'IH', 'IH', 'AH', 'IH', 'T', 'S', 'IH', 'AH', 'AH', 'T', 'AH', 'N', 'AH', 'AH', 'S', 'T', 'AH', 'AH', 'N', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And flowing waters, and the starry flame,\n",
-            "['AE', 'N', 'D', 'S', 'R', 'N', 'AH', 'AH', 'AH', 'IH', 'R', 'Z', 'AH', 'AH', 'R', 'S', 'DH', 'AH', 'AH', 'AH', 'D', 'AH', 'AH', 'AH', 'L', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "The spoil or spoiler? this behold in me;\n",
-            "['DH', 'AH', 'T', 'N', 'DH', 'AH', 'AH', 'AH', 'T', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And rode with them, and spake to none; the day\n",
-            "['AE', 'N', 'D', 'W', 'EY', 'DH', 'D', 'AH', 'W', 'N', 'D', 'AH', 'D', 'AH', 'R', 'D', 'AH', 'AH', 'N', 'D', 'D', 'R', 'AH', 'N', 'D', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Of finest metal was her armour bright,\n",
-            "['AH', 'ER', 'R', 'IH', 'R', 'AH', 'ER', 'AH', 'AH', 'R', 'R', 'AH', 'AH', 'AH', 'N', 'AH', 'T', 'AH', 'N', 'S', 'S', 'AH', 'AH', 'AH', 'L', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "The doleful city all around invest,\n",
-            "['DH', 'AH', 'S', 'R', 'DH', 'AH', 'AH', 'AH', 'R', 'AH', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Of crowded cities, was from passing tale\n",
-            "['DH', 'AH', 'S', 'IH', 'DH', 'AH', 'AH', 'AH', 'N', 'D', 'D', 'AH', 'AH', 'N', 'AH', 'D', 'AH', 'AH', 'AH', 'AH', 'AH', 'T', 'AH', 'S', 'N', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "An Arab fearless as the face of Truth\n",
-            "['AH', 'AH', 'S', 'N', 'T', 'AH', 'AH', 'T', 'L', 'T', 'AH', 'AH', 'AH', 'AH', 'AH', 'N', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'S', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "It lightened toil, and took the edge from pain,\n",
-            "['DH', 'AH', 'S', 'S', 'R', 'T', 'T', 'IH', 'AH', 'T', 'N', 'IH', 'AH', 'N', 'N', 'D', 'T', 'IH', 'N', 'D', 'AH', 'T', 'N', 'T', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "That brought with it another civil war.\n",
-            "['DH', 'N', 'T', 'S', 'R', 'AH', 'D', 'AH', 'AH', 'IH', 'D', 'AH', 'AH', 'T', 'AH', 'N', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'T', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Apart from all, in pride of conscious strength,\n",
-            "['W', 'N', 'DH', 'S', 'R', 'T', 'IH', 'IH', 'T', 'R', 'N', 'AH', 'AH', 'AH', 'N', 'R', 'IH', 'N', 'T', 'AH', 'N', 'AH', 'N', 'AH', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "And far and near throughout the land the men\n",
-            "['AE', 'N', 'D', 'M', 'R', 'DH', 'DH', 'AH', 'N', 'N', 'DH', 'AH', 'AH', 'AH', 'N', 'D', 'AH', 'AH', 'AH', 'AH', 'N', 'AH', 'AH', 'N', 'AH', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
-            "\n",
-            "Remembered--I. And, oh! a little while\n",
-            "['AH', 'IH', 'AH', 'N', 'T', 'AH', 'AH', 'AH', 'T', 'AH', 'AH', 'IH', 'AH', 'N', 'AH', 'AH', 'N', 'D', 'AH', 'N', 'AH', 'T', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
+            "['AH', 'V', 'N', 'AH', 'M', 'IH', 'NG', 'L', 'L', 'DH', 'DH', 'AH', 'D', 'N', 'N', 'IH', 'AH', 'DH', 'AH', 'AH', 'AH', 'D', 'M', 'S', 'N', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.']\n",
             "\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "id": "afh7IcHATglZ",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 34
+        },
+        "outputId": "8e95186c-fc0b-4d87-ce30-b27e1c0aa9f2"
+      },
+      "cell_type": "code",
+      "source": [
+        "# Collect possible phonemes from each output model\n",
+        "# [num_lines][num_symbols][N > 0.8]\n",
+        "num_tests = 2\n",
+        "arpabets = [[]] * num_tests\n",
+        "scores = [[]] * num_tests\n",
+        "for j in range(num_tests):\n",
+        "    arpabets[j] = [[]] * num_symbols\n",
+        "    scores[j] = [[]] * num_symbols\n",
+        "    for i in range(num_symbols):\n",
+        "      arpabets[j][i] = []\n",
+        "      scores[j][i] = []\n",
+        "\n",
+        "sum = 0\n",
+        "count = 0\n",
+        "for i in range(num_symbols):\n",
+        "  for j in range(num_tests):\n",
+        "    for k in range(num_arpabets):\n",
+        "      if predicts[i][j][k] > 0.05:\n",
+        "        #print(\"i, j {0},{1}\".format(i,j))\n",
+        "        arpabets[j][i].append(arpabets_mgr.get_arpabet(k))\n",
+        "        scores[j][i].append(predicts[i][j][k])\n",
+        "    sum += len(scores[j][i])\n",
+        "    count += 1\n",
+        "print(\"Mean length = {0}\".format(sum/count))\n",
+        "    "
+      ],
+      "execution_count": 17,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Mean length = 4.125\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "id": "x8cHyrYFzTfP",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 275
+        },
+        "outputId": "b5f3aba6-5089-479e-929a-e3e35c8fe168"
+      },
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "#for i in range(num_symbols):\n",
+        "#  print(len(arpabets[i][0]))\n",
+        "        \n",
+        "  \n",
+        "print(\"Arpabets[0]: {0}\".format(arpabets[1]))\n",
+        "print(\"Scores[0]: {0}\".format(scores[1]))\n",
+        "\n",
+        "#sample =  [['AE'], ['N'], ['D'], ['W'], ['AH', 'EH'], ['N', 'T', 'DH']]\n",
+        "##for x in product(*sample):\n",
+        "#  print(x)\n",
+        "\n",
+        "decoder = decodewords.Decoder(cmudict.CMUDict().get_reverse_dict(), arpabets_mgr)\n",
+        "for i in range(0,num_tests):\n",
+        "  alist = []\n",
+        "  slist = []\n",
+        "  print(scores[i])\n",
+        "  for s in product(*scores[i]):\n",
+        "    #print(s)\n",
+        "    slist.append(s)\n",
+        "    break\n",
+        "  stotals = [1.0] * len(slist)\n",
+        "  for i in range(len(slist)):\n",
+        "    stotals[i] = np.sum(slist[i])\n",
+        "  topindex = np.argsort(stotals)[0]\n",
+        "  print(\"Top score = {0}\".format(stotals[topindex]))\n",
+        "  print(arpabets[i])\n",
+        "  n = 0\n",
+        "  for a in product(*arpabets[i]):\n",
+        "    #print(a)\n",
+        "    if n == topindex:\n",
+        "      alist.append(a)\n",
+        "      break\n",
+        "    n += 1\n",
+        "  trylist = []\n",
+        "  print(len(slist))\n",
+        "  for s in decoder.decode_sentence(alist[0], 12):\n",
+        "    print(s)\n"
+      ],
+      "execution_count": 21,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Arpabets[0]: [['AE'], ['N'], ['D'], ['W'], ['AH', 'T', 'EH', 'AW'], ['N', 'IH', 'T', 'R', 'DH'], ['AH', 'IH', 'T'], ['AH', 'S', 'L', 'Z', 'CH'], ['N', 'IH', 'D', 'L', 'M', 'IY', 'K'], ['N', 'S', 'Z', 'M', 'V', 'AY'], ['AH', 'R', 'DH', 'AE', 'Z'], ['AH', 'N', 'IH', 'T', 'D', 'AE', 'Z'], ['AH', 'N', 'IH', 'D', 'Z'], ['AH', 'N', 'IH', 'T', 'L', 'DH', 'AE', 'F'], ['N', 'IH', 'D', 'L', 'M', 'AO', 'EY'], ['AH', 'T', 'DH', 'Z', 'M', 'EY'], ['AH', 'N', 'IH', 'T', 'L', 'AE', 'Z', 'G'], ['IH', 'T', 'D', 'DH', 'AE', 'Z', 'M'], ['AH', 'N', 'IH', 'D', 'AE', 'IY', 'W'], ['AH', 'N', 'IH', 'D', 'Z', 'W', 'CH'], ['N', 'IH', 'T', 'Z'], ['AH', 'N', 'DH', 'AE', 'Z', 'M', 'AY'], ['AH', 'N', 'IH', 'T', 'D', 'M', 'W'], ['AH', 'R', 'L', 'AE', 'Z', 'M', 'IY', 'AY'], ['.', 'N', 'Z', 'M', 'IY', 'F', 'EY'], ['.', 'N', 'IH', 'D', 'AE', 'F'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.']]\n",
+            "Scores[0]: [[0.86064494], [0.90886354], [0.89171857], [0.74973166], [0.25321367, 0.054569084, 0.3572582, 0.063113585], [0.2105292, 0.07541481, 0.17097163, 0.06652242, 0.20616019], [0.11549969, 0.28801423, 0.17013513], [0.10719807, 0.07140977, 0.10478793, 0.07163476, 0.27817166], [0.0976023, 0.10265439, 0.05121697, 0.050838258, 0.06865805, 0.062264536, 0.08134177], [0.108046524, 0.05385654, 0.12860043, 0.06659383, 0.061137855, 0.06146687], [0.087737545, 0.073496714, 0.081853926, 0.12259767, 0.16449], [0.13704717, 0.24316475, 0.06972309, 0.056226734, 0.07058293, 0.06449851, 0.05463916], [0.13112713, 0.0872598, 0.07819519, 0.15098844, 0.05807027], [0.0635746, 0.057440788, 0.08009664, 0.05415244, 0.055557974, 0.053596668, 0.06343533, 0.057781853], [0.06636559, 0.07199584, 0.05261914, 0.096652865, 0.08074078, 0.0504304, 0.052987177], [0.07499057, 0.10074745, 0.10024791, 0.06771785, 0.13379802, 0.10731447], [0.06590498, 0.05093557, 0.075687476, 0.080341294, 0.11171491, 0.08633909, 0.08777006, 0.055770047], [0.05599046, 0.055222053, 0.067370035, 0.10869777, 0.1628943, 0.057407714, 0.057534814], [0.083546795, 0.13986856, 0.120398715, 0.115991905, 0.05622771, 0.05755229, 0.10434986], [0.098272316, 0.13865304, 0.052550543, 0.12860519, 0.06779208, 0.055030633, 0.067149356], [0.054307286, 0.09782207, 0.18568365, 0.054595884], [0.10295284, 0.085663356, 0.11711876, 0.09453848, 0.0709884, 0.052313376, 0.069940194], [0.071792535, 0.060702294, 0.083369896, 0.09518563, 0.0884072, 0.07236306, 0.07818647], [0.08392188, 0.058553003, 0.053596687, 0.053123876, 0.08390041, 0.06398394, 0.051898137, 0.07131541], [0.060083613, 0.06399792, 0.054954235, 0.059138004, 0.054574616, 0.10521268, 0.09593506], [0.2131753, 0.078604855, 0.055605132, 0.056422092, 0.053432398, 0.11958949], [0.58620614], [0.80802524], [0.9167293], [0.94792724], [0.9959145], [0.9992704], [0.9999368], [0.99995077], [0.9999999], [1.0], [1.0], [1.0], [1.0], [1.0]]\n",
+            "[[0.1724905, 0.1594459, 0.080528975, 0.5220526], [0.1382865, 0.058823727, 0.052516904, 0.07134519, 0.35118538, 0.16524878], [0.53892064, 0.059347972], [0.07059432, 0.15134504, 0.051295567, 0.078357235, 0.078800164, 0.0621812], [0.063337326, 0.06726396, 0.056026388, 0.052263718, 0.05271245, 0.07663296, 0.054735947], [0.14274856, 0.09004946, 0.055151388, 0.061975062, 0.059110295, 0.08270831, 0.07283606], [0.14579973, 0.09075643, 0.07116041, 0.1274195, 0.0810228], [0.08709616, 0.12989123, 0.05431734, 0.05686919, 0.05962165, 0.051708404, 0.077213995, 0.06304648], [0.050274655, 0.110870354, 0.064585716, 0.062717766, 0.0664518, 0.05485265, 0.05453415, 0.08988468], [0.072381385, 0.075443454, 0.05850794, 0.07498433, 0.15036036, 0.050973266, 0.054923974], [0.2425611, 0.059470676, 0.06810974, 0.050846003], [0.12728836, 0.15838948, 0.16115795, 0.057375733], [0.14113866, 0.07255251, 0.07871117, 0.07119501, 0.06306841, 0.06633495, 0.05099998], [0.05377084, 0.051783454, 0.06611771, 0.050676227, 0.082514435, 0.05015158, 0.07316006], [0.109545045, 0.1097706, 0.07397067, 0.055415362, 0.082870185, 0.06078038], [0.06800361, 0.064255305, 0.07297126, 0.07083546, 0.050015755, 0.08542772, 0.053887203], [0.15129489, 0.05264226, 0.06404162, 0.06269263, 0.056980554, 0.050617978], [0.08892648, 0.11261441, 0.05570807, 0.074618064, 0.062909015, 0.123907246, 0.058840137, 0.061676767], [0.14527133, 0.06829836, 0.06887652, 0.058994565, 0.07159646, 0.09751565], [0.14657322, 0.086704046, 0.06605869, 0.07106401, 0.060872078], [0.16361152, 0.067629494, 0.059084076, 0.058232736, 0.16698903], [0.09682271, 0.064613186, 0.07249376, 0.0983201, 0.07184197, 0.07628602], [0.1350939, 0.0672476, 0.07775781, 0.060074598, 0.0639345, 0.075805254], [0.14052764, 0.055100013, 0.051429987, 0.066263355, 0.08637916, 0.060207147], [0.08821917, 0.06778907, 0.065762, 0.053813692, 0.098114654, 0.0836126, 0.060572904], [0.104509935, 0.14682086, 0.061126303, 0.06981323, 0.06562808, 0.064186774], [0.2526425, 0.13498262, 0.07139187, 0.067630954, 0.071326494, 0.06233861], [0.5986344, 0.059501264], [0.780682], [0.915946], [0.9388864], [0.9811398], [0.9965591], [0.99909735], [0.9999974], [0.9999871], [1.0], [1.0], [1.0], [1.0]]\n",
+            "Top score = 15.948659896850586\n",
+            "[['AH', 'T', 'DH', 'F'], ['AH', 'R', 'M', 'V', 'AO', 'UW'], ['R', 'S'], ['AH', 'M', 'EH', 'EY', 'AY', 'UW'], ['R', 'S', 'L', 'DH', 'IY', 'EY', 'OW'], ['AH', 'N', 'T', 'Z', 'M', 'ER', 'IY'], ['AH', 'N', 'D', 'R', 'Z'], ['AH', 'N', 'IH', 'D', 'S', 'IY', 'W', 'B'], ['AH', 'N', 'IH', 'T', 'D', 'R', 'DH', 'EH'], ['AH', 'T', 'D', 'S', 'L', 'M', 'AY'], ['AH', 'D', 'S', 'ER'], ['AH', 'N', 'T', 'M'], ['AH', 'N', 'T', 'D', 'R', 'AE', 'V'], ['IH', 'D', 'S', 'L', 'DH', 'IY', 'V'], ['AH', 'D', 'L', 'DH', 'ER', 'AY'], ['AH', 'N', 'IH', 'T', 'D', 'R', 'V'], ['AH', 'N', 'T', 'R', 'S', 'IY'], ['AH', 'N', 'IH', 'T', 'S', 'L', 'DH', 'V'], ['AH', 'N', 'IH', 'D', 'R', 'S'], ['N', 'IH', 'T', 'L', 'Z'], ['AH', 'N', 'T', 'D', 'R'], ['AH', 'N', 'S', 'L', 'EY', 'UW'], ['AH', 'T', 'D', 'R', 'S', 'L'], ['AH', 'N', 'D', 'R', 'L', 'Z'], ['.', 'AH', 'N', 'T', 'L', 'DH', 'UW'], ['.', 'AH', 'N', 'D', 'EY', 'AY'], ['.', 'N', 'D', 'EH', 'EY', 'AY'], ['.', 'S'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.']]\n",
+            "1\n",
+            "checking ('AH', 'AH', 'R', 'AH', 'R', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH')\n",
+            "['!']\n",
+            "[[0.86064494], [0.90886354], [0.89171857], [0.74973166], [0.25321367, 0.054569084, 0.3572582, 0.063113585], [0.2105292, 0.07541481, 0.17097163, 0.06652242, 0.20616019], [0.11549969, 0.28801423, 0.17013513], [0.10719807, 0.07140977, 0.10478793, 0.07163476, 0.27817166], [0.0976023, 0.10265439, 0.05121697, 0.050838258, 0.06865805, 0.062264536, 0.08134177], [0.108046524, 0.05385654, 0.12860043, 0.06659383, 0.061137855, 0.06146687], [0.087737545, 0.073496714, 0.081853926, 0.12259767, 0.16449], [0.13704717, 0.24316475, 0.06972309, 0.056226734, 0.07058293, 0.06449851, 0.05463916], [0.13112713, 0.0872598, 0.07819519, 0.15098844, 0.05807027], [0.0635746, 0.057440788, 0.08009664, 0.05415244, 0.055557974, 0.053596668, 0.06343533, 0.057781853], [0.06636559, 0.07199584, 0.05261914, 0.096652865, 0.08074078, 0.0504304, 0.052987177], [0.07499057, 0.10074745, 0.10024791, 0.06771785, 0.13379802, 0.10731447], [0.06590498, 0.05093557, 0.075687476, 0.080341294, 0.11171491, 0.08633909, 0.08777006, 0.055770047], [0.05599046, 0.055222053, 0.067370035, 0.10869777, 0.1628943, 0.057407714, 0.057534814], [0.083546795, 0.13986856, 0.120398715, 0.115991905, 0.05622771, 0.05755229, 0.10434986], [0.098272316, 0.13865304, 0.052550543, 0.12860519, 0.06779208, 0.055030633, 0.067149356], [0.054307286, 0.09782207, 0.18568365, 0.054595884], [0.10295284, 0.085663356, 0.11711876, 0.09453848, 0.0709884, 0.052313376, 0.069940194], [0.071792535, 0.060702294, 0.083369896, 0.09518563, 0.0884072, 0.07236306, 0.07818647], [0.08392188, 0.058553003, 0.053596687, 0.053123876, 0.08390041, 0.06398394, 0.051898137, 0.07131541], [0.060083613, 0.06399792, 0.054954235, 0.059138004, 0.054574616, 0.10521268, 0.09593506], [0.2131753, 0.078604855, 0.055605132, 0.056422092, 0.053432398, 0.11958949], [0.58620614], [0.80802524], [0.9167293], [0.94792724], [0.9959145], [0.9992704], [0.9999368], [0.99995077], [0.9999999], [1.0], [1.0], [1.0], [1.0], [1.0]]\n",
+            "Top score = 19.00779914855957\n",
+            "[['AH', 'T', 'DH', 'F'], ['AH', 'R', 'M', 'V', 'AO', 'UW'], ['R', 'S'], ['AH', 'M', 'EH', 'EY', 'AY', 'UW'], ['R', 'S', 'L', 'DH', 'IY', 'EY', 'OW'], ['AH', 'N', 'T', 'Z', 'M', 'ER', 'IY'], ['AH', 'N', 'D', 'R', 'Z'], ['AH', 'N', 'IH', 'D', 'S', 'IY', 'W', 'B'], ['AH', 'N', 'IH', 'T', 'D', 'R', 'DH', 'EH'], ['AH', 'T', 'D', 'S', 'L', 'M', 'AY'], ['AH', 'D', 'S', 'ER'], ['AH', 'N', 'T', 'M'], ['AH', 'N', 'T', 'D', 'R', 'AE', 'V'], ['IH', 'D', 'S', 'L', 'DH', 'IY', 'V'], ['AH', 'D', 'L', 'DH', 'ER', 'AY'], ['AH', 'N', 'IH', 'T', 'D', 'R', 'V'], ['AH', 'N', 'T', 'R', 'S', 'IY'], ['AH', 'N', 'IH', 'T', 'S', 'L', 'DH', 'V'], ['AH', 'N', 'IH', 'D', 'R', 'S'], ['N', 'IH', 'T', 'L', 'Z'], ['AH', 'N', 'T', 'D', 'R'], ['AH', 'N', 'S', 'L', 'EY', 'UW'], ['AH', 'T', 'D', 'R', 'S', 'L'], ['AH', 'N', 'D', 'R', 'L', 'Z'], ['.', 'AH', 'N', 'T', 'L', 'DH', 'UW'], ['.', 'AH', 'N', 'D', 'EY', 'AY'], ['.', 'N', 'D', 'EH', 'EY', 'AY'], ['.', 'S'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.'], ['.']]\n",
+            "1\n",
+            "checking ('AH', 'AH', 'R', 'AH', 'R', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH', 'AH')\n",
+            "['!']\n"
           ],
           "name": "stdout"
         }
@@ -1003,7 +847,7 @@
       "metadata": {
         "colab_type": "code",
         "id": "yyDGVtigW57f",
-        "outputId": "cd5e1dac-56bd-4d76-95be-719d4324fa46",
+        "outputId": "1745ccc5-1f57-4cad-8e00-313408b03eef",
         "colab": {
           "base_uri": "https://localhost:8080/",
           "height": 231
@@ -1017,7 +861,7 @@
         "predict_labels = [categories[logit] for logit in predict_logits]\n",
         "predict_labels"
       ],
-      "execution_count": 16,
+      "execution_count": 19,
       "outputs": [
         {
           "output_type": "error",
@@ -1026,7 +870,7 @@
           "traceback": [
             "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
             "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
-            "\u001b[0;32m<ipython-input-16-7f6e6bf5580f>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mcategories\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mdf_train\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mlabel\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcat\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcategories\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtolist\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0mpredict_logits\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mpredicts\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0margmax\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0maxis\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"Categorie: {0}\"\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mformat\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mcategories\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0mpredict_labels\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0mcategories\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0mlogit\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;32mfor\u001b[0m \u001b[0mlogit\u001b[0m \u001b[0;32min\u001b[0m \u001b[0mpredict_logits\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0mpredict_labels\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m<ipython-input-19-7f6e6bf5580f>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mcategories\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mdf_train\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mlabel\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcat\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcategories\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtolist\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0mpredict_logits\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mpredicts\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0margmax\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0maxis\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"Categorie: {0}\"\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mformat\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mcategories\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0mpredict_labels\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0mcategories\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0mlogit\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;32mfor\u001b[0m \u001b[0mlogit\u001b[0m \u001b[0;32min\u001b[0m \u001b[0mpredict_logits\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0mpredict_labels\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
             "\u001b[0;31mNameError\u001b[0m: name 'df_train' is not defined"
           ]
         }
