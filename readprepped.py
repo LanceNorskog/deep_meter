@@ -1,6 +1,7 @@
 # Read prepped data in format:  text tab [syllables ]
 
 import numpy as np
+from ast import literal_eval
 
 # read classified poetry lines: text tab [['syll', 'la', 'ble'], ...]
 # clip to only most common syllables with syllable manager

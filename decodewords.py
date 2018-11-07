@@ -5,6 +5,17 @@ import itertools
 import cmudict
 import arpabets
 
+# mean score of number of phonemes before stopped
+def sum_scores(arpa_list, score_list):
+  sum = 0
+  count = 0
+  for i in range(len(arpa_list)):
+    sum += score_list[i]
+    count += 1
+    if arpa_list[i] == '.':
+      break
+  return sum / count
+
 
 class Decoder:
   
@@ -58,18 +69,6 @@ class Decoder:
         phodict = self.dicts[key.count(" ")]
         phodict[key] = reverse_dict[key]
     self.pho2words = phomap
-
-  def getwords(self, arpa_list, scores):
-    #print(arpa_list)
-    words = Counter()
-    for i in range(len(arpa_list)):
-      #print("{0} -> {1}".format(pho, self.pho2words[pho]))
-      for word in self.pho2words[arpa_list[i]]:
-        words[word] += scores[i]
-    #print(words)
-    #for key in words.most_common(100):
-      #print(key)
-    return words
 
   def decodewords(self, arpa_list):
     #print(arpa_list)
@@ -169,6 +168,7 @@ class Decoder:
     return out
 
 if __name__ == "__main__":
+  print(sum_scores(['a', 'b', '.', 'd'], [0.6, 0.7, 0.8, 0.9]))
   def check1(phonemes):
     scores = [1] * len(phonemes)
     print(scores)
