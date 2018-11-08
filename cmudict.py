@@ -1,5 +1,5 @@
 import collections
-#import pygtrie as trie
+import pygtrie as trie
 import ast
 
 # load cmudict-syll_dict
@@ -72,20 +72,20 @@ def load_dictionary():
 
 # Trie of syllable sequences to word
 # All syllable sequences of word point yield the base word
-#def loadRevmap(syll_dict):
-#  #print("making reverse maps")
-#  singlemap = trie.StringTrie(separator='-')
-#  multimap = trie.StringTrie(separator='-')
-#  i = 0
-#  for key in syll_dict.keys():
-#    syllarray = syll_dict[key]
-#    if len(syllarray) > 1:
-#      # 'M AH-G ER' -> "mugger"
-#      multimap['-'.join(syllarray)] = key
-#    else:
-#      singlemap[syllarray[0]] = key
-#    i += 1
-#  return (singlemap, multimap)
+def loadRevmap(syll_dict):
+  #print("making reverse maps")
+  singlemap = trie.StringTrie(separator='-')
+  multimap = trie.StringTrie(separator='-')
+  i = 0
+  for key in syll_dict.keys():
+    syllarray = syll_dict[key]
+    if len(syllarray) > 1:
+      # 'M AH-G ER' -> "mugger"
+      multimap['-'.join(syllarray)] = key
+    else:
+      singlemap[syllarray[0]] = key
+    i += 1
+  return (singlemap, multimap)
 
 def load_blobs():
   f_syll = open("blobs/syllables.dict", "r")
@@ -116,7 +116,7 @@ class CMUDict():
     # faster to make this than read it!
     self.singlemap = {}
     self.multimap = {}
-    #(self.singlemap, self.multimap) = loadRevmap(self.syll_dict)
+    (self.singlemap, self.multimap) = loadRevmap(self.syll_dict)
 
   # get all syllable sets for given word
   # [ [ 'M AH', 'G ER'], ['M U', 'GER'] ]
@@ -131,6 +131,8 @@ class CMUDict():
           break
     return out
 
+  def get_revmaps(self):
+    return (self.singlemap, self.multimap)
   
   def get_reverse_dict(self):
     return self.reverse_dict
@@ -158,5 +160,5 @@ if __name__ == "__main__":
   print(cd.get_syllables('mugger'))
   print(cd.stress_dict['the'])
   print(cd.stress_dict['mugger'])
-  #print(cd.singlemap['DH AH'])
-  #print(cd.multimap['M AH-G ER'])
+  print(cd.singlemap['DH AH'])
+  print(cd.multimap['M AH-G ER'])
