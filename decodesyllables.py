@@ -24,6 +24,7 @@ class Decoder:
   # words for phoneme strings up to 10 long
   # dicts = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
   dicts = [{}] * 30
+  multi_found = []
 
   # build reverse dict of phoneme->word, but only for words in our training set
   def __init__(self, cmudict):
@@ -67,6 +68,11 @@ class Decoder:
           next_list = [this_word, []]
           curr_list.append(next_list)
           recurse(syll_list, next_list[1], offset + i)
+          if len(sl) > 1:
+            word = self.reverse_dict[key]
+            if not word in self.multi_found:
+              print("    multi-syllable: " + word)
+              self.multi_found.append(word)
         else:
           #print(" n: " + key)
           pass
