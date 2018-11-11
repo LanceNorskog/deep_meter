@@ -157,5 +157,5 @@ if __name__ == "__main__":
     for key in history.history.keys():
         print(key)
     print(net.shape)
-    print(net)
-
+    print(net[0][0])
+    tf.map_fn(print, [net[0][0]])
