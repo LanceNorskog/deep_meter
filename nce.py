@@ -156,5 +156,6 @@ if __name__ == "__main__":
     history = model.fit([x, y], None)
     for key in history.history.keys():
         print(key)
-    #print(y)
+    print(net.shape)
+    print(net)
 
