@@ -31,22 +31,12 @@ if __name__ == "__main__":
           output_data[i][j] = min(output_width - 1, int(k * output_width/input_width))
       return input_data, output_data
 
-    # create autoencoder one-hot & labels
-    def fill2(length, width, num_true=1):
-      data = np.zeros((length, width), dtype='float32')
-      labels = np.zeros((length, num_true), dtype='int32')
-      for i in range(length):
-        for j in range(num_true):
-          k = random.randint(0, width - 1)
-          data[i][k] = 1
-          labels[i][j] = k
-      return data, labels
-
-      
     # number of test samples
     num_train = 32*500
-    num_test = 32*500
-    num_epochs = 50
+    num_test = 32*50
+    num_valid = 100
+    num_epochs = 4
+    num_hidden = 10
     # number of classes
     input_width = 2000
     # number of classes
@@ -58,25 +48,27 @@ if __name__ == "__main__":
     inputs = Input(shape=(input_width,))
     target = Input(shape=(num_true,))  # sparse format, e.g. [1, 3, 2, 6, ...]
     net = Dense(input_width)(inputs)
-    net = NCE(units=output_width, num_sampled=4)([net, target])
+    net = Dense(num_hidden)(net)
+    net = NCE(units=output_width, num_sampled=num_sampled)([net, target])
     model = Model(inputs=[inputs, target], outputs=net)
     model.compile(optimizer='adam', loss=None, metrics=['binary_crossentropy'])
     model.summary()
     #x = np.random.rand(num_train, width)
     train_x, train_y = fill(num_train, input_width, output_width, num_true)
     test_x, test_y = fill(num_test, input_width, output_width, num_true)
-    history = model.fit([train_x, train_y], None, epochs=num_epochs)
+    valid_x, valid_y = fill(num_valid, input_width, output_width, num_true)
+    history = model.fit([train_x, train_y], None, 
+        validation_data=([valid_x, valid_y], None),
+        epochs=num_epochs, verbose=2)
     for key in history.history.keys():
         print(key)
     predicts = model.predict([test_x, test_y], batch_size=32)
-    print(predicts.shape)
-    print(predicts[0])
     count = 0
     for test in range(num_test):
       pred = predicts[test]
       indexes = list(np.argsort(pred))
       indexes.reverse()
-      print(indexes[0:8], test_y[test][0])
+      #print(indexes[0:8], test_y[test][0])
       test_index = -1
       if indexes[0] == test_y[test]:
         count += 1
