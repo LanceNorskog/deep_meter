@@ -40,6 +40,7 @@ class NCE(Layer):
     # Arguments
         units: Positive integer, dimensionality of the output space (num classes).
         num_sampled: Positive integer, number of classes to sample in NCE Loss.
+        num_true: Max # of positive classes, pad to this for variable inputs
         kernel_initializer: Initializer for the `kernel` weights matrix
             (see [initializers](../initializers.md)).
         bias_initializer: Initializer for the bias vector
@@ -69,6 +70,7 @@ class NCE(Layer):
     def __init__(self,
                  units,
                  num_sampled,
+                 num_true=1,
                  kernel_initializer='glorot_uniform',
                  bias_initializer='zeros',
                  kernel_regularizer=None,
