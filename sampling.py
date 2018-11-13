@@ -25,7 +25,7 @@ def nce_loss_function(weights, biases, labels, inputs, num_sampled, num_classes,
     else:
         logits = tf.matmul(inputs, tf.transpose(weights))
         logits = tf.nn.bias_add(logits, biases)
-        labels_one_hot = tf.one_hot(labels, n_classes)
+        labels_one_hot = tf.one_hot(labels, num_classes)
         loss = tf.nn.sigmoid_cross_entropy_with_logits(
             labels=labels_one_hot,
             logits=logits)
@@ -39,7 +39,7 @@ def sampled_softmax_loss_function(weights, biases, labels, inputs, num_sampled, 
     else:
         logits = tf.matmul(inputs, tf.transpose(weights))
         logits = tf.nn.bias_add(logits, biases)
-        labels_one_hot = tf.one_hot(labels, n_classes)
+        labels_one_hot = tf.one_hot(labels, num_classes)
         loss = tf.nn.softmax_cross_entropy_with_logits_v2(
             labels=labels_one_hot,
             logits=logits)
