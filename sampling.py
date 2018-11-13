@@ -186,7 +186,7 @@ class Sampling(Layer):
 
 if __name__ == "__main__":
     inputs = Input(shape=(4,))
-    target = Input(shape=(1,))  # sparse format, e.g. [1, 3, 2, 6, ...]
+    target = Input(shape=(1,), dtype=int32)  # sparse format, e.g. [1, 3, 2, 6, ...]
     net = Dense(8)(inputs)
     net = Sampling(units=128, num_sampled=32)([net, target])
     model = Model(inputs=[inputs, target], outputs=net)
