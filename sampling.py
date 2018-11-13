@@ -43,6 +43,7 @@ def sampled_softmax_loss_function(weights, biases, labels, inputs, num_sampled, 
         loss = tf.nn.softmax_cross_entropy_with_logits_v2(
             labels=labels_one_hot,
             logits=logits)
+        return loss
 
 class Sampling(Layer):
     """Regular densely-connected NN layer with various sampling Loss.
@@ -186,7 +187,7 @@ class Sampling(Layer):
 
 if __name__ == "__main__":
     inputs = Input(shape=(4,))
-    target = Input(shape=(1,), dtype=int32)  # sparse format, e.g. [1, 3, 2, 6, ...]
+    target = Input(shape=(1,), dtype=tf.int32)  # sparse format, e.g. [1, 3, 2, 6, ...]
     net = Dense(8)(inputs)
     net = Sampling(units=128, num_sampled=32)([net, target])
     model = Model(inputs=[inputs, target], outputs=net)
