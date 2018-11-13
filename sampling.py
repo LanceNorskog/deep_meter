@@ -95,6 +95,9 @@ class Sampling(Layer):
         if self.num_sampled > self.units:
             raise Exception('num_sample: {} cannot be greater than units: {}'.format(
                 num_sampled, units))
+        self.type = type
+        if not (self.type == 'nce' or self.type == 'sampled_softmax'):
+            raise Exception('type {} is not a valid sampling loss type'.format(type))
         self.kernel_initializer = initializers.get(kernel_initializer)
         self.bias_initializer = initializers.get(bias_initializer)
         self.kernel_regularizer = regularizers.get(kernel_regularizer)
@@ -127,9 +130,15 @@ class Sampling(Layer):
         output = K.dot(pred, self.kernel)
         output = K.bias_add(output, self.bias, data_format='channels_last')
 
-        nce_loss = nce_loss_function(
-            K.transpose(self.kernel), self.bias, target, pred, self.num_sampled, self.units)
-        self.add_loss(K.mean(nce_loss))
+        # TODO : check train or test mode
+        if self.type == 'nce':
+            nce_loss = nce_loss_function(
+                K.transpose(self.kernel), self.bias, target, pred, self.num_sampled, self.units)
+            self.add_loss(K.mean(nce_loss))
+        else:
+            sampled_softmax_loss = sampled_softmax_loss_function(
+                K.transpose(self.kernel), self.bias, target, pred, self.num_sampled, self.units)
+            self.add_loss(K.mean(sampled_softmax_loss))
         return output
 
     def compute_output_shape(self, input_shape):
