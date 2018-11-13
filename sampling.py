@@ -18,11 +18,31 @@ from keras.engine.base_layer import InputSpec
 from keras.engine.topology import Layer
 from keras.engine.input_layer import Input
 
-def nce_loss_function(kernel, bias, target, inputs, num_sampled, num_classes, num_true):
-    return tf.nn.nce_loss(kernel, bias, target, inputs, num_sampled, num_classes, num_true)
+def nce_loss_function(weights, biases, labels, inputs, num_sampled, num_classes, num_true):
+    if K.learning_phase() == 1:
+        loss = tf.nn.nce_loss(weights, biases, labels, inputs, num_sampled, num_classes, num_true,
+            partition_strategy="div")
+    else:
+        logits = tf.matmul(inputs, tf.transpose(weights))
+        logits = tf.nn.bias_add(logits, biases)
+        labels_one_hot = tf.one_hot(labels, n_classes)
+        loss = tf.nn.sigmoid_cross_entropy_with_logits(
+            labels=labels_one_hot,
+            logits=logits)
+        loss = tf.reduce_sum(loss, axis=1)
+    return loss
 
-def sampled_softmax_loss_function(kernel, bias, target, inputs, num_sampled, num_classes, num_true):
-    return tf.nn.sampled_softmax_loss(kernel, bias, target, inputs, num_sampled, num_classes, num_true)
+def sampled_softmax_loss_function(weights, biases, labels, inputs, num_sampled, num_classes, num_true):
+    if K.learning_phase() == 1:
+        return tf.nn.sampled_softmax_loss(weights, biases, labels, inputs, num_sampled, num_classes, num_true, 
+            partition_strategy="div")
+    else:
+        logits = tf.matmul(inputs, tf.transpose(weights))
+        logits = tf.nn.bias_add(logits, biases)
+        labels_one_hot = tf.one_hot(labels, n_classes)
+        loss = tf.nn.softmax_cross_entropy_with_logits_v2(
+            labels=labels_one_hot,
+            logits=logits)
 
 class Sampling(Layer):
     """Regular densely-connected NN layer with various sampling Loss.
