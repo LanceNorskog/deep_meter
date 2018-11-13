@@ -18,11 +18,11 @@ from keras.engine.base_layer import InputSpec
 from keras.engine.topology import Layer
 from keras.engine.input_layer import Input
 
-def nce_loss_function(kernel, bias, target, inputs, num_sampled, num_classes):
-    return tf.nn.nce_loss(kernel, bias, target, inputs, num_sampled, num_classes)
+def nce_loss_function(kernel, bias, target, inputs, num_sampled, num_classes, num_true):
+    return tf.nn.nce_loss(kernel, bias, target, inputs, num_sampled, num_classes, num_true)
 
-def sampled_softmax_loss_function(kernel, bias, target, inputs, num_sampled, num_classes):
-    return tf.nn.sampled_softmax_loss(kernel, bias, target, inputs, num_sampled, num_classes)
+def sampled_softmax_loss_function(kernel, bias, target, inputs, num_sampled, num_classes, num_true):
+    return tf.nn.sampled_softmax_loss(kernel, bias, target, inputs, num_sampled, num_classes, num_true)
 
 class Sampling(Layer):
     """Regular densely-connected NN layer with various sampling Loss.
@@ -98,6 +98,7 @@ class Sampling(Layer):
         self.type = type
         if not (self.type == 'nce' or self.type == 'sampled_softmax'):
             raise Exception('type {} is not a valid sampling loss type'.format(type))
+        self.num_true = num_true
         self.kernel_initializer = initializers.get(kernel_initializer)
         self.bias_initializer = initializers.get(bias_initializer)
         self.kernel_regularizer = regularizers.get(kernel_regularizer)
@@ -133,11 +134,11 @@ class Sampling(Layer):
         # TODO : check train or test mode
         if self.type == 'nce':
             nce_loss = nce_loss_function(
-                K.transpose(self.kernel), self.bias, target, pred, self.num_sampled, self.units)
+                K.transpose(self.kernel), self.bias, target, pred, self.num_sampled, self.units, self.num_true)
             self.add_loss(K.mean(nce_loss))
         else:
             sampled_softmax_loss = sampled_softmax_loss_function(
-                K.transpose(self.kernel), self.bias, target, pred, self.num_sampled, self.units)
+                K.transpose(self.kernel), self.bias, target, pred, self.num_sampled, self.units, self.num_true)
             self.add_loss(K.mean(sampled_softmax_loss))
         return output
 
