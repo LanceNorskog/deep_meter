@@ -27,7 +27,7 @@ def nce_loss_function(weights, biases, labels, inputs, num_sampled, num_classes,
         logits = tf.nn.bias_add(logits, biases)
         labels_one_hot = tf.one_hot(labels, num_classes)
         loss = tf.nn.sigmoid_cross_entropy_with_logits(
-            labels=labels_one_hot,
+            labels=labels_one_hot[:][0][:],
             logits=logits)
         loss = tf.reduce_sum(loss, axis=1)
     return loss
@@ -189,7 +189,7 @@ if __name__ == "__main__":
     inputs = Input(shape=(4,))
     target = Input(shape=(1,), dtype=tf.int32)  # sparse format, e.g. [1, 3, 2, 6, ...]
     net = Dense(8)(inputs)
-    net = Sampling(units=128, num_sampled=32)([net, target])
+    net = Sampling(units=128, num_sampled=32, type='nce')([net, target])
     model = Model(inputs=[inputs, target], outputs=net)
     model.compile(optimizer='adam', loss=None)
     x = np.random.rand(1000, 4)
