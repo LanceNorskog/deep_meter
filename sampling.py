@@ -19,7 +19,7 @@ from keras.engine.topology import Layer
 from keras.engine.input_layer import Input
 
 def nce_loss_function(weights, biases, labels, inputs, num_sampled, num_classes, num_true):
-    print("labels {0}, inputs {1}",format(labels.shape, inputs.shape))
+    print("labels {0}, inputs {1}".format(str(labels.shape), str(inputs.shape)))
     if K.learning_phase() == 1:
         loss = tf.nn.nce_loss(weights, biases, labels, inputs, num_sampled, num_classes, num_true,
             partition_strategy="div")
@@ -34,7 +34,7 @@ def nce_loss_function(weights, biases, labels, inputs, num_sampled, num_classes,
     return loss
 
 def sampled_softmax_loss_function(weights, biases, labels, inputs, num_sampled, num_classes, num_true):
-    print("labels {0}, inputs {1}",format(labels.shape, inputs.shape))
+    print("labels {0}, inputs {1}".format(str(labels.shape), str(inputs.shape)))
     if K.learning_phase() == 1:
         return tf.nn.sampled_softmax_loss(weights, biases, labels, inputs, num_sampled, num_classes, num_true, 
             partition_strategy="div")
