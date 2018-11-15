@@ -19,6 +19,7 @@ from keras.engine.topology import Layer
 from keras.engine.input_layer import Input
 
 def nce_loss_function(weights, biases, labels, inputs, num_sampled, num_classes, num_true):
+    print("labels {0}, inputs {1}",format(labels.shape, inputs.shape))
     if K.learning_phase() == 1:
         loss = tf.nn.nce_loss(weights, biases, labels, inputs, num_sampled, num_classes, num_true,
             partition_strategy="div")
@@ -33,6 +34,7 @@ def nce_loss_function(weights, biases, labels, inputs, num_sampled, num_classes,
     return loss
 
 def sampled_softmax_loss_function(weights, biases, labels, inputs, num_sampled, num_classes, num_true):
+    print("labels {0}, inputs {1}",format(labels.shape, inputs.shape))
     if K.learning_phase() == 1:
         return tf.nn.sampled_softmax_loss(weights, biases, labels, inputs, num_sampled, num_classes, num_true, 
             partition_strategy="div")
@@ -189,7 +191,7 @@ if __name__ == "__main__":
     inputs = Input(shape=(4,))
     target = Input(shape=(1,), dtype=tf.int32)  # sparse format, e.g. [1, 3, 2, 6, ...]
     net = Dense(8)(inputs)
-    net = Sampling(units=128, num_sampled=32)([net, target])
+    net = Sampling(units=128, num_sampled=32, num_true=3)([net, target])
     model = Model(inputs=[inputs, target], outputs=net)
     model.compile(optimizer='adam', loss=None)
     x = np.random.rand(1000, 4)
