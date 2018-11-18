@@ -1,22 +1,21 @@
-# from https://github.com/joelthchao/keras branch with this item
-# Sampling output layer, various samplers
-
-# add this: keras.backend.learning_phase(), 0 = test, 1 = train
-
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
-import numpy as np
-import warnings
 import tensorflow as tf
-import keras.backend as K
+import numpy as np
+from keras.models import Model
+from keras import backend as K
 from keras import initializers,regularizers,constraints
 from keras.models import Model
 from keras.layers import Dense
 from keras.engine.base_layer import InputSpec
 from keras.engine.topology import Layer
 from keras.engine.input_layer import Input
+
+np.random.seed(10)
+
+import random
+
+
+# from https://github.com/joelthchao/keras branch with this item
+# Sampling output layer, various samplers
 
 def nce_loss_function(weights, biases, labels, inputs, num_sampled, num_classes, num_true):
     print("labels {0}, inputs {1}".format(str(labels.shape), str(inputs.shape)))
@@ -189,17 +188,57 @@ class Sampling(Layer):
         base_config = super(Sampling, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))
 
-if __name__ == "__main__":
-    inputs = Input(shape=(4,))
-    target = Input(shape=(1,), dtype=tf.int32)  # sparse format, e.g. [1, 3, 2, 6, ...]
-    net = Dense(8)(inputs)
-    net = Sampling(units=128, num_sampled=32, type='nce', num_true=3)([net, target])
-    model = Model(inputs=[inputs, target], outputs=net)
-    model.compile(optimizer='adam', loss=None)
-    x = np.random.rand(1000, 4)
-    y = np.random.randint(128, size=1000)
-    history = model.fit([x, y], None)
-    for key in history.history.keys():
-        print(key)
-    print(len(y))
-    print(y)
+# Zipfian test suite
+# number of test samples
+num_train = 32*500
+num_test = 32
+num_valid = 100
+num_epochs = 2
+num_hidden = 10
+# number of classes
+input_width = 2000
+# number of classes
+output_width = 800
+# number of samples for NCE
+num_sampled = 24
+# number of labels
+num_true = 1
+
+def fill_zipf(length, input_width, output_width, num_true=1):
+  input_onehot = np.zeros((length, input_width), dtype='float32')
+  output_labels = np.zeros((length, num_true), dtype='int32')
+  rand = np.random.zipf(1.2, length * num_true) % input_width
+  for i in range(length):
+    for t in range(num_true):
+      k = rand[t * length + i]
+      input_onehot[i][k] = 1.0
+      output_labels[i][t] = min(output_width - 1, int(k * output_width/input_width))
+  return input_onehot, output_labels
+
+# choose one of the two
+sampling_type='sampled_softmax'
+sampling_type='nce'
+inputs = Input(shape=(input_width,))
+target = Input(shape=(num_true,), dtype=tf.int64)  
+net = Dense(input_width)(inputs)
+net = Dense(num_hidden, activation='relu')(net)
+net = Sampling(units=output_width, num_sampled=num_sampled, type=sampling_type, num_true=num_true)([net, target])
+model = Model(inputs=[inputs, target], outputs=net)
+model.compile(optimizer='adam', loss=None, metrics=['binary_crossentropy'])
+model.summary()
+
+train_onehot, train_labels = fill_zipf(num_train, input_width, output_width, num_true)
+model.fit([train_onehot, train_labels], None, 
+    epochs=num_epochs, verbose=2)
+
+test_input, test_output = fill_zipf(num_test, input_width, output_width, num_true)
+predicts = model.predict([test_input, test_output], batch_size=32)
+count = 0
+for test in range(num_test):
+  pred = predicts[test]
+  topindexes = list(np.argsort(pred))[(output_width-num_true):]
+  for t in range(num_true):
+    if test_output[test][t] in topindexes:
+      count += 1
+print("Average of {0} correct labels out of {1} tests".format(count/num_true, num_test))
+
