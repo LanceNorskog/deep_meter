@@ -35,19 +35,23 @@ def nce_loss_function(weights, biases, labels, inputs, num_sampled, num_classes,
     return loss
 
 def sampled_softmax_loss_function(weights, biases, labels, inputs, num_sampled, num_classes, num_true):
-    print("labels {0}, inputs {1}".format(str(labels.shape), str(inputs.shape)))
-    if K.learning_phase()[0]:
+    def training():
+        print('Training')
         return tf.nn.sampled_softmax_loss(weights, biases, labels, inputs, num_sampled, num_classes, num_true, 
             partition_strategy="div")
-    else:
+    def validation():
+        print('Validation')
         logits = tf.matmul(inputs, tf.transpose(weights))
         logits = tf.nn.bias_add(logits, biases)
         labels_one_hot = tf.one_hot(labels, num_classes)
         loss = tf.nn.softmax_cross_entropy_with_logits_v2(
-            labels=labels_one_hot,
-            #labels=labels_one_hot[:][0][:],
+            #labels=labels_one_hot,
+            labels=labels_one_hot[:][0][:],
             logits=logits)
         return loss
+        
+    print("labels {0}, inputs {1}".format(str(labels.shape), str(inputs.shape)))
+    return tf.cond(K.learning_phase(), training(), validation())
 
 class Sampling(Layer):
     """Regular densely-connected NN layer with various sampling Loss.
