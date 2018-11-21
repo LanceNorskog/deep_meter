@@ -34,13 +34,7 @@ def nce_loss_function(weights, biases, labels, inputs, num_sampled, num_classes,
         loss = tf.reduce_sum(loss, axis=1)
     return loss
 
-def sampled_softmax_loss_function(weights, biases, labels, inputs, num_sampled, num_classes, num_true):
-    def training():
-        print('Training')
-        return tf.nn.sampled_softmax_loss(weights, biases, labels, inputs, num_sampled, num_classes, num_true, 
-            partition_strategy="div")
-    def validation():
-        print('Validation')
+def validate_softmax_loss_function(weights, biases, labels, inputs, num_sampled, num_classes, num_true):
         logits = tf.matmul(inputs, tf.transpose(weights))
         logits = tf.nn.bias_add(logits, biases)
         labels_one_hot = tf.one_hot(labels, num_classes)
@@ -49,9 +43,10 @@ def sampled_softmax_loss_function(weights, biases, labels, inputs, num_sampled, 
             labels=labels_one_hot[:][0][:],
             logits=logits)
         return loss
-        
-    print("labels {0}, inputs {1}, phase {2}".format(str(labels.shape), str(inputs.shape), K.learning_phase()))
-    return K.in_train_phase(training, validation)
+
+def sampled_softmax_loss_function(weights, biases, labels, inputs, num_sampled, num_classes, num_true):
+    return tf.nn.sampled_softmax_loss(weights, biases, labels, inputs, num_sampled, num_classes, num_true, 
+            partition_strategy="div")
 
 class Sampling(Layer):
     """Regular densely-connected NN layer with various sampling Loss.
@@ -160,15 +155,28 @@ class Sampling(Layer):
         output = K.dot(pred, self.kernel)
         output = K.bias_add(output, self.bias, data_format='channels_last')
 
-        # TODO : check train or test mode
         if self.type == 'nce':
             nce_loss = nce_loss_function(
                 K.transpose(self.kernel), self.bias, target, pred, self.num_sampled, self.units, self.num_true)
             self.add_loss(K.mean(nce_loss))
         else:
-            sampled_softmax_loss = sampled_softmax_loss_function(
-                K.transpose(self.kernel), self.bias, target, pred, self.num_sampled, self.units, self.num_true)
-            self.add_loss(K.mean(sampled_softmax_loss))
+            in_training = K.in_train_phase(True, False)
+            print('In training: ' + str(in_training))
+            if in_training:
+               sampled_softmax_loss = sampled_softmax_loss_function(
+                   K.transpose(self.kernel), self.bias, target, pred, self.num_sampled, self.units, self.num_true)
+               self.add_loss(K.mean(sampled_softmax_loss))
+            else:
+               logits = tf.matmul(inputs, tf.transpose(weights))
+               logits = tf.nn.bias_add(logits, biases)
+               labels_one_hot = tf.one_hot(labels, num_classes)
+               loss = tf.nn.softmax_cross_entropy_with_logits_v2(
+                   #labels=labels_one_hot,
+                   labels=labels_one_hot[:][0][:],
+                   logits=logits)
+               return loss
+
+            
         return output
 
     def compute_output_shape(self, input_shape):
