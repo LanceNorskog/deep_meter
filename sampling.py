@@ -35,6 +35,7 @@ def nce_loss_function(weights, biases, labels, inputs, num_sampled, num_classes,
     return loss
 
 def validate_softmax_loss_function(weights, biases, labels, inputs, num_sampled, num_classes, num_true):
+        print('Validate: {}, {}, {}, {}, {}, {}, {}'.format(weights, biases, labels, inputs, num_sampled, num_classes, num_true))
         logits = tf.matmul(inputs, tf.transpose(weights))
         logits = tf.nn.bias_add(logits, biases)
         labels_one_hot = tf.one_hot(labels, num_classes)
@@ -42,6 +43,8 @@ def validate_softmax_loss_function(weights, biases, labels, inputs, num_sampled,
             #labels=labels_one_hot,
             labels=labels_one_hot[:][0][:],
             logits=logits)
+        if loss == None:
+           loss = K.epsilon()
         return loss
 
 def sampled_softmax_loss_function(weights, biases, labels, inputs, num_sampled, num_classes, num_true):
