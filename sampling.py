@@ -36,7 +36,7 @@ def nce_loss_function(weights, biases, labels, inputs, num_sampled, num_classes,
 
 def sampled_softmax_loss_function(weights, biases, labels, inputs, num_sampled, num_classes, num_true):
     print("labels {0}, inputs {1}".format(str(labels.shape), str(inputs.shape)))
-    if K.learning_phase() == 1:
+    if K.learning_phase()[0]:
         return tf.nn.sampled_softmax_loss(weights, biases, labels, inputs, num_sampled, num_classes, num_true, 
             partition_strategy="div")
     else:
