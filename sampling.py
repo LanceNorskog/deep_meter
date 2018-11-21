@@ -50,7 +50,7 @@ def sampled_softmax_loss_function(weights, biases, labels, inputs, num_sampled, 
             logits=logits)
         return loss
         
-    print("labels {0}, inputs {1}".format(str(labels.shape), str(inputs.shape)))
+    print("labels {0}, inputs {1}, phase {2}".format(str(labels.shape), str(inputs.shape), K.learning_phase()))
     return tf.cond(K.learning_phase(), training, validation)
 
 class Sampling(Layer):
