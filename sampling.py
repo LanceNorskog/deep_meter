@@ -163,14 +163,14 @@ class Sampling(Layer):
             in_training = False # K.in_train_phase(True, False)
             print('In training: ' + str(in_training))
             if in_training:
-               sampled_softmax_loss = sampled_softmax_loss_function(
+               loss = sampled_softmax_loss_function(
                    K.transpose(self.kernel), self.bias, target, pred, self.num_sampled, self.units, self.num_true)
-               self.add_loss(K.mean(sampled_softmax_loss))
-               return output
             else:
-               loss = validate_sampled_softmax_loss_function(
+               loss = validate_softmax_loss_function(
                    K.transpose(self.kernel), self.bias, target, pred, self.num_sampled, self.units, self.num_true)
                return loss
+            self.add_loss(K.mean(sampled_softmax_loss))
+            return output
 
     def compute_output_shape(self, input_shape):
         assert input_shape and len(input_shape) == 2
