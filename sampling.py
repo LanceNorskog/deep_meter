@@ -44,8 +44,8 @@ def sampled_softmax_loss_function(weights, biases, labels, inputs, num_sampled, 
         logits = tf.nn.bias_add(logits, biases)
         labels_one_hot = tf.one_hot(labels, num_classes)
         loss = tf.nn.softmax_cross_entropy_with_logits_v2(
-            #labels=labels_one_hot,
-            labels=labels_one_hot[:][0][:],
+            labels=labels_one_hot,
+            #labels=labels_one_hot[:][0][:],
             logits=logits)
         return loss
 
