@@ -35,8 +35,8 @@ if __name__ == "__main__":
     num_train = 32*500
     num_test = 32*50
     num_valid = 100
-    num_epochs = 4
-    num_hidden = 10
+    num_epochs = 500
+    num_hidden = 2
     # number of classes
     input_width = 2000
     # number of classes
