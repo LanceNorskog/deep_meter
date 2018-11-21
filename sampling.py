@@ -168,7 +168,7 @@ class Sampling(Layer):
             else:
                loss = validate_softmax_loss_function(
                    K.transpose(self.kernel), self.bias, target, pred, self.num_sampled, self.units, self.num_true)
-            self.add_loss(K.mean(sampled_softmax_loss))
+            self.add_loss(K.mean(loss))
             return output
 
     def compute_output_shape(self, input_shape):
