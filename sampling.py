@@ -160,24 +160,17 @@ class Sampling(Layer):
                 K.transpose(self.kernel), self.bias, target, pred, self.num_sampled, self.units, self.num_true)
             self.add_loss(K.mean(nce_loss))
         else:
-            in_training = K.in_train_phase(True, False)
+            in_training = False # K.in_train_phase(True, False)
             print('In training: ' + str(in_training))
             if in_training:
                sampled_softmax_loss = sampled_softmax_loss_function(
                    K.transpose(self.kernel), self.bias, target, pred, self.num_sampled, self.units, self.num_true)
                self.add_loss(K.mean(sampled_softmax_loss))
+               return output
             else:
-               logits = tf.matmul(inputs, tf.transpose(weights))
-               logits = tf.nn.bias_add(logits, biases)
-               labels_one_hot = tf.one_hot(labels, num_classes)
-               loss = tf.nn.softmax_cross_entropy_with_logits_v2(
-                   #labels=labels_one_hot,
-                   labels=labels_one_hot[:][0][:],
-                   logits=logits)
+               loss = validate_sampled_softmax_loss_function(
+                   K.transpose(self.kernel), self.bias, target, pred, self.num_sampled, self.units, self.num_true)
                return loss
-
-            
-        return output
 
     def compute_output_shape(self, input_shape):
         assert input_shape and len(input_shape) == 2
@@ -205,7 +198,7 @@ if __name__ == "__main__":
     inputs = Input(shape=(4,))
     target = Input(shape=(1,), dtype=tf.int32)  # sparse format, e.g. [1, 3, 2, 6, ...]
     net = Dense(8)(inputs)
-    net = Sampling(units=128, num_sampled=32, type='nce', num_true=3)([net, target])
+    net = Sampling(units=128, num_sampled=32, type='sampled_softmax', num_true=3)([net, target])
     model = Model(inputs=[inputs, target], outputs=net)
     model.compile(optimizer='adam', loss=None)
     x = np.random.rand(1000, 4)
