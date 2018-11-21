@@ -160,7 +160,7 @@ class Sampling(Layer):
                 K.transpose(self.kernel), self.bias, target, pred, self.num_sampled, self.units, self.num_true)
             self.add_loss(K.mean(nce_loss))
         else:
-            in_training = K.in_train_phase(True, False)
+            in_training = K.get_value(K.learning_phase())
             print('In training: ' + str(in_training))
             if in_training:
                loss = sampled_softmax_loss_function(
