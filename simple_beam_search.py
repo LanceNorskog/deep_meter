@@ -1,8 +1,7 @@
 # stolen from https://machinelearningmastery.com/beam-search-decoder-natural-language-processing/
 
 from math import log
-from numpy import array
-from numpy import argmax
+import numpy as np
 
 # beam search
 def beam_search_decoder(data, k):
@@ -24,19 +23,13 @@ def beam_search_decoder(data, k):
 
 if __name__ == "__main__":
     # define a sequence of 10 words over a vocab of 5 words
-    data = [[0.1, 0.2, 0.3, 0.4, 0.5],
-            [0.5, 0.4, 0.3, 0.2, 0.1],
-            [0.1, 0.2, 0.3, 0.4, 0.5],
-            [0.5, 0.4, 0.3, 0.2, 0.1],
-            [0.1, 0.2, 0.3, 0.4, 0.5],
-            [0.5, 0.4, 0.3, 0.2, 0.1],
-            [0.1, 0.2, 0.3, 0.4, 0.5],
-            [0.5, 0.4, 0.3, 0.2, 0.1],
-            [0.1, 0.2, 0.3, 0.4, 0.5],
-            [0.5, 0.4, 0.3, 0.2, 0.1]]
-    data = array(data)
+    data = np.random.random((10,5))
+    data = np.array(data)
     # decode sequence
-    result = beam_search_decoder(data, 3)
+    result = beam_search_decoder(data, 7)
     # print result
     for seq in result:
+        print(seq)
+    sorted = np.sort(result, axis=1)
+    for seq in sorted:
         print(seq)
