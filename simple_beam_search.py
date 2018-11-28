@@ -2,6 +2,8 @@
 
 from math import log
 import numpy as np
+import sys
+from languagemodel import NoModel
 
 # beam search
 def beam_search_decoder(data, k):
@@ -13,7 +15,7 @@ def beam_search_decoder(data, k):
         for i in range(len(sequences)):
             seq, score = sequences[i]
             for j in range(len(row)):
-                candidate = [seq + [j], score * -log(row[j])]
+                candidate = [seq + [j], score * row[j]]
                 all_candidates.append(candidate)
         # order all candidates by score
         ordered = sorted(all_candidates, key=lambda tup:tup[1])
@@ -30,13 +32,20 @@ def word_beam_search_decoder(data, k, lm):
         # expand each current candidate
         for i in range(len(sequences)):
             seq, score = sequences[i]
-            for j in range(len(row)):
-                score *= -log(row[j])
-                if have bigram score for last and this:
-                    sum all bigram scores
-                    score *= bigram score
-
-                candidate = [seq + [j], score * 
+            numWords = len(row)
+            for j in range(numWords):
+                wscore = score
+                wscore *= row[j]
+                scale = lm.getUnigramProb(row[0])
+                next = lm.getNext(row[j])
+                if len(next) > 0:
+                    for word in next:
+                        scale += lm.getBigramProb(row[j-1], row[j])
+                else:
+                    scale += lm.getUnigramProb(row[j])
+                if numWords > 1:
+                    scale ** (1/(numWords+1))
+                candidate = [seq + [j], wscore * scale]
                 all_candidates.append(candidate)
         # order all candidates by score
         ordered = sorted(all_candidates, key=lambda tup:tup[1])
@@ -50,9 +59,12 @@ if __name__ == "__main__":
     data = np.array(data)
     # decode sequence
     result = beam_search_decoder(data, 7)
-    # print result
-    for seq in result:
-        print(seq)
-    sorted = np.sort(result, axis=1)
-    for seq in sorted:
-        print(seq)
+    print(result)
+    result2 = word_beam_search_decoder(data, 7, NoModel())
+    print(result2)
+    for i in range(len(result)):
+      for j in range(len(result[0])):
+        if result[i][0][j] != result2[i][0][j]:
+          print("[{}][{}] -> ({}, {})".format(i, j, result[i][j], result2[i][j]))
+          print('Fail!')
+          sys.exit(1)
