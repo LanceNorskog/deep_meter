@@ -1,9 +1,11 @@
 # stolen from https://machinelearningmastery.com/beam-search-decoder-natural-language-processing/
+# with language model stolen from Harald Sheidl:
+# https://towardsdatascience.com/beam-search-decoding-in-ctc-trained-neural-networks-5a889a3d85a7
 
 from math import log
 import numpy as np
 import sys
-from languagemodel import NoModel
+from languagemodel import NullModel
 
 # beam search
 def beam_search_decoder(data, k):
@@ -59,9 +61,7 @@ if __name__ == "__main__":
     data = np.array(data)
     # decode sequence
     result = beam_search_decoder(data, 7)
-    print(result)
-    result2 = word_beam_search_decoder(data, 7, NoModel())
-    print(result2)
+    result2 = word_beam_search_decoder(data, 7, NullModel())
     for i in range(len(result)):
       for j in range(len(result[0])):
         if result[i][0][j] != result2[i][0][j]:
