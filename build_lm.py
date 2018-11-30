@@ -4,13 +4,16 @@ import sys
 import pickle
 from ast import literal_eval
 
+import syllables
 import languagemodel
 import cmudict
 import tokens
 
+# build languagemodel of word -> [enc, enc, ...]
 
 sm = languagemodel.SyllableModel()
 cmudict = cmudict.CMUDict()
+syll_mgr = syllables.syllables()
 
 print('Starting')
 count = 0
@@ -33,7 +36,10 @@ for line in sys.stdin:
         print(syllables)
         continue
     for i in range(len(clean)):
-        sm.addWord(clean[i], syllables[i])
+        encs = []
+        for s in syllables[i]:
+            encs.append(syll_mgr.get_encoding(s))
+        sm.addWord(clean[i], encs)
 
 print('Saving')
 languagemodel.saveModel(sm)

@@ -9,20 +9,19 @@ class NullModel:
   def __init__(self):
     pass
 
-  def getUnigramProb(self, word):
+  def getUnigramProb(self, syll):
     return 1.0
 
-  def getBigramProb(self, word, word2):
+  def getBigramProb(self, s1, s2):
     return 1.0
 
-  def getNext(self, word):
+  def getNextSylls(self, syll):
     return []
 
 
-# Per-syllable bigrams, ignore word membership
+# Syllable unigrams & bigram probabilities. Can support word-level, all sylls, or unigram-only depending on how built.
+# Uses syllable encodings, not syllable strings, for speed in use by Beam Search
 class SyllableModel:
-    #model_name = 'blobs/wordmodel.pkl'
-    model_file = 'junk.pkl'
 
     def __init__(self):
         self.sylls=[]
@@ -34,7 +33,8 @@ class SyllableModel:
         self.bigrams={}
         self.tree=SyllableTree() 
 
-    # 'the', [ 'DH AH', ...]
+    # 'the' [ 1 ]
+    # 'themselves' [ 43, 128 ]
     def addWord(self, word, sylls):
         self.numSylls += len(sylls)
         # create unigrams
@@ -63,7 +63,7 @@ class SyllableModel:
             # sum up
             probSum=self.numUniqueSylls*self.addK # add-K smoothing
             for s2 in self.bigrams[s1].keys():
-                probSum+=self.bigrams[s1][s2]
+                robSum+=self.bigrams[s1][s2]
             # and divide
             for s2 in self.bigrams[s1].keys():
                 self.bigrams[s1][s2] /= probSum
@@ -78,10 +78,11 @@ class SyllableModel:
     def isWord(self, sylls):
         return self.tree.isWord(sylls)
         
-    def getUnigramProb(self, w):
-        "prob of seeing syll w."
-        w=w.lower()
-        val=self.unigrams.get(w)
+    def getUnigramProb(self, syll):
+        "prob of seeing syll."
+        if type(syll) != type('') or type(syll) != type(""):
+            print("getUnigramProb called with: " + str(syll))
+        val=self.unigrams.get(syll)
         if val!=None:
             return val
         return 0

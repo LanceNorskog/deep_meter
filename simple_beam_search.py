@@ -5,9 +5,10 @@
 from math import log
 import numpy as np
 import sys
-from languagemodel import NullModel
+import languagemodel
 
 # beam search
+# [ [0.1, 0.1, 0.1, 0.1, 0.1] first word, [0.1, 0.1, 0.1, 0.1, 0.1] second word, ... []]
 def beam_search_decoder(data, k):
     sequences = [[list(), 1.0]]
     # walk over each step in sequence
@@ -22,7 +23,7 @@ def beam_search_decoder(data, k):
         # order all candidates by score
         ordered = sorted(all_candidates, key=lambda tup:tup[1])
         # select k best
-        sequences = ordered[:k]
+        sequences = ordered[-k:]
     return sequences
 
 # beam search
@@ -35,16 +36,16 @@ def word_beam_search_decoder(data, k, lm):
         for i in range(len(sequences)):
             seq, score = sequences[i]
             numWords = len(row)
-            for j in range(numWords):
+            for enc in range(numWords):
                 wscore = score
-                wscore *= row[j]
+                wscore *= row[enc]
                 scale = lm.getUnigramProb(row[0])
-                next = lm.getNext(row[j])
+                next = lm.getNextSylls(cmudict.getSyll(enc))
                 if len(next) > 0:
                     for word in next:
-                        scale += lm.getBigramProb(row[j-1], row[j])
+                        scale += lm.getBigramProb(row[enc-1], row[enc])
                 else:
-                    scale += lm.getUnigramProb(row[j])
+                    scale += lm.getUnigramProb(row[enc])
                 if numWords > 1:
                     scale ** (1/(numWords+1))
                 candidate = [seq + [j], wscore * scale]
@@ -52,19 +53,28 @@ def word_beam_search_decoder(data, k, lm):
         # order all candidates by score
         ordered = sorted(all_candidates, key=lambda tup:tup[1])
         # select k best
-        sequences = ordered[:k]
+        sequences = ordered[-k:]
     return sequences
 
 if __name__ == "__main__":
-    # define a sequence of 10 words over a vocab of 5 words
-    data = np.random.random((10,5))
+    # define a sequence of 3 words over a vocab of 5 words
+    data=[
+        [0.1, 0.2, 0.1, 0.1, 0.1],
+        [0.3, 0.2, 0.1, 0.1, 0.1],
+        [0.1, 0.1, 0.1, 0.2, 0.7]]
     data = np.array(data)
     # decode sequence
     result = beam_search_decoder(data, 7)
-    result2 = word_beam_search_decoder(data, 7, NullModel())
+    result2 = beam_search_decoder(data, 7)
     for i in range(len(result)):
       for j in range(len(result[0])):
         if result[i][0][j] != result2[i][0][j]:
           print("[{}][{}] -> ({}, {})".format(i, j, result[i][j], result2[i][j]))
           print('Fail!')
           sys.exit(1)
+    print(result)
+    sm = languagemodel.loadModel()
+    # hand-craft data!
+
+    result = word_beam_search_decoder(data, 2, sm)
+    print(result)
