@@ -19,7 +19,7 @@ def beam_search_decoder(data, k):
         for i in range(len(sequences)):
             seq, score = sequences[i]
             for j in range(len(row)):
-                candidate = [seq + [j], score * (1.0 + log(row[j])]
+                candidate = [seq + [j], score * (1.0 + log(row[j]))]
                 all_candidates.append(candidate)
         # order all candidates by score
         ordered = sorted(all_candidates, key=lambda tup:tup[1])
@@ -36,7 +36,7 @@ def x_beam_search_decoder(data, k):
         for i in range(len(sequences)):
             seq, score = sequences[i]
             for j in range(len(row)):
-                candidate = [seq + [j], score + (1.0 + log(row[j])]
+                candidate = [seq + [j], score + (1.0 + log(row[j]))]
                 all_candidates.append(candidate)
         # order all candidates by score
         ordered = sorted(all_candidates, key=lambda tup:tup[1])
