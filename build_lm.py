@@ -42,5 +42,5 @@ for line in sys.stdin:
         sm.addWord(clean[i], encs)
 
 print('Saving')
-languagemodel.saveModel(sm)
+sm.saveModel()
     

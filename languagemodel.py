@@ -24,7 +24,6 @@ class NullModel:
 class SyllableModel:
 
     def __init__(self):
-        self.sylls=[]
         self.numSylls=0
         self.numUniqueSylls=0
         self.smoothing=True
@@ -63,14 +62,14 @@ class SyllableModel:
             # sum up
             probSum=self.numUniqueSylls*self.addK # add-K smoothing
             for s2 in self.bigrams[s1].keys():
-                robSum+=self.bigrams[s1][s2]
+                probSum+=self.bigrams[s1][s2]
             # and divide
             for s2 in self.bigrams[s1].keys():
                 self.bigrams[s1][s2] /= probSum
 
-    def getNextSylls(self, sylls):
-        "text must be prefix of a syll"
-        return self.tree.getNextSyllables(sylls)
+    def getNextSylls(self, syll_list):
+        "syll_list is 1,2 of syllable encodings, returned by PrefixTree"
+        return self.tree.getNextSyllables(syll_list)
 
     def isSyll(self, syll):
         return syll in self.unigrams
@@ -80,8 +79,6 @@ class SyllableModel:
         
     def getUnigramProb(self, syll):
         "prob of seeing syll."
-        if type(syll) != type('') or type(syll) != type(""):
-            print("getUnigramProb called with: " + str(syll))
         val=self.unigrams.get(syll)
         if val!=None:
             return val
@@ -98,27 +95,33 @@ class SyllableModel:
         return 0
 
 
-def saveModel(sm, file='blobs/wordmodel.pkl'):
-    with open(file, 'wb') as f:
-        pickle.dump(sm, f, pickle.HIGHEST_PROTOCOL)
+    def saveModel(self, file="blobs/wordmodel.pkl"):
+        data = [self.unigrams, self.bigrams, self.tree, self.numUniqueSylls]
+        with open(file, 'wb') as f:
+            pickle.dump(data, f, pickle.HIGHEST_PROTOCOL)
 
-def loadModel(file='blobs/wordmodel.pkl'):
-    with open(file, 'rb') as f:
-        return pickle.load(f)
+    def loadModel(self, file="blobs/wordmodel.pkl"):
+        with open(file, 'rb') as f:
+            data = pickle.load(f)
+        self.unigrams = data[0]
+        self.bigrams = data[1]
+        self.tree = data[2]
+        self.numUniqueSylls = data[3]
 
 if __name__=='__main__':
     sm=SyllableModel()
-    sm.addWord('the', ['DH AH']) 
-    sm.addWord('the', ['DH AE'])
-    sm.addWord('them', ['DH EH M'])
-    sm.addWord('themselves', ['DH EH M', 'S EH L VZ']) 
+    sm.addWord('the', [1]) 
+    sm.addWord('the', [2])
+    sm.addWord('them', [3])
+    sm.addWord('themselves', [3, 4]) 
     sm.finishSentences()
     sm.tree.dump()
-    saveModel(sm)
-    sm2 = loadModel()
+    sm.saveModel()
+    sm2 = SyllableModel()
+    sm2.loadModel()
     sm2.tree.dump()
-    print('getNextSylls:', sm2.getNextSylls(['BLUH']))
-    print('getNextSylls:', sm2.getNextSylls(['DH EH M']))
-    print('isSyll:', sm2.isSyll('DH AH'))
-    print('getBigramProb:', sm2.getBigramProb('DH EH M', 'S EH L VZ'))
+    print('getNextSylls:', sm2.getNextSylls([0]))
+    print('getNextSylls:', sm2.getNextSylls([3]))
+    print('isSyll:', sm2.isSyll(1))
+    print('getBigramProb:', sm2.getBigramProb(3, 4))
     

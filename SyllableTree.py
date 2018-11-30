@@ -11,7 +11,7 @@ class Node:
     def __str__(self):
         s=''
         for (k,_) in self.children.items():
-            s+=k + ','
+            s+=str(k) + ','
         return 'word: '+str(self.word)+'; children: '+s
 
 class SyllableTree:

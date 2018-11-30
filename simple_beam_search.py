@@ -40,7 +40,7 @@ def word_beam_search_decoder(data, k, lm):
                 wscore = score
                 wscore *= row[enc]
                 scale = lm.getUnigramProb(row[0])
-                next = lm.getNextSylls(cmudict.getSyll(enc))
+                next = lm.getNextSylls([enc])
                 if len(next) > 0:
                     for word in next:
                         scale += lm.getBigramProb(row[enc-1], row[enc])
@@ -48,7 +48,7 @@ def word_beam_search_decoder(data, k, lm):
                     scale += lm.getUnigramProb(row[enc])
                 if numWords > 1:
                     scale ** (1/(numWords+1))
-                candidate = [seq + [j], wscore * scale]
+                candidate = [seq + [enc], wscore * scale]
                 all_candidates.append(candidate)
         # order all candidates by score
         ordered = sorted(all_candidates, key=lambda tup:tup[1])
@@ -73,8 +73,7 @@ if __name__ == "__main__":
           print('Fail!')
           sys.exit(1)
     print(result)
-    sm = languagemodel.loadModel()
-    # hand-craft data!
-
+    sm = languagemodel.SyllableModel()
+    sm.loadModel()
     result = word_beam_search_decoder(data, 2, sm)
     print(result)
