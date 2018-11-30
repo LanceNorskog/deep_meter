@@ -1,3 +1,4 @@
+
 # stolen from https://machinelearningmastery.com/beam-search-decoder-natural-language-processing/
 # with language model stolen from Harald Sheidl:
 # https://towardsdatascience.com/beam-search-decoding-in-ctc-trained-neural-networks-5a889a3d85a7
