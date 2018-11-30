@@ -27,7 +27,7 @@ def beam_search_decoder(data, k):
         sequences = ordered[-k:]
     return sequences
 
-def beam_search_decoder2(data, k):
+def x_beam_search_decoder(data, k):
     sequences = [[list(), 1.0]]
     # walk over each step in sequence
     for row in data:
