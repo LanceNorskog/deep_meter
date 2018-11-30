@@ -10,7 +10,7 @@ import languagemodel
 
 # beam search
 # [ [0.1, 0.1, 0.1, 0.1, 0.1] first word, [0.1, 0.1, 0.1, 0.1, 0.1] second word, ... []]
-def beam_search_decoder(data, k):
+def beam_search_decoder(data, k, minProb=0.000000001):
     sequences = [[list(), 1.0]]
     # walk over each step in sequence
     for row in data:
@@ -19,17 +19,16 @@ def beam_search_decoder(data, k):
         for i in range(len(sequences)):
             seq, score = sequences[i]
             for j in range(len(row)):
-                if row[j] < 0.000000001:
-                    break
-                candidate = [seq + [j], score * (0 - log(row[j]))]
-                all_candidates.append(candidate)
+                if row[j] >= minProb:
+                    candidate = [seq + [j], score * (0 - log(row[j]))]
+                    all_candidates.append(candidate)
         # order all candidates by score
         ordered = sorted(all_candidates, key=lambda tup:tup[1])
         # select k best
         sequences = ordered[-k:]
     return sequences
 
-def x_beam_search_decoder(data, k):
+def x_beam_search_decoder(data, k, minProb=0.000000001):
     sequences = [[list(), 1.0]]
     # walk over each step in sequence
     for row in data:
@@ -38,10 +37,9 @@ def x_beam_search_decoder(data, k):
         for i in range(len(sequences)):
             seq, score = sequences[i]
             for j in range(len(row)):
-                if row[j] < 0.000000001:
-                    break
-                candidate = [seq + [j], score + (0 - log(row[j]))]
-                all_candidates.append(candidate)
+                if row[j] >= minProb:
+                    candidate = [seq + [j], score + (0 - log(row[j]))]
+                    all_candidates.append(candidate)
         # order all candidates by score
         ordered = sorted(all_candidates, key=lambda tup:tup[1])
         # select k best
