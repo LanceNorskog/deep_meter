@@ -7,14 +7,14 @@ import arpabets
 # read classified poetry lines: text tab [['syll', 'la', 'ble'], ...]
 # clip to only most common syllables with syllable manager
 # ['words', ...], [[[0,0,1,0], ...]]
-def get_data(filename, arpabet_mgr, num_symbols):
+def get_data(filename, arpabet_mgr, num_symbols, max_lines=10000000000):
     stop_arpabet = 0
     num_arpabets = arpabet_mgr.get_size()      
     lines = open(filename, 'r').read().splitlines()
-    num_lines = len(lines)
-    num_lines = 50000
     text_lines = []
     text_arpabets = []
+    if len(lines) > max_lines:
+        lines = lines[:max_lines]
     for i in range(0, len(lines)):
       if i == num_lines:
         break
@@ -41,8 +41,32 @@ def get_data(filename, arpabet_mgr, num_symbols):
           if enc >= 0 and enc < num_arpabets:
             label_array[j][i][enc] = 1
             label_array[j][i][stop_arpabet] = 0
-
     return (text_lines, label_array)
+
+    # read classified poetry lines: text tab [['syll', 'la', 'ble'], ...]
+    # clip to only most common syllables with syllable manager
+    # ['words', ...], [[[0,0,1,0], ...]]
+    def read_prepped(filename, syll_mgr, num_symbols, max_lines=1000000):
+        num_syllables = syll_mgr.get_size()      
+        lines = open(filename, 'r').read().splitlines()
+        num_lines = min(max_lines, len(lines))
+        text_lines = []
+        text_sylls = []
+        for i in range(0, len(lines)):
+          if i == num_lines:
+            break
+          parts = lines[i].split("\t")
+          label = utils.flatten(literal_eval(parts[1]))
+          if len(label) == num_symbols:
+            text_lines.append(str(parts[0]))
+            text_sylls.append(label)
+        num_lines = len(text_lines)
+        label_array = np.zeros((num_symbols, num_lines, num_syllables), dtype=np.int8)
+        for i in range(0, num_lines):
+          for j in range(num_symbols):
+            label_array[j][i][syll_mgr.get_encoding(text_sylls[i][j])] = 1
+        return (text_lines, label_array)
+
 
 if __name__ == "__main__":
     arpabet_mgr = arpabets.arpabets()
