@@ -2,6 +2,7 @@
 
 import numpy as np
 from ast import literal_eval
+import arpabets
 
 # read classified poetry lines: text tab [['syll', 'la', 'ble'], ...]
 # clip to only most common syllables with syllable manager
@@ -43,3 +44,7 @@ def get_data(filename, arpabet_mgr, num_symbols):
 
     return (text_lines, label_array)
 
+if __name__ == "__main__":
+    arpabet_mgr = arpabets.arpabets()
+    data = get_data('prepped_data/gutenberg.iambic_pentameter', arpabet_mgr, 10)
+    print("Read {} lines of text".format(len(data)))
