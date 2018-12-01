@@ -53,9 +53,7 @@ def read_prepped(filename, syll_mgr, num_symbols, max_lines=1000000):
     num_lines = min(max_lines, len(lines))
     text_lines = []
     text_sylls = []
-    for i in range(0, len(lines)):
-      if i == num_lines:
-        break
+    for i in range(num_lines):
       parts = lines[i].split("\t")
       syll_array = literal_eval(parts[1])
       if len(syll_array) == num_symbols:
@@ -80,5 +78,7 @@ if __name__ == "__main__":
     syll_mgr = syllables.syllables()
     (text, sylls) = read_prepped('prepped_data/gutenberg.iambic_pentameter', syll_mgr, 10)
     print("Read {} lines of text".format(len(text)))
+    print("{} -> {}".format(text[0], sylls[0]))
     onehots = get_onehot_multi(sylls, syll_mgr, 10)
     print("Shape: {}".format(onehots.shape))
+    print("{}[0] -> {}".format(text[0], onehots[0][0]))
