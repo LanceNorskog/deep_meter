@@ -25,7 +25,7 @@ class use_mgr:
         # Import the Universal Sentence Encoder's TF Hub module
         self.embed = hub.Module(self.module_url)
         # important?
-        self.embed_size = embed.get_output_info_dict()['default'].get_shape()[1].value
+        self.embed_size = self.embed.get_output_info_dict()['default'].get_shape()[1].value
         return self.embed_size
 
     def run_use(self, text_array):
