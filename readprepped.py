@@ -3,6 +3,7 @@
 import numpy as np
 from ast import literal_eval
 import arpabets
+import utils
 
 # read classified poetry lines: text tab [['syll', 'la', 'ble'], ...]
 # clip to only most common syllables with syllable manager
