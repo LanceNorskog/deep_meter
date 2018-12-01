@@ -13,6 +13,7 @@ np.random.seed(10)
 
 class use_mgr:
     def __init__(self, module_url="https://tfhub.dev/google/universal-sentence-encoder-large/3"):
+        self.module_url = module_url
         self.embed = None
         self.embed_size = 0
 
@@ -20,7 +21,7 @@ class use_mgr:
         # Reduce logging output.
         tf.logging.set_verbosity(tf.logging.ERROR)
         # Import the Universal Sentence Encoder's TF Hub module
-        self.embed = hub.Module(module_url)
+        self.embed = hub.Module(self.module_url)
         # important?
         self.embed_size = embed.get_output_info_dict()['default'].get_shape()[1].value
         return self.embed_size
