@@ -16,7 +16,7 @@ class use_mgr:
         self.embed = None
         self.embed_size = 0
 
-    def load_use(self:
+    def load_use(self):
         # Reduce logging output.
         tf.logging.set_verbosity(tf.logging.ERROR)
         # Import the Universal Sentence Encoder's TF Hub module
@@ -25,12 +25,12 @@ class use_mgr:
         self.embed_size = embed.get_output_info_dict()['default'].get_shape()[1].value
         return self.embed_size
 
-    def run_use(text_array):
+    def run_use(self, text_array):
         with tf.Session() as session:
           session.run([tf.global_variables_initializer(), tf.tables_initializer()])
           embeddings = session.run(self.embed(text_array))
         return embeddings
 
-    def unload_use():
+    def unload_use(self):
         del self.embed
 
