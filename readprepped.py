@@ -2,7 +2,7 @@
 
 import numpy as np
 from ast import literal_eval
-import arpabets
+import syllables
 import utils
 
 # read classified poetry lines: text tab [['syll', 'la', 'ble'], ...]
@@ -46,7 +46,7 @@ def get_data(filename, arpabet_mgr, num_symbols, max_lines=10000000000):
 
 # read classified poetry lines: text tab [['syll', 'la', 'ble'], ...]
 # clip to only most common syllables with syllable manager
-# ['words', ...], [[[0,0,1,0], ...]]
+# ['words', ...], [[['DH','AH'], ...]]
 def read_prepped(filename, syll_mgr, num_symbols, max_lines=1000000):
     num_syllables = syll_mgr.get_size()      
     lines = open(filename, 'r').read().splitlines()
@@ -57,19 +57,28 @@ def read_prepped(filename, syll_mgr, num_symbols, max_lines=1000000):
       if i == num_lines:
         break
       parts = lines[i].split("\t")
-      label = utils.flatten(literal_eval(parts[1]))
-      if len(label) == num_symbols:
+      syll_array = literal_eval(parts[1])
+      if len(syll_array) == num_symbols:
         text_lines.append(str(parts[0]))
-        text_sylls.append(label)
-    num_lines = len(text_lines)
-    label_array = np.zeros((num_symbols, num_lines, num_syllables), dtype=np.int8)
-    for i in range(0, num_lines):
-      for j in range(num_symbols):
-        label_array[j][i][syll_mgr.get_encoding(text_sylls[i][j])] = 1
-    return (text_lines, label_array)
+        text_sylls.append(syll_array)
+    return (text_lines, text_sylls)
 
+# given [[['DH', 'AE'] ...] ,...] return numeric labels, separate array 
+# return [ num_symbols ][ num_lines ][ one_hot of syllable encoding ]
+def get_onehot_multi(text_sylls, syll_mgr, num_symbols):
+    num_lines = len(text_sylls)
+    num_syllables = syll_mgr.get_size()
+    onehot_array = np.zeros((num_symbols, num_lines, num_syllables), dtype=np.int8)
+    for i in range(num_lines):
+      data = utils.flatten(text_sylls[i])
+      for j in range(num_symbols):
+        onehot_array[j][i][syll_mgr.get_encoding(data[j])] = 1
+    return onehot_array
+     
 
 if __name__ == "__main__":
-    arpabet_mgr = arpabets.arpabets()
-    data = get_data('prepped_data/gutenberg.iambic_pentameter', arpabet_mgr, 10)
-    print("Read {} lines of text".format(len(data)))
+    syll_mgr = syllables.syllables()
+    (text, sylls) = read_prepped('prepped_data/gutenberg.iambic_pentameter', syll_mgr, 10)
+    print("Read {} lines of text".format(len(text)))
+    onehots = get_onehot_multi(sylls, syll_mgr, 10)
+    print("Shape: {}".format(onehots.shape))
