@@ -16,8 +16,10 @@ class use_mgr:
         self.module_url = module_url
         self.embed = None
         self.embed_size = 0
+        print("Self.module_url = {}".format(self.module_url))
 
     def load_use(self):
+        print("Self.module_url = {}".format(self.module_url))
         # Reduce logging output.
         tf.logging.set_verbosity(tf.logging.ERROR)
         # Import the Universal Sentence Encoder's TF Hub module
