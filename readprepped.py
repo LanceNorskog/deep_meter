@@ -56,7 +56,7 @@ def read_prepped(filename, syll_mgr, num_symbols, max_lines=1000000):
     for i in range(num_lines):
       parts = lines[i].split("\t")
       syll_array = literal_eval(parts[1])
-      if len(flatten(syll_array)) == num_symbols:
+      if len(utils.flatten(syll_array)) == num_symbols:
         text_lines.append(str(parts[0]))
         text_sylls.append(syll_array)
     return (text_lines, text_sylls)
