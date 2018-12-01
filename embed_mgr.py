@@ -6,17 +6,7 @@ import tensorflow_hub as hub
 import matplotlib.pyplot as plt
 import numpy as np
 import os
-import pandas as pd
-import re
-import seaborn as sns
-import keras.layers as layers
-from keras.models import Model
 from keras import backend as K
-from keras.callbacks import EarlyStopping, ModelCheckpoint
-from tensorflow.keras.optimizers import Nadam, Adam
-import gc
-from google.colab import files
-from google.colab import drive
 
 import pickle
 np.random.seed(10)
