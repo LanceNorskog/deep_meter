@@ -21,18 +21,17 @@ from google.colab import drive
 import pickle
 np.random.seed(10)
 
-tf_hub_use_module = "https://tfhub.dev/google/universal-sentence-encoder-large/3"
 embed = None
 embed_size = 0
 
 def load_use(module_url="https://tfhub.dev/google/universal-sentence-encoder-large/3"):
+    # Reduce logging output.
+    tf.logging.set_verbosity(tf.logging.ERROR)
     # Import the Universal Sentence Encoder's TF Hub module
     embed = hub.Module(module_url)
     # important?
     embed_size = embed.get_output_info_dict()['default'].get_shape()[1].value
-
-    # Reduce logging output.
-    tf.logging.set_verbosity(tf.logging.ERROR)
+    return embed_size
 
 def run_use(text_array):
     with tf.Session() as session:
@@ -41,6 +40,5 @@ def run_use(text_array):
     return embeddings
 
 def unload_use():
-    K.clear_session()
     del embed
 
