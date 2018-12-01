@@ -26,4 +26,23 @@ def get_gpu_memory_map():
 def flatten(data):
   return list(chain.from_iterable(data))
 
+# Joel Chao again
+# Remove final layer of a model
+# Must test on Squid
+def pop_layer(model):
+    if not model.outputs:
+        raise Exception('Sequential model cannot be popped: model is empty.')
+
+    model.layers.pop()
+    if not model.layers:
+        model.outputs = []
+        model.inbound_nodes = []
+        model.outbound_nodes = []
+    else:
+        model.layers[-1].outbound_nodes = []
+        model.outputs = [model.layers[-1].output]
+    model.built = False
+
+
 flatten([['abc'],'d'])
+
