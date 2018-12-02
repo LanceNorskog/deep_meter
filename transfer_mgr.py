@@ -79,7 +79,7 @@ def new_transfer_model(embed, embed_size=512, num_symbols=10, num_syllables=0, o
     return model
 
 # new_transfer_model, pop, new_test_model for new structure
-def new_transfer_test(model, num_syllables=0, dropout=0.5):
+def new_transfer_test(model, num_syllables=0, optimizer='adam', dropout=0.5):
     old_in = model.input
     old_out = model.layers[-1].output
     dense = layers.Dropout(dropout)(old_out)
