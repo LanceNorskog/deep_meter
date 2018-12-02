@@ -54,6 +54,10 @@ def new_squid_model(embed, embed_size, num_symbols, num_syllables, optimizer='ad
                   metrics=['categorical_accuracy'])
     return model
 
+# Add squid nature to transfer model
+def add_squid_layers(model, num_symbols=0, num_syllables=0, optimizer='adam', dropout=0.5):
+    pass
+
 # Single output layer, just soaks up all syllables in multi-label configuration
 # Used for training "transferable knowledge" about outputting to syllables.
 def new_transfer_model(embed, embed_size=512, num_symbols=10, num_syllables=0, optimizer='adam', dropout=0.5):
@@ -75,11 +79,11 @@ def new_transfer_model(embed, embed_size=512, num_symbols=10, num_syllables=0, o
     return model
 
 # new_transfer_model, pop, new_test_model for new structure
-def new_test_model(model, output_size=0):
+def add_test_layers(model, num_syllables=0):
     old_in = model.input
     old_out = K.new_layer(model.layers[-1].output)
     dense = layers.Dropout(dropout)(old_out)
-    dense = layers.Dense(output_size, activation='sigmoid', name='Test')(dense)
+    dense = layers.Dense(num_syllables, activation='sigmoid', name='Test')(dense)
     model2 = Model(old_in, dense)
     model2.summary()
     return model2
@@ -106,11 +110,11 @@ def pop_layer(model):
     else:
         model.layers[-1].outbound_nodes = []
         model.outputs = [model.layers[-1].output]
-    #model.built = False
+    model.built = False
 
 # above model has dropout, squidbrain, dropout, onehot for each symbol
-def remove_squid(model, num_symbols):
-    for i in range(r * num_sumbols):
+def pop_squid_layers(model, num_symbols):
+    for i in range(4 * num_sumbols):
         pop_layer(model)
 
 def create_weighted_binary_crossentropy(zero_weight, one_weight):
@@ -139,8 +143,6 @@ def load_transfer_model(model):
     model.load_weights('./model_transfer.h5')  
 
 def freeze_transfer_model(model):
-    # layer.trainable = False
-    pass
+    for layer in model.layers:
+        layer.trainable = False
 
-def remove_transfer_model():
-    os.remove('./model_transfer.h5')
