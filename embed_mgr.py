@@ -22,7 +22,6 @@ class use_mgr:
         tf.logging.set_verbosity(tf.logging.ERROR)
         # Import the Universal Sentence Encoder's TF Hub module
         self.embed = hub.Module(self.module_url)
-        self.embed.summary()
         # important?
         self.embed_size = self.embed.get_output_info_dict()['default'].get_shape()[1].value
         return (self.embed, self.embed_size)
