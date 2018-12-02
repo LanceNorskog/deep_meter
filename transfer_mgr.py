@@ -86,6 +86,9 @@ def new_transfer_test(model, num_syllables=0, dropout=0.5):
     dense = layers.Dense(num_syllables, activation='sigmoid', name='Test')(dense)
     model2 = Model(old_in, dense)
     model2.summary()
+    model2.compile(loss='binary_crossentropy', 
+                  optimizer=optimizer, 
+                  metrics=['binary_crossentropy'])
     return model2
 
 def save_squid_model(model):
