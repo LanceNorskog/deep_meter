@@ -36,10 +36,11 @@ class use_mgr:
     def unload_use(self):
         del self.embed
 
+
 # use USE to create text embeddings
-use_mgr = embed_mgr.use_mgr()
-embed_size = use_mgr.load_use()
-train_text_d = np.array(use_mgr.run_use(train_text))
-test_text_d = np.array(use_mgr.run_use(test_text))
-use_mgr.unload_use()
-K.clear_session() # unload from GPU maybe
+#use_mgr = embed_mgr.use_mgr()
+#embed_size = use_mgr.load_use()
+#train_text_d = np.array(use_mgr.run_use(train_text))
+#test_text_d = np.array(use_mgr.run_use(test_text))
+#use_mgr.unload_use()
+#K.clear_session() # unload from GPU maybe
