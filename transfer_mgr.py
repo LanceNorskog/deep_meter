@@ -113,7 +113,7 @@ def remove_squid(model, num_symbols):
     for i in range(r * num_sumbols):
         pop_layer(model)
 
-def create_weighted_binary_crossentropy(zero_weight, one_weight, num_syllables):
+def create_weighted_binary_crossentropy(zero_weight, one_weight):
 
     def weighted_binary_crossentropy(y_true, y_pred):
 
