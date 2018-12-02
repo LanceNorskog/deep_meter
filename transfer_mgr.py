@@ -133,7 +133,7 @@ def remove_transfer_model():
     os.remove('./model_transfer.h5')
 
 # new_transfer_model, pop, new_test_model for new structure
-def new test_model(model, output_size=0):
+def new_test_model(model, output_size=0):
     old_in = model.input
     old_out = K.new_layer(model.layers[-1].output)
     dense = layers.Dropout(dropout)(old_out)
