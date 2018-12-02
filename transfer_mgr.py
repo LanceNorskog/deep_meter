@@ -23,8 +23,8 @@ np.random.seed(10)
 
 # Squid model has a separate brain in each tentacle
 
-def new_squid_model(num_symbols, num_syllables, optimizer='adam', dropout=0.5):
-    input_embeddings = layers.Input(shape=(512,), dtype=tf.float32, name='Input')
+def new_squid_model(embed_size, num_symbols, num_syllables, optimizer='adam', dropout=0.5):
+    input_embeddings = layers.Input(shape=(embed_size,), dtype=tf.float32, name='Input')
     dense_input = layers.Dropout(dropout)(input_embeddings)
     dense = layers.Dense(1024, activation='relu', name='Convoluted')(dense_input)
     dense = layers.Dropout(dropout)(dense)
@@ -43,7 +43,7 @@ def new_squid_model(num_symbols, num_syllables, optimizer='adam', dropout=0.5):
       names_array.append(name)
     model = Model(inputs=input_embeddings, outputs=pred_array)
     model.compile(loss=loss_array, 
-                  optimizer=adam_0001, 
+                  optimizer=optimizer, 
                   metrics=['categorical_accuracy'])
     return model
 
@@ -51,6 +51,25 @@ def save_squid_model(model):
     model.save_weights('./model_squid.h5')
 
 
-def load_squid_model(
+def load_squid_model(model):
+    model.load_weights('./model_squid.h5')  
 
-def new_xfer_model(
+def remove_squid_model():
+    os.remove('./model_squid.h5')
+
+# Joel Chao
+def pop_layer(model):
+def pop_layer(model):
+    if not model.outputs:
+        raise Exception('Sequential model cannot be popped: model is empty.')
+
+    model.layers.pop()
+    if not model.layers:
+        model.outputs = []
+        model.inbound_nodes = []
+        model.outbound_nodes = []
+    else:
+        model.layers[-1].outbound_nodes = []
+        model.outputs = [model.layers[-1].output]
+    model.built = False
+
