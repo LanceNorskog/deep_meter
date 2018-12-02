@@ -59,7 +59,6 @@ def remove_squid_model():
 
 # Joel Chao
 def pop_layer(model):
-def pop_layer(model):
     if not model.outputs:
         raise Exception('Sequential model cannot be popped: model is empty.')
 
