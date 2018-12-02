@@ -22,9 +22,10 @@ class use_mgr:
         tf.logging.set_verbosity(tf.logging.ERROR)
         # Import the Universal Sentence Encoder's TF Hub module
         self.embed = hub.Module(self.module_url)
+        self.embed.summary()
         # important?
         self.embed_size = self.embed.get_output_info_dict()['default'].get_shape()[1].value
-        return self.embed_size
+        return (self.embed, self.embed_size)
 
     def run_use(self, text_array):
         with tf.Session() as session:
@@ -35,3 +36,10 @@ class use_mgr:
     def unload_use(self):
         del self.embed
 
+# use USE to create text embeddings
+use_mgr = embed_mgr.use_mgr()
+embed_size = use_mgr.load_use()
+train_text_d = np.array(use_mgr.run_use(train_text))
+test_text_d = np.array(use_mgr.run_use(test_text))
+use_mgr.unload_use()
+K.clear_session() # unload from GPU maybe

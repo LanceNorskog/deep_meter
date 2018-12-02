@@ -21,14 +21,16 @@ from google.colab import drive
 import pickle
 np.random.seed(10)
 
-def UniversalEmbedding(x):
-    return embed(tf.squeeze(tf.cast(x, tf.string)), signature='default', as_dict=True)['default']
+def define_embedding_function(embed):
+    def UniversalEmbedding(x):
+        return embed(tf.squeeze(tf.cast(x, tf.string)), signature='default', as_dict=True)['default']
+    return UniversalEmbedding
 
 # Squid model has a separate brain in each tentacle
 
-def new_squid_model(embed_size, num_symbols, num_syllables, optimizer='adam', dropout=0.5):
+def new_squid_model(embed, embed_size, num_symbols, num_syllables, optimizer='adam', dropout=0.5):
     input_text = layers.Input(shape=(1,), dtype=tf.string)
-    embedding = layers.Lambda(UniversalEmbedding, output_shape=(embed_size,), name='USE')(input_text)
+    embedding = layers.Lambda(define_embedding_function(embed), output_shape=(embed_size,), name='USE')(input_text)
     input_embeddings = layers.Input(shape=(embed_size,), dtype=tf.float32, name='Input')
     dense_input = layers.Dropout(dropout)(input_embeddings)
     dense = layers.Dense(1024, activation='relu', name='Convoluted')(dense_input)
@@ -51,6 +53,36 @@ def new_squid_model(embed_size, num_symbols, num_syllables, optimizer='adam', dr
                   optimizer=optimizer, 
                   metrics=['categorical_accuracy'])
     return model
+
+# Single output layer, just soaks up all syllables in multi-label configuration
+# Used for training "transferable knowledge" about outputting to syllables.
+def new_transfer_model(embed, embed_size=512, num_symbols=10, num_syllables=0, optimizer='adam', dropout=0.5):
+    custom_binary_crossentropy = create_weighted_binary_crossentropy(1/(np.sqrt(num_syllables)), 1 - 1/np.sqrt(num_syllables))
+    input_text = layers.Input(shape=(1,), dtype=tf.string)
+    embedding = layers.Lambda(define_embedding_function(embed), output_shape=(embed_size,), name='USE')(input_text)
+    dense_input = layers.Dropout(dropout)(embedding)
+    dense = layers.Dense(1024, activation='relu', name='Human')(dense_input)
+    dense = layers.Dropout(dropout)(dense)
+    dense = layers.Dense(2048, activation='relu', name='Chimp')(dense)
+    dense = layers.Dropout(dropout)(dense)
+    dense = layers.Dense(4096, activation='relu', name='Lizard')(dense)
+    dense = layers.Dropout(dropout)(dense)
+    pred = layers.Dense(num_syllables, activation='sigmoid', name='Onehot')(dense)
+    model = Model(inputs=input_embeddings, outputs=pred_array)
+    model.compile(loss=custom_binary_crossentropy, 
+                  optimizer=optimizer, 
+                  metrics=['binary_crossentropy'])
+    return model
+
+# new_transfer_model, pop, new_test_model for new structure
+def new_test_model(model, output_size=0):
+    old_in = model.input
+    old_out = K.new_layer(model.layers[-1].output)
+    dense = layers.Dropout(dropout)(old_out)
+    dense = layers.Dense(output_size, activation='sigmoid', name='Test')(dense)
+    model2 = Model(old_in, dense)
+    model2.summary()
+    return model2
 
 def save_squid_model(model):
     model.save_weights('./model_squid.h5')
@@ -100,25 +132,6 @@ def create_weighted_binary_crossentropy(zero_weight, one_weight, num_syllables):
 
     return weighted_binary_crossentropy
 
-# Single output layer, just soaks up all syllables in multi-label configuration
-# Used for training "transferable knowledge" about outputting to syllables.
-def new_transfer_model(embed_size=512, num_symbols=10, num_syllables=0, optimizer='adam', dropout=0.5):
-    custom_binary_crossentropy = create_weighted_binary_crossentropy(1/(np.sqrt(num_syllables)), 1 - 1/np.sqrt(num_syllables))
-    input_embeddings = layers.Input(shape=(embed_size,), dtype=tf.float32, name='Input')
-    dense_input = layers.Dropout(dropout)(input_embeddings)
-    dense = layers.Dense(1024, activation='relu', name='Human')(dense_input)
-    dense = layers.Dropout(dropout)(dense)
-    dense = layers.Dense(2048, activation='relu', name='Chimp')(dense)
-    dense = layers.Dropout(dropout)(dense)
-    dense = layers.Dense(4096, activation='relu', name='Lizard')(dense)
-    dense = layers.Dropout(dropout)(dense)
-    pred = layers.Dense(num_syllables, activation='sigmoid', name='Onehot')(dense)
-    model = Model(inputs=input_embeddings, outputs=pred_array)
-    model.compile(loss=custom_binary_crossentropy, 
-                  optimizer=optimizer, 
-                  metrics=['binary_crossentropy'])
-    return model
-
 def save_transfer_model(model):
     model.save_weights('./model_transfer.h5')
 
@@ -131,13 +144,3 @@ def freeze_transfer_model(model):
 
 def remove_transfer_model():
     os.remove('./model_transfer.h5')
-
-# new_transfer_model, pop, new_test_model for new structure
-def new_test_model(model, output_size=0):
-    old_in = model.input
-    old_out = K.new_layer(model.layers[-1].output)
-    dense = layers.Dropout(dropout)(old_out)
-    dense = layers.Dense(output_size, activation='sigmoid', name='Test')(dense)
-    model2 = Model(old_in, dense)
-    model2.summary()
-    return model2
