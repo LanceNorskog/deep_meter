@@ -21,9 +21,14 @@ from google.colab import drive
 import pickle
 np.random.seed(10)
 
+def UniversalEmbedding(x):
+    return embed(tf.squeeze(tf.cast(x, tf.string)), signature='default', as_dict=True)['default']
+
 # Squid model has a separate brain in each tentacle
 
 def new_squid_model(embed_size, num_symbols, num_syllables, optimizer='adam', dropout=0.5):
+    input_text = layers.Input(shape=(1,), dtype=tf.string)
+    embedding = layers.Lambda(UniversalEmbedding, output_shape=(embed_size,), name='USE')(input_text)
     input_embeddings = layers.Input(shape=(embed_size,), dtype=tf.float32, name='Input')
     dense_input = layers.Dropout(dropout)(input_embeddings)
     dense = layers.Dense(1024, activation='relu', name='Convoluted')(dense_input)
@@ -59,7 +64,7 @@ def remove_squid_model():
 # Joel Chao
 def pop_layer(model):
     if not model.outputs:
-        raise Exception('Sequential model cannot be popped: model is empty.')
+        raise Exception('Model cannot be popped: model is empty.')
 
     model.layers.pop()
     if not model.layers:
@@ -120,9 +125,14 @@ def save_transfer_model(model):
 def load_transfer_model(model):
     model.load_weights('./model_transfer.h5')  
 
+def freeze_transfer_model(model):
+    # layer.trainable = False
+    pass
+
 def remove_transfer_model():
     os.remove('./model_transfer.h5')
 
+# new_transfer_model, pop, new_test_model for new structure
 def new test_model(model, output_size=0):
     old_in = model.input
     old_out = K.new_layer(model.layers[-1].output)
