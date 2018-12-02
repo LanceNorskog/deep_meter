@@ -68,7 +68,7 @@ def new_transfer_model(embed, embed_size=512, num_symbols=10, num_syllables=0, o
     dense = layers.Dense(4096, activation='relu', name='Lizard')(dense)
     dense = layers.Dropout(dropout)(dense)
     pred = layers.Dense(num_syllables, activation='sigmoid', name='Onehot')(dense)
-    model = Model(inputs=input_embeddings, outputs=pred_array)
+    model = Model(inputs=[input_text], outputs=pred_array)
     model.compile(loss=custom_binary_crossentropy, 
                   optimizer=optimizer, 
                   metrics=['binary_crossentropy'])
