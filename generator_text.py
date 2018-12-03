@@ -43,9 +43,8 @@ def encode_line(line, cmudict, syll_mgr):
              return None
          for syll in sylls[0]:
              enc = syll_mgr.get_encoding(syll)
-             if enc == syllables.unknown_encoding:
-                 return None
-             encs.append(enc)
+             if enc != syllables.unknown_encoding:
+                 encs.append(enc)
     labels = [0] * syll_mgr.get_size()
     for enc in encs:
         labels[enc] = 1
@@ -83,9 +82,7 @@ class DataGenerator(K.utils.Sequence):
 
         # read text & syllabize
         x = self.indexes[index]
-        print('open file #{}'.format(x))
         x = self.list_IDs[self.indexes[index]]
-        print('open file {}'.format(x))
         with open(self.list_IDs[self.indexes[index]], "r") as f:
             lines = f.read().splitlines()
         text_array = [] # one per accepted line
@@ -108,7 +105,9 @@ class DataGenerator(K.utils.Sequence):
 if __name__ == "__main__":
     gen = DataGenerator()
     print('Num batches: {}'.format(gen.__len__))
-    (text, labels) = gen.__getitem__(0)
-    print('Text: {}'.format(text.shape))
-    print('Labels: {}'.format(labels.shape))
-    print('Total, success: {}, {}'.format(total, success))
+    for i in range(gen.__len__()):
+        (text, labels) = gen.__getitem__(i)
+        print('Text: {}'.format(text.shape))
+        print('Labels: {}'.format(labels.shape))
+        print('Total, success: {}, {}'.format(total, success))
+
