@@ -14,17 +14,19 @@ from random import shuffle
 import keras as K
 import numpy as np
 import os
+import array
+import pickle
+
 import cmudict
 import tokens
-
 import cmudict
 import syllables
 
 # base test set
 RAW_DIR='/content/full_raw'
-FULL_DIR='/content/full_data'
+CACHE_DIR='/content/full_data'
 RAW_DIR='./full_raw'
-FULL_DIR='./full_data'
+CACHE_DIR='./full_data'
 FILE_LINES=20000
 
 total=0
@@ -39,7 +41,7 @@ def encode_line(line, cmudict, syll_mgr):
     words = tokens.tokenize(line)
     words = tokens.fixtokens(words)
     words = tokens.hyphen(words, cmudict.syll_dict)
-    encs = array('H')
+    encs = array.array('H')
     for word in words:
          sylls = cmudict.get_syllables(word.lower())
          if sylls == None or len(sylls) == 0:
@@ -61,7 +63,7 @@ class DataGenerator(K.utils.Sequence):
         self.cache_files = []
         for file in os.listdir(self.raw_dir):
             self.raw_files.append(self.raw_dir + '/' + file)
-        for file in os.listdir(raw_dir):
+        for file in os.listdir(self.raw_dir):
             self.cache_files.append(self.cache_dir + '/' + file + '.pk')
         # arange does this
         self.indexes = [1] * len(self.raw_files)
@@ -81,14 +83,18 @@ class DataGenerator(K.utils.Sequence):
 
     def __getitem__(self, index):
         'Generate one batch of data'
-        (text_np, labels_np) = self.get_cache(index)
-        if text_np == None:
-            (text_np, labels_np) = self.read_cache(index)
-            self.save_cache(index, text_np, labels_np)
+        (text_array, encode_array) = self.read_cache(index)
+        if text_array == None:
+            (text_array, encode_array) = self.read_text(index)
+            self.save_cache(index, text_array, encode_array)
 
-        # Generate data
-        (text_np, labels_np) = np.array(text_array), np.array(labels_array)
-        print('Text, Label shapes: {} , {}'.format(text_np.shape, labels_np.shape))
+        # Return in tensor-friendly format
+        text_np = np.array(text_array)
+        labels_np = np.zeros((len(encode_array), self.syll_mgr.get_size()), dtype=np.int8)
+        for i in range(len(encode_array)):
+            for enc in encode_array[i]:
+                labels_np[i][enc] = 1
+        print('index[{}]: Text, Label shapes: {} , {}'.format(index, text_np.shape, labels_np.shape))
         return text_np, labels_np
 
     def on_epoch_end(self):
@@ -98,7 +104,6 @@ class DataGenerator(K.utils.Sequence):
             np.random.shuffle(self.indexes)
 
     def read_text(self, index):
-        print('open file {}'.format(x))
         with open(self.raw_files[self.indexes[index]], "r") as f:
             lines = f.read().splitlines()
         text_array = [] # one per accepted line
@@ -108,27 +113,20 @@ class DataGenerator(K.utils.Sequence):
             if labels != None:
                 text_array.append(line)
                 encode_array.append(labels)
-
-        # Generate data, doesn't need large floating type
-        labels_np = np.zeros((len(encode_array, self.num_syllables)), dtype=np.int8)
-        for i in range(len(encode_array)):
-            for enc in encode_array[i]:
-                labels_np[i][enc] = 1
-        text_np = np.array(text_array)
-        return (text_np, labels_np)
+        return (text_array, encode_array)
 
     # save and load format [['sentence',...],[encoding index,...]]
-    def get_cache(self, index):
+    def read_cache(self, index):
         if os.path.exists(self.cache_files[self.indexes[index]]):
-            with f as open(self.cache_files[self.indexes[index]], "rb"):
-	        blob = pickle.load(f)
+            with open(self.cache_files[self.indexes[index]], "rb") as f:
+                blob = pickle.load(f)
                 return (blob[0], blob[1])
         else:
             return (None, None)
 
     def save_cache(self, index, text, labels):
         blob = [text, labels]
-        with open(self.cache_files[self.indexes[index]], "wb"):
+        with open(self.cache_files[self.indexes[index]], "wb") as f:
             pickle.dump(blob, f)
 
 if __name__ == "__main__":
