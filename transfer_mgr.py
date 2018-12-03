@@ -87,7 +87,6 @@ def new_transfer_test(model, num_syllables=0, optimizer='adam', dropout=0.5):
     dense = layers.Dropout(dropout)(dense)
     dense = layers.Dense(num_syllables, activation='sigmoid', name='Test')(dense)
     model2 = Model(old_in, dense)
-    model2.summary()
     model2.compile(loss='binary_crossentropy', 
                   optimizer=optimizer, 
                   metrics=['binary_crossentropy'])
