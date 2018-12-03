@@ -80,8 +80,6 @@ class DataGenerator(K.utils.Sequence):
 
     def __getitem__(self, index):
         'Generate one batch of data'
-        print('getitem: {}, {}'.format(type(index), index))
-
         # read text & syllabize
         x = self.indexes[index]
         print('open file #{}'.format(x))
@@ -98,7 +96,9 @@ class DataGenerator(K.utils.Sequence):
                 labels_array.append(labels)
 
         # Generate data
-        return np.array(text_array), np.array(labels_array)
+        (text_np, label_np) = np.array(text_array), np.array(labels_array)
+        print('Text, Label shapes: {} , {}'.format(text_np.shape, label_np.shape))
+        return text_np, label_np
 
     def on_epoch_end(self):
         'Updates indexes after each epoch'
