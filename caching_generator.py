@@ -23,10 +23,10 @@ import cmudict
 import syllables
 
 # base test set
-RAW_DIR='/content/full_raw'
-CACHE_DIR='/content/full_data'
 RAW_DIR='./full_raw'
 CACHE_DIR='./full_data'
+RAW_DIR='/content/full_raw'
+CACHE_DIR='/content/full_data'
 FILE_LINES=20000
 
 total=0
