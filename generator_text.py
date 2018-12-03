@@ -8,6 +8,8 @@
 
 # based on: https://stanford.edu/~shervine/blog/keras-how-to-generate-data-on-the-fly
 
+# Only used for training Transfer brain with a multi-label output
+
 from random import shuffle
 import keras as K
 import numpy as np
@@ -43,9 +45,8 @@ def encode_line(line, cmudict, syll_mgr):
              return None
          for syll in sylls[0]:
              enc = syll_mgr.get_encoding(syll)
-             if enc == syllables.unknown_encoding:
-                 return None
-             encs.append(enc)
+             if enc != syllables.unknown_encoding:
+                 encs.append(enc)
     labels = [0] * syll_mgr.get_size()
     for enc in encs:
         labels[enc] = 1
