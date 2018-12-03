@@ -9,10 +9,14 @@
 # based on: https://stanford.edu/~shervine/blog/keras-how-to-generate-data-on-the-fly
 
 from random import shuffle
+import keras as K
 import numpy as np
 import os
 import cmudict
 import tokens
+
+import cmudict
+import syllables
 
 # base test set
 DIR='/content/data'
@@ -20,29 +24,38 @@ DIR='./junk'
 FILE_LINES=20000
 LINES=3085117
 
+total=0
+success=0
+
 # encode one line, if all syllables are in syllable dictionary
-def encode(line, cmudict, syll_mgr):
+def encode_line(line, cmudict, syll_mgr):
+    global total
+    global success
+    total += 1
     line = tokens.clean(line)
     words = tokens.tokenize(line)
     words = tokens.fixtokens(words)
     words = tokens.hyphen(words, cmudict.syll_dict)
     encs = []
-    for w in words:
-         sylls = cmudict.get_sylls(word)
-         for syll in sylls:
+    for word in words:
+         sylls = cmudict.get_syllables(word.lower())
+         if sylls == None or len(sylls) == 0:
+             return None
+         for syll in sylls[0]:
              enc = syll_mgr.get_encoding(syll)
-             if enc == syll_mgr.unknown_enc:
+             if enc == syllables.unknown_encoding:
                  return None
-             encs.append(syll)
+             encs.append(enc)
     labels = [0] * syll_mgr.get_size()
     for enc in encs:
         labels[enc] = 1
+    success += 1
     return labels
 
 
-class DataGenerator(keras.utils.Sequence):
+class DataGenerator(K.utils.Sequence):
     'Generates data for Keras'
-    def __init__(self, dir=DIR, file_length=FILE_LINES, num_lines=LINES, batch_size=32, shuffle=True):
+    def __init__(self, dir=DIR, file_lines=FILE_LINES, num_lines=LINES, batch_size=32, shuffle=True):
         'Initialization'
         self.dir = dir
         self.list_IDs = []
@@ -66,9 +79,15 @@ class DataGenerator(keras.utils.Sequence):
 
     def __getitem__(self, index):
         'Generate one batch of data'
+        print('getitem: {}, {}'.format(type(index), index))
 
         # read text & syllabize
-        lines = os.open(self.list_IDs[index], "r").readlines()
+        x = self.indexes[index]
+        print('open file #{}'.format(x))
+        x = self.list_IDs[self.indexes[index]]
+        print('open file {}'.format(x))
+        with open(self.list_IDs[self.indexes[index]], "r") as f:
+            lines = f.read().splitlines()
         text_array = [] # one per accepted line
         labels_array = [] # one per multi-label onehot
         for line in lines:
@@ -90,5 +109,6 @@ if __name__ == "__main__":
     gen = DataGenerator()
     print('Num batches: {}'.format(gen.__len__))
     (text, labels) = gen.__getitem__(0)
-    print('Text: '.format(text.shape))
-    print('Labels: '.format(labels.shape))
+    print('Text: {}'.format(text.shape))
+    print('Labels: {}'.format(labels.shape))
+    print('Total, success: {}, {}'.format(total, success))
