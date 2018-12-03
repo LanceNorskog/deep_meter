@@ -21,8 +21,8 @@ import cmudict
 import syllables
 
 # base test set
-DIR='/content/data'
 DIR='./junk'
+DIR='/content/data'
 FILE_LINES=20000
 LINES=3085117
 
