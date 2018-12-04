@@ -99,7 +99,8 @@ class DataGenerator(K.utils.Sequence):
         for i in range(len(encode_array)):
             for enc in encode_array[i]:
                 labels_np[i][enc] = 1
-        print('index[{}]: Text, Label shapes: {} , {}'.format(index, text_np.shape, labels_np.shape))
+        if index == 0:
+		print('index[{}]'.format(index))
         return text_np, labels_np
 
     def on_epoch_end(self):
