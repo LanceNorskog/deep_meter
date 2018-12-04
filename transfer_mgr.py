@@ -166,14 +166,8 @@ def find_best_model(dir, model_name):
     for file in os.listdir(dir):
         if file.startswith(model_name + '-'):
             epo = int(file.split('-')[1].split('.')[0])
-            print(epo)
-            print(restart_model)
             if epo > progress:
                 progress = epo
                 latest = file
     return (latest, progress)
 
-if __name__ == '__init__':
-    (file, num) = find_best_model('/tmp', 'model')
-    print(file)
-    print(num)
