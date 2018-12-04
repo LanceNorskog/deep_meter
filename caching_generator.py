@@ -64,7 +64,7 @@ class DataGenerator(K.utils.Sequence):
         files = []
         for file in os.listdir(self.raw_dir):
             files.append(file)
-            if len(files) >= cap:
+            if len(files) >= max_files:
                 break
         for file in files:
             self.raw_files.append(self.raw_dir + '/' + file)
