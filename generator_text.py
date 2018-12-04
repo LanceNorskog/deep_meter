@@ -8,6 +8,8 @@
 
 # based on: https://stanford.edu/~shervine/blog/keras-how-to-generate-data-on-the-fly
 
+# Only used for training Transfer brain with a multi-label output
+
 from random import shuffle
 import keras as K
 import numpy as np
@@ -19,8 +21,8 @@ import cmudict
 import syllables
 
 # base test set
-DIR='/content/data'
 DIR='./junk'
+DIR='/content/data'
 FILE_LINES=20000
 LINES=3085117
 
@@ -78,8 +80,6 @@ class DataGenerator(K.utils.Sequence):
 
     def __getitem__(self, index):
         'Generate one batch of data'
-        print('getitem: {}, {}'.format(type(index), index))
-
         # read text & syllabize
         x = self.indexes[index]
         x = self.list_IDs[self.indexes[index]]
@@ -94,7 +94,9 @@ class DataGenerator(K.utils.Sequence):
                 labels_array.append(labels)
 
         # Generate data
-        return np.array(text_array), np.array(labels_array)
+        (text_np, label_np) = np.array(text_array), np.array(labels_array)
+        print('Text, Label shapes: {} , {}'.format(text_np.shape, label_np.shape))
+        return text_np, label_np
 
     def on_epoch_end(self):
         'Updates indexes after each epoch'

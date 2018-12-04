@@ -87,7 +87,6 @@ def new_transfer_test(model, num_syllables=0, optimizer='adam', dropout=0.5):
     dense = layers.Dropout(dropout)(dense)
     dense = layers.Dense(num_syllables, activation='sigmoid', name='Test')(dense)
     model2 = Model(old_in, dense)
-    model2.summary()
     model2.compile(loss='binary_crossentropy', 
                   optimizer=optimizer, 
                   metrics=['binary_crossentropy'])
@@ -151,3 +150,30 @@ def freeze_transfer_model(model):
     for layer in model.layers:
         layer.trainable = False
 
+def create_model_checkpoint(dir, model_name):
+    filepath = dir + '/' + model_name + ".h5" 
+    directory = os.path.dirname(filepath)
+    try:
+        os.stat(directory)
+    except:
+        os.mkdir(directory)
+    checkpointer = ModelCheckpoint(filepath=filepath, verbose=1, save_weights_only=True, save_best_only=True)
+    return checkpointer
+
+def find_best_model(dir, model_name):
+    progress = 0
+    latest = None
+    for file in os.listdir(dir):
+        if file.startswith(model_name + '-'):
+            epo = int(file.split('-')[1].split('.')[0])
+            print(epo)
+            print(restart_model)
+            if epo > progress:
+                progress = epo
+                latest = file
+    return (latest, progress)
+
+if __name__ == '__init__':
+    (file, num) = find_best_model('/tmp', 'model')
+    print(file)
+    print(num)
