@@ -82,9 +82,7 @@ class DataGenerator(K.utils.Sequence):
         'Generate one batch of data'
         # read text & syllabize
         x = self.indexes[index]
-        print('open file #{}'.format(x))
         x = self.list_IDs[self.indexes[index]]
-        print('open file {}'.format(x))
         with open(self.list_IDs[self.indexes[index]], "r") as f:
             lines = f.read().splitlines()
         text_array = [] # one per accepted line
