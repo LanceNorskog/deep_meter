@@ -68,7 +68,7 @@ class DataGenerator(K.utils.Sequence):
                 break
         for file in files:
             self.raw_files.append(self.raw_dir + '/' + file)
-        for file in list:
+        for file in files:
             self.cache_files.append(self.cache_dir + '/' + file + '.pk')
         # arange does this
         self.indexes = [1] * len(self.raw_files)
