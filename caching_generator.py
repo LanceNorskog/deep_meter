@@ -55,15 +55,20 @@ def encode_line(line, cmudict, syll_mgr):
 
 class DataGenerator(K.utils.Sequence):
     'Generates data for Keras'
-    def __init__(self, file_lines=FILE_LINES, batch_size=32, shuffle=True):
+    def __init__(self, max_files=1000000, file_lines=FILE_LINES, batch_size=32, shuffle=True):
         'Initialization'
         self.raw_dir = RAW_DIR
         self.cache_dir = CACHE_DIR
         self.raw_files = []
         self.cache_files = []
+        files = []
         for file in os.listdir(self.raw_dir):
+            files.append(file)
+            if len(files) >= cap:
+                break
+        for file in files:
             self.raw_files.append(self.raw_dir + '/' + file)
-        for file in os.listdir(self.raw_dir):
+        for file in list:
             self.cache_files.append(self.cache_dir + '/' + file + '.pk')
         # arange does this
         self.indexes = [1] * len(self.raw_files)
