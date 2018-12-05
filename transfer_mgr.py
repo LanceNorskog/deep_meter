@@ -65,12 +65,12 @@ def new_transfer_model(embed, embed_size=512, num_symbols=10, num_syllables=0, o
     input_text = layers.Input(shape=(1,), dtype=tf.string)
     embedding = layers.Lambda(define_embedding_function(embed), output_shape=(embed_size,), name='USE')(input_text)
     dense_input = layers.Dropout(dropout)(embedding)
-    dense = layers.Dense(1024, activation='relu', name='Human')(dense_input)
+    dense = layers.Dense(1536, activation='relu', name='Human')(dense_input)
     dense = layers.Dropout(dropout)(dense)
-    dense = layers.Dense(2048, activation='relu', name='Chimp')(dense)
+    dense = layers.Dense(3072, activation='relu', name='Chimp')(dense)
     dense = layers.Dropout(dropout)(dense)
-    #dense = layers.Dense(4096, activation='relu', name='Lizard')(dense)
-    #dense = layers.Dropout(dropout)(dense)
+    dense = layers.Dense(6144, activation='relu', name='Lizard')(dense)
+    dense = layers.Dropout(dropout)(dense)
     pred = layers.Dense(num_syllables, activation='sigmoid', name='Onehot')(dense)
     model = Model(inputs=[input_text], outputs=pred)
     model.compile(loss='binary_crossentropy', 
@@ -83,7 +83,7 @@ def new_transfer_test(model, num_syllables=0, optimizer='adam', dropout=0.5):
     old_in = model.input
     old_out = model.layers[-1].output
     dense = layers.Dropout(dropout)(old_out)
-    dense = layers.Dense(4096, activation='relu', name='Tuatara')(dense)
+    dense = layers.Dense(6144, activation='relu', name='Tuatara')(dense)
     dense = layers.Dropout(dropout)(dense)
     dense = layers.Dense(num_syllables, activation='sigmoid', name='Test')(dense)
     model2 = Model(old_in, dense)
@@ -170,4 +170,27 @@ def find_best_model(dir, model_name):
                 progress = epo
                 latest = file
     return (latest, progress)
+
+def copy_model(source, target):
+    with open(source, "rb") as inf:
+        with open(target, "wb") as outf:
+            while True:
+                chunk = inf.read(8192)
+                if not chunk:
+                    break
+                outf.write(chunk)
+            outf.close()
+            inf.close()
+
+def create_model_copy_function(source_dir, target_dir, model_name):
+    def epoch_end(epoch, logs):
+        (latest_source, _) = find_best_model(source_dir, model_name)
+        (latest_target, _) = find_best_model(target_dir, model_name)
+        print("Callback: latest source, target = '{}', '{}'".format(latest_source, latest_target))
+        if latest_source > latest_target:
+            print("    copying")
+            copy_model(source_dir + '/' + latest_source, target_dir + '/' + latest_target)
+    return epoch_end
+
+        #LambdaCallback(on_epoch_end=backup_best_model)
 
