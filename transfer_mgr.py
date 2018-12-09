@@ -157,7 +157,7 @@ def create_model_checkpoint(dir, model_name):
         os.stat(directory)
     except:
         os.mkdir(directory)
-    checkpointer = ModelCheckpoint(filepath=filepath, verbose=1, save_weights_only=True, save_best_only=True)
+    checkpointer = ModelCheckpoint(filepath=filepath, verbose=1, save_weights_only=True, save_best_only=False)
     return checkpointer
 
 def find_best_model(dir, model_name):
