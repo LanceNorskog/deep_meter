@@ -16,6 +16,9 @@ cd = cmudict.CMUDict()
 num_lines=0
 num_pass=0
 num_nonword=0
+
+outf_5 = open("haiku_5.txt", "w")
+outf_7 = open("haiku_7.txt", "w")
 num_5=0
 num_7=0
 
@@ -38,12 +41,16 @@ for line in sys.stdin:
             else:
                 num_nonword += 1
                 break
-    if sylls == 5:
-        num_5 += 1
-    elif sylls == 7:
-        num_7 += 1
+        if sylls == 5:
+            outf_5.write(' '.join(sample) + '\n');
+            num_5 += 1
+        elif sylls == 7:
+            outf_7.write(' '.join(sample) + '\n');
+            num_7 += 1
     num_lines += 1
 
+outf_5.close()
+outf_7.close()
 print('Found 5-sylls: {}, 7-sylls: {}'.format(num_5, num_7))
 print('Lines: {}, clauses rejected: {}'.format(num_lines, num_nonword))
 snlp.stats()
