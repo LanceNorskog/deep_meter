@@ -6,9 +6,9 @@ from nltk.tree import Tree
 import itertools
 
 # counters
-total = 0
-accepted = 0
-unique = 0
+num_clause = 0
+num_accepted = 0
+num_combo = 0
 
 
 def powerset(iterable):
@@ -21,18 +21,18 @@ def parse(sentence):
     return Tree.fromstring(sentence)
 
 def clauses(t, filter=None, _min=0, _max=1000, _minlen=1):
-    global total
-    global accepted
-    out = set()
+    global num_clause
+    global num_accepted
+    out = {}
     for t2 in t.subtrees(filter):
         t2 = flatten(t2)
-        total += len(t2)
+        num_clause += len(t2)
         if len(t2) >= _min and len(t2) <= _max:
             str = ' '.join(t2)
             if len(str) >= _minlen:
-                out.add(str) 
-    accepted += len(out)
-    return list(out)
+                out[str] = t2 
+    num_accepted += len(out.keys())
+    return list(out.values())
 
 def flatten(t):
     out = []
@@ -85,15 +85,19 @@ def strip(t, labs):
 
 # given a parse tree, return all subtrees with any and all POS label subtrees removed
 def combos(t, labs):
-    global unique
-    out = set()
+    global num_combo
+    out = {}
     for lab in list(powerset(labs)):
         print(list(lab))
         t2 = strip(t, list(lab))
-        for x in clauses(t2, _min=1, _max=5, _minlen=10):
-            out.add(x)
-    unique += len(out)
-    return out
+        for x in clauses(t2, _min=1, _max=7, _minlen=10):
+            out[str(x)] = x
+    num_combo += len(out.keys())
+    return out.keys()
+
+# print stats
+def stats():
+    print('Possible clauses: {}, unique clauses: {}, combos: {}'.format(num_clause, num_accepted, num_combo))
 
 # various tests
 if __name__ == '__main__':
@@ -108,4 +112,4 @@ if __name__ == '__main__':
     print('\ncombos with various words ripped')
     for c in combos(t, ['RB', 'PP']):
         print(c)
-    print('Total: {}, Accepted: {}, Unique: {}'.format(total, accepted, unique))
+    stats()
