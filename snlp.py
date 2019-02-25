@@ -40,6 +40,23 @@ def flatten(t):
         out.append(x)
     return out
 
+def punct(words):
+    # hanging possessive problem with SNLI corpus
+    if words[0] == "'" or words[0] == "'s":
+        words = words[1:]
+    # cmudict stores possessives
+    out = []
+    i = 0
+    while i < len(words) -1:
+        if words[i + 1] == "'s":
+            out += [ words[i] + "'s" ]
+            i += 1
+        else:
+            out += [ words[i] ]
+        i += 1
+    words = out
+    return words
+    
 
 # sample = '(ROOT (S (NP (DT This) (NN site)) (VP (VBZ includes) (NP (NP (NP (DT a) (NN list)) (PP (IN of) (NP (DT all) (NN award) (NNS winners)))) (CC and) (NP (NP (DT a) (JJ searchable) (NN database)) (PP (IN of) (NP (NNP Government) (NNP Executive) (NNS articles)))))) (. .)))'
 sample = '(ROOT (S (NP (PRP I)) (VP (VP (VBP like) (NP (PRP him)) (PP (IN for) (NP (DT the) (JJS most) (NN part)))) (, ,) (CC but) (VP (MD would) (ADVP (RB still)) (VP (VB enjoy) (S (VP (VBG seeing) (S (NP (NN someone)) (VP (VB beat) (NP (PRP him))))))))) (. .)))'
@@ -101,6 +118,11 @@ def stats():
 
 # various tests
 if __name__ == '__main__':
+    print(punct(["'s", 'start', 'middle']))
+    print(punct(['start', "'s"]))
+    print(punct(['start', "'s", 'end']))
+    print(punct(['start', "'s", 'end', "'s"]))
+    
     t = Tree.fromstring(sample)
     print('all:')
     for x in clauses(t, _min=3, _max=10):

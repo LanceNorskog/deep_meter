@@ -9,6 +9,9 @@ nsyll=5
 
 cd = cmudict.CMUDict()
 
+# TODO
+# looking good except for sentences with hyphenated words.
+# they don't get clipped, just keep going ??
 
 
 
@@ -31,11 +34,15 @@ for line in sys.stdin:
     if line[0] != '(':
         continue
     t = snlp.parse(line)
-    t = snlp.strip(t, ['``', '.', '"', '"'])
-    for sample in snlp.clauses(t, _min=2, _max=5, _minlen=10):
+    # t = snlp.strip(t, ['``', '.', '"', '"'])
+    # max words can include punctuation
+    for sample in snlp.clauses(t, _min=2, _max=8, _minlen=10):
         sylls = 0
         badword = None
+        sample = snlp.punct(sample)
         for word in sample:
+            if word in ["'", ',', '.', '``']:
+                continue
             if word in cd.stress_dict:
                 sylls += len(cd.stress_dict[word])
             else:
